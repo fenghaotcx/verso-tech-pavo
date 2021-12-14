@@ -14,7 +14,7 @@ const RightDiv = styled.div`
   @media (max-width: 1025px) {
     flex:1;
     margin-left: 0px;
-    padding: 22px;
+    padding: 22px 5px;
     height: 100%;
   }
 ` 
@@ -57,6 +57,9 @@ const AssetsDiv = styled.div`
   &>div {
     width: calc((100% - 14px) / 2);
     height: calc((100% - 13px) / 2);
+    @media (max-width: 1025px) {
+      width: calc((100% - 5px) / 2);
+    }
   }
 `
 

@@ -18,6 +18,7 @@ import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
+import useMobileDown from '../../../hooks/useMobileDown';
 
 const ImgUp = style.img`
   transform: rotate(180deg);
@@ -27,6 +28,13 @@ const BoxLeft = style.div`
   padding-right: 4%;
   border-right: 1px solid #ccc;
   margin-right: 4%;
+  @media (max-width: 1025px) {
+    width: calc((100vw - 60px));
+    padding-right: 0;
+    border-right: none;
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
 `
 
 const Tit = style.div`
@@ -63,6 +71,9 @@ const TableDiv = style.div`
   &>div {
     width: 100%;
     height: 200px;
+  }
+  @media (max-width: 1025px) {
+    width: calc((100vw - 60px));
   }
 `
 
@@ -107,7 +118,7 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
-  const { row , index} = props;
+  const { row , index,isMobile} = props;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     
@@ -189,10 +200,9 @@ function Row(props) {
       <TableRow>
         <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: '25px 45px',display: 'flex',}} >
+            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: 'wrap',}} >
               <BoxLeft >
                 <Tit>Asset Details</Tit>
-
                 <BoxLeftItem>
                   <div className="left">mAPPL</div>
                   <div className="right">17.39</div>
@@ -209,9 +219,7 @@ function Row(props) {
                   <div className="left">Pending Reward</div>
                   <div className="right">$100 (2.4 Pavo)</div>
                 </BoxLeftItem>
-
                 <MyButton backgc={'bule'}>Claim</MyButton>
-
               </BoxLeft>
               <BoxRight >
                 <div>
@@ -239,6 +247,7 @@ const rows = [
 ];
 
 export default function CollapsibleTable() {
+  const isMobile = useMobileDown()
   return (
     <MyTableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -254,7 +263,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {rows.map((row,index) => (
-            <Row key={row.name} index={index} row={row} />
+            <Row isMobile={isMobile} key={row.name} index={index} row={row} />
           ))}
         </TableBody>
       </Table>

@@ -36,6 +36,9 @@ const TableBoxTopCont =  styled.div`
     font-weight: 500;
     font-size: 20px;
     color: #37D7E1;
+    @media (max-width: 1025px) {
+      font-size: 12px;
+    }
   }
   &>.right {
     display: flex;
@@ -43,12 +46,18 @@ const TableBoxTopCont =  styled.div`
     &>.right_check {
       font-size: 16px;
       color: #7B84A3;
+      @media (max-width: 1025px) {
+        font-size: 12px;
+      }
     }
     &>.right_total {
       font-weight: 500;
       font-size: 20px;
       color: #304FFD;
       margin-left: 50px;
+      @media (max-width: 1025px) {
+        font-size: 12px;
+      }
     }
   }
 `
