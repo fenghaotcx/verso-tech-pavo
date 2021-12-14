@@ -1,0 +1,77 @@
+import styled from 'styled-components'
+import assetLogo from '../../../img/icon/assetLogo.svg'
+
+
+const ItemDiv = styled.div`
+    background: #FFFFFF;
+    box-shadow: 0px 3px 14px rgba(112, 144, 176, 0.08);
+    border-radius: 8px;
+    display: flex;
+    padding: 10px 20px;
+    letter-spacing: -0.02em;
+    & img {
+        width: 40px;
+        margin-right: 14px;
+    }
+`
+const ItemTop = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 20px;
+    color: #7B84A3;
+    margin-bottom: 1px;
+    &>span {
+        width: 10px;
+        height: 7.5px;
+        dispaly; block;
+        background: #304FFD;
+        border-radius: 4px;
+        margin-left: 4px;
+    }
+`
+
+const ItemBot = styled.div`
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    color: #3F434A;
+    &>span {
+        font-family: DM Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        height: 24px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 3px 8px;
+        background: rgba(5, 205, 153, 0.1);
+        border-radius: 58px;
+        color: #05CD99;
+        margin-left: 8px;
+    }
+`
+
+const AssetsItem = ({children}) => {
+    return (
+        <ItemDiv>
+            <img src={assetLogo} alt="" />
+            <div>
+                <ItemTop>
+                    <div>Mirror</div>
+                    <span></span>
+                </ItemTop>
+                <ItemBot>
+                    <div>$100k</div>
+                    <span>55%</span>
+                </ItemBot>
+            </div>
+        </ItemDiv>
+    )
+}
+
+export default AssetsItem

@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import LeftBar from './components/desktop/LeftBar'
+import ContentRight from './components/desktop/ContentRight'
+import { lightTheme, darkTheme } from './styles/theme';
+import { ThemeProvider } from 'styled-components';
+import { LIGHT_THEME, DARK_THEME } from './constants';
+// import useMobileDown from '@/hooks/useMobileDown'
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`
 
 function App() {
+  // const isMobile = useMobileDown()
+  const [theme, setTheme] = useState(LIGHT_THEME);
+
+  const changeTheme = () => {
+    if (theme === LIGHT_THEME) {
+      setTheme(DARK_THEME);
+      localStorage.setItem('theme', DARK_THEME);
+    } else {
+      setTheme(LIGHT_THEME);
+      localStorage.setItem('theme', LIGHT_THEME);
+    }
+  };
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      setTheme(currentTheme);
+    }
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
+      <Container >
+        <LeftBar theme={theme} changeTheme={changeTheme}/>
+        <ContentRight />
+      </Container>
+    </ThemeProvider>
   );
 }
 

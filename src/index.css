@@ -1,13 +1,26 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -moz-user-select: none; /*火狐*//*选中文字时避免出现蓝色背景*/   
+  -webkit-user-select: none; /*webkit浏览器*//*选中文字时避免出现蓝色背景*/   
+  -ms-user-select: none; /*IE10*//*选中文字时避免出现蓝色背景*/
+  user-select: none;/*选中文字时避免出现蓝色背景*/
+  -webkit-tap-highlight-color: transparent;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+div {
+  box-sizing: border-box;
+}
+
+p,h1,h2,h3 {
+  padding: 0;
+  margin: 0;
+}
+

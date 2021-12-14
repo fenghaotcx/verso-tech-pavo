@@ -1,0 +1,61 @@
+/* .left {
+    width: 20%;
+    height: 100vh;
+    padding: 35px 0 0 40.5px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+} */
+/* .left::-webkit-scrollbar {
+    display: none;
+} */
+
+.right {
+    width: 80%;
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 89px 40px 89px 48px;
+    margin-left: 20%;
+    background: linear-gradient(157.98deg, #F1F9FF 7.94%, #E7F7F4 34.28%, #F4F9FD 53.49%);
+}
+.navDiv {
+    width: 100%;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    font-size: 17px;
+    color: #153055;
+    opacity: 0.7;
+    text-decoration: none;
+}
+.active {
+    color: #153055;
+    opacity: 1;
+    position: relative;
+}
+.active::after{
+    content: '';
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    right: -10px;
+    top: 0;
+    background:url("../../img/icon/activeAfter.svg") no-repeat center;
+}
+.iconImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    background: #ebeefe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
+}
+.active .iconImg {
+    background: linear-gradient(180deg, rgba(48, 79, 253, 0.2) 0%, rgba(169, 116, 255, 0.2) 100%);
+}
