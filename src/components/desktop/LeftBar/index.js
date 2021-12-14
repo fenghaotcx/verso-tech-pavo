@@ -15,11 +15,11 @@ const LeftBar = () => {
 
   return (
     <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
-      <Logo />
+      <Logo isMobile={isMobile}/>
       {routes.map((item)=>{
         if(item?.name && item?.icon){
           return (
-            <NavLink className={({ isActive }) => (isActive ? `${Styles.active} ${Styles.navDiv}` : Styles.navDiv)} 
+            <NavLink className={({ isActive }) => (isActive ? `${Styles.active} ${isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv}` : isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv)} 
               to={item.path} key={item.name}>
                 <div className={Styles.iconImg}>{item.icon}</div>
                 {item.name}

@@ -22,6 +22,12 @@
     opacity: 0.7;
     text-decoration: none;
 }
+.navDivM {
+    width: 240px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    overflow: hidden;
+}
 .active {
     color: #153055;
     opacity: 1;

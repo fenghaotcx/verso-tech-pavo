@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import Drawer from '@mui/material/Drawer';
+// import { makeStyles } from '@mui/styles';
 
+// const useStyles = makeStyles({
+//   drawer: {
+//     width: 400,
+//   }
+// })
 
 const anchor = 'left'
 
@@ -17,10 +23,15 @@ const Left = styled.div`
 `
 
 const LeftBarCom = ({children,isMobile,toggleDrawer,isopen}) => {
+  // const classes = useStyles()
   console.log('open====LeftBarCom=====',isopen);
   return (
     isMobile?
-    <Drawer anchor={anchor} open={isopen} onClose={()=>{toggleDrawer(false)}}>
+    <Drawer 
+      // className={`${classes.drawer}`} 
+      anchor={anchor} 
+      open={isopen} 
+      onClose={()=>{toggleDrawer(false)}}>
       {children}
     </Drawer>:
     <Left>{children}</Left>

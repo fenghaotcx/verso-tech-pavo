@@ -22,15 +22,15 @@ import FarmingTable from '../components/FarmingTable'
 // `
 const arr = [
   {
-    name:'Total Net Worth',
+    name: 'Total Net Worth',
     totol: 30,
     percentage: 40,
     Increase: 5.8,
-    profit:12000,
+    profit: 12000,
     index:0
   },
   {
-    name:'Total Assets',
+    name: 'Total Assets',
     totol: 30,
     percentage: 40,
     Increase: 5.8,
@@ -38,11 +38,11 @@ const arr = [
     index:1
   },
   {
-    name:'Total Debts',
+    name: 'Total Debts',
     totol: 30,
     percentage: 40,
     Increase: 5.8,
-    profit:12000,
+    profit: 12000,
     index:2
   }
 ]
