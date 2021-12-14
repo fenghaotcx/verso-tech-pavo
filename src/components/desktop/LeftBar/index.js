@@ -1,26 +1,29 @@
-import {routes} from '../../../routes'
-import styled from 'styled-components';
-import {NavLink} from 'react-router-dom'
-import Styles from '../App.module.css'
-import Logo from '../../Logo'
+import {routes} from '../../../routes';
+import {NavLink} from 'react-router-dom';
+import Styles from '../App.module.css';
+import Logo from '../../Logo';
+import {useContext,useState} from 'react';
+import { GlobalContext } from '../../../App';
+import LeftBarCom from './LeftBarCom';
 
-const Left = styled.div`
-    width: 20%;
-    height: 100vh;
-    padding: 35px 0 0 40.5px;
-    box-sizing: border-box;
-    position: fixed;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    background: ${props => props.theme.colors.bubblePositive}
-`
 
-const LeftBar = ({theme,changeTheme}) => {
-  console.log('theme=====',theme);
+
+
+const LeftBar = ({changeTheme}) => {
+  const { isMobile } = useContext(GlobalContext)
   console.log('changeTheme=====',changeTheme);
+  console.log('isMobile=====',isMobile);
+
+  const [open,setShow] = useState(false)
+  const toggleDrawer = () => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setShow(!open)
+  };
+
   return (
-    <Left >
+    <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} open={open}>
       <Logo />
       {routes.map((item)=>{
         if(item?.name && item?.icon){
@@ -35,8 +38,8 @@ const LeftBar = ({theme,changeTheme}) => {
           return null
         }
       })}
-    </Left>
-    )
+    </LeftBarCom>  
+  )
 };
 
 

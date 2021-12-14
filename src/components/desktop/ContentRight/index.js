@@ -1,13 +1,12 @@
 import {Router} from '../../../routes';
 import Styles from '../App.module.css'
 
-const ContentRight = () => {
-
-    return (
-        <div className={Styles.right}> 
-          <Router />
-        </div>
-    )
+const ContentRight = ({isMobile}) => {
+  return (
+    <div className={isMobile?Styles.right_m:Styles.right}> 
+      <Router />
+    </div>
+  )
 };
 
 

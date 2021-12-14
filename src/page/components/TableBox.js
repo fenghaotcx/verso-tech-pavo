@@ -6,7 +6,6 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const TableDiv = styled.div`
   width: 100%;
-  height: 100%;
   background: #FFFFFF;
   box-shadow: -4px 8px 24px rgba(44, 63, 88, 0.04);
   border-radius: 20px;

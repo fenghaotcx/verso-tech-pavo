@@ -1,24 +1,14 @@
-/* .left {
-    width: 20%;
-    height: 100vh;
-    padding: 35px 0 0 40.5px;
-    box-sizing: border-box;
-    position: fixed;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-} */
-/* .left::-webkit-scrollbar {
-    display: none;
-} */
-
 .right {
     width: 80%;
     min-height: 100vh;
     height: 100%;
-    box-sizing: border-box;
     padding: 89px 40px 89px 48px;
     margin-left: 20%;
+    background: linear-gradient(157.98deg, #F1F9FF 7.94%, #E7F7F4 34.28%, #F4F9FD 53.49%);
+}
+.right_m {
+    width: 100%;
+    padding: 20px 10px;
     background: linear-gradient(157.98deg, #F1F9FF 7.94%, #E7F7F4 34.28%, #F4F9FD 53.49%);
 }
 .navDiv {
