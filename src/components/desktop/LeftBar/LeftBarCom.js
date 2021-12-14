@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Drawer from '@mui/material/Drawer';
 
+
 const anchor = 'left'
 
 const Left = styled.div`
@@ -15,11 +16,12 @@ const Left = styled.div`
   background: ${({theme}) => theme.colors.bubblePositive};
 `
 
-const LeftBarCom = ({children,isMobile,toggleDrawer,open}) => {
+const LeftBarCom = ({children,isMobile,toggleDrawer,isopen}) => {
+  console.log('open====LeftBarCom=====',isopen);
   return (
     isMobile?
-    <Drawer anchor={anchor} open={open} onClose={toggleDrawer}>
-        {children}
+    <Drawer anchor={anchor} open={isopen} onClose={()=>{toggleDrawer(false)}}>
+      {children}
     </Drawer>:
     <Left>{children}</Left>
   )

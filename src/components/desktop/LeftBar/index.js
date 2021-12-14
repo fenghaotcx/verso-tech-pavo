@@ -2,28 +2,19 @@ import {routes} from '../../../routes';
 import {NavLink} from 'react-router-dom';
 import Styles from '../App.module.css';
 import Logo from '../../Logo';
-import {useContext,useState} from 'react';
+import {useContext} from 'react';
 import { GlobalContext } from '../../../App';
 import LeftBarCom from './LeftBarCom';
 
 
-
-
-const LeftBar = ({changeTheme}) => {
-  const { isMobile } = useContext(GlobalContext)
+const LeftBar = () => {
+  const { isMobile,toggleDrawer,isopen,changeTheme } = useContext(GlobalContext)
   console.log('changeTheme=====',changeTheme);
   console.log('isMobile=====',isMobile);
-
-  const [open,setShow] = useState(false)
-  const toggleDrawer = () => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setShow(!open)
-  };
+  console.log('open=====',isopen);
 
   return (
-    <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} open={open}>
+    <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
       <Logo />
       {routes.map((item)=>{
         if(item?.name && item?.icon){

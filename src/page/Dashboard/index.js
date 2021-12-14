@@ -5,9 +5,8 @@ import Content from '../components/content'
 import TableBox from '../components/TableBox'
 import CollateralTable from '../components/collateralTable'
 import FarmingTable from '../components/FarmingTable'
-
-
 // import styled from 'styled-components'
+
 
 // const Sa = styled.div`
 //   background: #FFFFFF;

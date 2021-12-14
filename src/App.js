@@ -27,6 +27,19 @@ export const GlobalContext = createContext({})
 function App() {
   const isMobile = useMobileDown()
   const [theme, setTheme] = useState(LIGHT_THEME);
+  const [isopen,setShow] = useState(false)
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      setTheme(currentTheme);
+    }
+  }, []);
+
+  const toggleDrawer = open => {
+    console.log(222222);
+    setShow(open)
+  };
 
   const changeTheme = () => {
     if (theme === LIGHT_THEME) {
@@ -38,20 +51,12 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-      setTheme(currentTheme);
-    }
-  }, []);
-
-
   return (
     <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
-      <GlobalContext.Provider value={{isMobile}}>
+      <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme}}>
         <Container>
-          <LeftBar changeTheme={changeTheme}/>
-          <ContentRight isMobile={isMobile}/>
+          <LeftBar />
+          <ContentRight isMobile={isMobile} />
         </Container>
       </GlobalContext.Provider>
     </ThemeProvider>
