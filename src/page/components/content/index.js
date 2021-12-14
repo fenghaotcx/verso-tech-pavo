@@ -9,6 +9,9 @@ const Box = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 32px;
+  @media (max-width: 1025px) {
+    flex-wrap: wrap;
+  }
 ` 
 
 

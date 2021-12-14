@@ -11,6 +11,12 @@ const RightDiv = styled.div`
   background: #FFFFFF;
   border-radius: 14px;
   padding: 22px 45px 0 45px;
+  @media (max-width: 1025px) {
+    flex:1;
+    margin-left: 0px;
+    padding: 22px;
+    height: 100%;
+  }
 ` 
 
 const Breakdown = styled.div`
@@ -37,6 +43,9 @@ const BreakdownBot = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 1025px) {
+    flex-wrap: wrap;
+  }
 `
 
 const AssetsDiv = styled.div`
@@ -57,20 +66,20 @@ const arrItem = [1,2,3,4]
 
 const RightBox = () => {
     return (
-        <RightDiv>
-            <Breakdown>
-              <div className="break_down">Breakdown <img src={PiechartImg} alt="" /></div>
-              <SelectBox options={arr}  sort="select"/>
-            </Breakdown>
-            <BreakdownBot>
-                <DonutChart />
-                <AssetsDiv>
-                    {arrItem.map((item,index)=>{
-                        return <AssetsItem item={item} key={index}/>
-                    })}
-                </AssetsDiv>
-            </BreakdownBot>
-        </RightDiv>
+      <RightDiv>
+          <Breakdown>
+            <div className="break_down">Breakdown <img src={PiechartImg} alt="" /></div>
+            <SelectBox options={arr}  sort="select"/>
+          </Breakdown>
+          <BreakdownBot>
+              <DonutChart />
+              <AssetsDiv>
+                  {arrItem.map((item,index)=>{
+                      return <AssetsItem item={item} key={index}/>
+                  })}
+              </AssetsDiv>
+          </BreakdownBot>
+      </RightDiv>
     )
 }
 

@@ -15,6 +15,9 @@ const LeftDiv = styled.div`
   padding: 44px 10px 25px 28px;
   display: flex;
   justify-content: space-around;
+  @media (max-width: 1025px) {
+    margin-bottom: 20px;
+  }
   & .white_logo {
     position: absolute;
     left: 0;

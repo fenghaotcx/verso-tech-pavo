@@ -10,12 +10,13 @@ import { CanvasRenderer } from 'echarts/renderers';
 const Box = styled.div`
   background: #FFFFFF;
   width: calc((100% - 18px * 2) / 3);
-  
   border-radius: 16px;
   box-sizing: border-box;
   padding: 17px 20px;
   @media (max-width: 1025px) {
     padding: 5px 7px;
+    width: 100%;
+    margin-bottom: 22px;
   }
 `
 
