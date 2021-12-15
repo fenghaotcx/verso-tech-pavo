@@ -9,11 +9,20 @@ const ItemDiv = styled.div`
     display: flex;
     padding: 10px 20px;
     letter-spacing: -0.02em;
+    @media (max-width: 1025px) {
+        padding: 5px;
+    }
     & img {
         width: 40px;
         margin-right: 14px;
     }
 `
+const ItemLfet = styled.div`
+    @media (max-width: 1025px) {
+        width: 100%;
+    }
+`
+
 const ItemTop = styled.div`
     display: flex;
     align-items: center;
@@ -21,6 +30,10 @@ const ItemTop = styled.div`
     line-height: 20px;
     color: #7B84A3;
     margin-bottom: 1px;
+    @media (max-width: 1025px) {
+        font-size: 12px;
+        line-height: 18px;
+    }
     &>span {
         width: 10px;
         height: 7.5px;
@@ -38,6 +51,12 @@ const ItemBot = styled.div`
     font-size: 24px;
     line-height: 32px;
     color: #3F434A;
+    @media (max-width: 1025px) {
+        font-size: 16px;
+        line-height: 24px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
     &>span {
         font-family: DM Sans;
         font-style: normal;
@@ -60,7 +79,7 @@ const AssetsItem = ({children}) => {
     return (
         <ItemDiv>
             <img src={assetLogo} alt="" />
-            <div>
+            <ItemLfet>
                 <ItemTop>
                     <div>Mirror</div>
                     <span></span>
@@ -69,7 +88,7 @@ const AssetsItem = ({children}) => {
                     <div>$100k</div>
                     <span>55%</span>
                 </ItemBot>
-            </div>
+            </ItemLfet>
         </ItemDiv>
     )
 }

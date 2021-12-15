@@ -4,6 +4,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
+const MyFormControlLabel = styled(FormControlLabel)({
+  '&>.css-ahj2mt-MuiTypography-root': {
+    fontSize: 12,
+  }
+})
+
 const TableDiv = styled.div`
   width: 100%;
   background: #FFFFFF;
@@ -71,7 +77,7 @@ function TableBox({children,name='Wallet Balances'}) {
           <div className="right">
             <div className="right_check">
               {/* <Checkbox {...label} defaultChecked size="small" /> */}
-              <FormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
+              <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
             </div>
             <div className="right_total">Total  $10,000</div>
           </div>
