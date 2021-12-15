@@ -11,6 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
+import ProgressBar from '../ProgressBar';
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -28,19 +29,19 @@ function createData(name, calories, fat, carbs) {
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67),
+  createData('Cupcake', 305, 3.7, 57),
   createData('Donut', 452, 25.0, 51),
   createData('Eclair', 262, 16.0, 24),
   createData('Frozen yoghurt', 159, 6.0, 24),
   createData('Gingerbread', 356, 16.0, 49),
-  createData('Honeycomb', 408, 3.2, 87),
+  createData('Honeycomb', 408, 3.2, 57),
   createData('Ice cream sandwich', 237, 9.0, 37),
-  createData('Jelly Bean', 375, 0.0, 94),
-  createData('KitKat', 518, 26.0, 65),
-  createData('Lollipop', 392, 0.2, 98),
-  createData('Marshmallow', 318, 0, 81),
-  createData('Nougat', 360, 19.0, 9,),
-  createData('Oreo', 437, 18.0, 63),
+  createData('Jelly Bean', 375, 0.0, 54),
+  createData('KitKat', 518, 26.0, 45),
+  createData('Lollipop', 392, 0.2, 38),
+  createData('Marshmallow', 318, 0, 51),
+  createData('Nougat', 360, 19.0, 20,),
+  createData('Oreo', 437, 18.0, 53),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -233,7 +234,9 @@ export default function CollateralTable() {
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
+                      <TableCell align="center">
+                        <ProgressBar type={index>2?'':'Increase'} num={row.carbs} />
+                      </TableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
