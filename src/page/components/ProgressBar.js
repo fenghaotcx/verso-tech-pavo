@@ -7,9 +7,6 @@ const ProgressDiv = styled.div`
     height: 31px;
     border-radius: 30px;
     background: ${({type})=> type === 'Increase'?'rgba(255, 115, 115, 0.1);':'rgba(55, 225, 164, 0.1)'};
-    @media (max-width: 1025px) {
-      padding: 5px 7px;
-    }
 `
 
 const ProgressFloat = styled.div`
@@ -25,11 +22,11 @@ const ProgressFloat = styled.div`
     padding: 0 25px;
 `
 
-const ProgressBar = ({type='Increase',num=42}) => {
+const ProgressBar = ({type='Increase',num=42,isMobile}) => {
     return (
         <ProgressDiv type={type}>
             <ProgressFloat type={type} num={num}>
-               {num>=20 ?<Doubt />: <></>} {num}%
+               {(num>= (isMobile?25:20)) ?<Doubt />: <></>} {num}%
             </ProgressFloat>
         </ProgressDiv>
     )

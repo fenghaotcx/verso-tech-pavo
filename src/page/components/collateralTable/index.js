@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
 import ProgressBar from '../ProgressBar';
+import useMobileDown from '../../../hooks/useMobileDown';
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -140,6 +141,7 @@ function EnhancedTableHead(props) {
 
 
 export default function CollateralTable() {
+  const isMobile = useMobileDown()
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -235,7 +237,7 @@ export default function CollateralTable() {
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
                       <TableCell align="center">
-                        <ProgressBar type={index>2?'':'Increase'} num={row.carbs} />
+                        <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
                       </TableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
