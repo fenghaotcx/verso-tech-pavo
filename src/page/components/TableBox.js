@@ -44,6 +44,7 @@ const TableBoxTopCont =  styled.div`
     color: #37D7E1;
     @media (max-width: 1025px) {
       font-size: 12px;
+      margin-right: 20px;
     }
   }
   &>.right {
