@@ -3,8 +3,12 @@ import TopDiv from '../components/TopDiv'
 import StatisticsBox from '../components/StatisticsBox'
 import Content from '../components/content'
 import TableBox from '../components/TableBox'
-import CollateralTable from '../components/collateralTable'
+import CollateralTable from '../components/CollateralTable'
 import FarmingTable from '../components/FarmingTable'
+import BalancesTable from '../components/BalancesTable'
+import BorrowingTable from '../components/BorrowingTable'
+
+
 // import styled from 'styled-components'
 
 
@@ -58,10 +62,16 @@ const Dashboard = () => {
             })}
           </TopDiv>
           <Content />
-          <TableBox>
+          <TableBox name={'Collateral'}>
             <CollateralTable />
           </TableBox>
-          <TableBox>
+          <TableBox name={'Wallet Balances'}>
+            <BalancesTable />
+          </TableBox>
+          <TableBox name={'Borrowing'}>
+            <BorrowingTable />
+          </TableBox>
+          <TableBox name={'Farming'}>
             <FarmingTable />
           </TableBox>
         </>

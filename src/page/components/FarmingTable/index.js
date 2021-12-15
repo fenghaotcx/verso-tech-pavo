@@ -19,6 +19,9 @@ import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import useMobileDown from '../../../hooks/useMobileDown';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import { visuallyHidden } from '@mui/utils';
+import TablePagination from '@mui/material/TablePagination';
 
 const ImgUp = style.img`
   transform: rotate(180deg);
@@ -89,9 +92,46 @@ const MyIconButton = styled(IconButton)({
   height: '25px',
 })
 
-
+const headCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Platform',
+    align: 'center'
+  },
+  {
+    id: 'calories',
+    numeric: true,
+    disablePadding: false,
+    label: 'Asset',
+    align: 'right',
+  },
+  {
+    id: 'fat',
+    numeric: true,
+    disablePadding: false,
+    label: 'Value/Quanty',
+    align: 'right',
+  },
+  {
+    id: 'carbs',
+    numeric: true,
+    disablePadding: false,
+    label: 'REWARD',
+    align: 'right',
+  },
+  {
+    id: 'total',
+    numeric: true,
+    disablePadding: false,
+    label: 'Total APy',
+    align: 'right',
+  },
+];
 
 echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
+
 
 
 function createData(name, calories, fat, carbs, protein, price) {
@@ -118,7 +158,7 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
-  const { row , index,isMobile} = props;
+  const { row , index,isMobile,isItemSelected,labelId} = props;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     
@@ -178,8 +218,8 @@ function Row(props) {
   return (
     <Fragment>
       {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}> */}
-      <TableRow>
-        <TableCell component="th" scope="row">
+      <TableRow selected={isItemSelected} aria-checked={isItemSelected}>
+        <TableCell id={labelId} component="th" scope="row">
           {row.name}
         </TableCell>
         <TableCell align="right">{row.calories}</TableCell>
@@ -237,6 +277,70 @@ function Row(props) {
   );
 }
 
+function EnhancedTableHead(props) {
+  const { order, orderBy, onRequestSort } =
+    props;
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.align}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+        <TableCell />
+      </TableRow>
+    </TableHead>
+  );
+}
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
 
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
@@ -248,25 +352,76 @@ const rows = [
 
 export default function CollapsibleTable() {
   const isMobile = useMobileDown()
+  const [selected, setSelected] = useState([]);
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('calories');
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
+
   return (
-    <MyTableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Platform</TableCell>
-            <TableCell align="right">Asset</TableCell>
-            <TableCell align="right">Value/Quanty</TableCell>
-            <TableCell align="right">REWARD</TableCell>
-            <TableCell align="right">Total APy</TableCell>
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row,index) => (
-            <Row isMobile={isMobile} key={row.name} index={index} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </MyTableContainer>
+    <>
+      <MyTableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          {/* <TableHead>
+            <TableRow>
+              <TableCell>Platform</TableCell>
+              <TableCell align="right">Asset</TableCell>
+              <TableCell align="right">Value/Quanty</TableCell>
+              <TableCell align="right">REWARD</TableCell>
+              <TableCell align="right">Total APy</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead> */}
+          <EnhancedTableHead
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+          />
+          <TableBody>
+          {stableSort(rows, getComparator(order, orderBy))
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((row, index) => {
+              const isItemSelected = isSelected(row.name);
+              const labelId = `enhanced-table-checkbox-${index}`;
+            return (
+              <Row labelId={labelId} aria-checked={isItemSelected} isMobile={isMobile} key={row.name} index={index} row={row} />
+            );
+          })}
+
+            {/* {rows.map((row,index) => (
+              <Row isMobile={isMobile} key={row.name} index={index} row={row} />
+            ))} */}
+          </TableBody>
+        </Table>
+      </MyTableContainer>
+      <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+    </>
   );
 }
