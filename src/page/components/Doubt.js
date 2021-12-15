@@ -14,7 +14,7 @@ const MyIconButton = styled(IconButton)`
     border: ${({type})=>type? '1.5px solid #A3AED0': '1.5px solid #FFFFFF'};
     display: flex;
     align-items: center;
-    margin:0 5px;
+    margin-right: 5px;
 `
 
 const HtmlTooltip = styled(({ className, ...props }) => (

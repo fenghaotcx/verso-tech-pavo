@@ -26,10 +26,18 @@ const MyTableCell = styled(TableCell)({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  '&>.table_text': {
-    color: '#7B84A3',
-    fontSize: '11px'
-  }
+  '&>.table_left': {
+    marginLeft: '15px',
+    display: 'flex',
+    alignItems: 'center',
+    '&>.table_text': {
+      color: '#7B84A3',
+      fontSize: '11px',
+      display: 'flex',
+      alignItems: 'center',
+    }
+  },
+  
 })
 
 
@@ -252,8 +260,11 @@ export default function CollateralTable() {
                       <TableCell align="center">{row.fat}</TableCell>
                       <MyTableCell align="right" >
                         <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
-                        <Doubt type={1} content={"When you invest here"}/>
-                        <div className="table_text">60% Max</div> 
+                        <div className="table_left">
+                          <Doubt type={1} content={"When you invest here"}/>
+                          <div className="table_text">60% Max</div> 
+                        </div>
+                        
                       </MyTableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
