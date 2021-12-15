@@ -96,9 +96,9 @@ const headCells = [
   {
     id: 'name',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Platform',
-    align: 'center'
+    align: 'left'
   },
   {
     id: 'calories',
@@ -219,7 +219,8 @@ function Row(props) {
     <Fragment>
       {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}> */}
       <TableRow selected={isItemSelected} aria-checked={isItemSelected}>
-        <TableCell id={labelId} component="th" scope="row">
+        <TableCell padding="checkbox"></TableCell>
+        <TableCell id={labelId} align="left" component="th" scope="row">
           {row.name}
         </TableCell>
         <TableCell align="right">{row.calories}</TableCell>
@@ -238,7 +239,7 @@ function Row(props) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={6}>
+        <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: 'wrap',}} >
               <BoxLeft >
@@ -287,6 +288,8 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
+      <TableCell padding="checkbox">
+                      </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
