@@ -3,7 +3,7 @@ import Doubt from './Doubt'
 
 
 const ProgressDiv = styled.div`
-    width: 100%;
+    width: 70%;
     height: 31px;
     border-radius: 30px;
     background: ${({type})=> type === 'Increase'?'rgba(255, 115, 115, 0.1);':'rgba(55, 225, 164, 0.1)'};

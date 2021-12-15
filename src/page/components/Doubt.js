@@ -1,20 +1,21 @@
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/system';
 import doubtImg from '../../img/icon/doubt.svg'
+import doubtGrayImg from '../../img/icon/doubtGray.svg'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 // import Typography from '@mui/material/Typography';
 import style from 'styled-components';
 
 
-const MyIconButton = styled(IconButton)({
-    background: 'none',
-    width: '15px',
-    height: '15px',
-    border: '1.5px solid #FFFFFF',
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: '5px',
-})
+const MyIconButton = styled(IconButton)`
+    background: none;
+    width: 15px;
+    height: 15px;
+    border: ${({type})=>type? '1.5px solid #A3AED0': '1.5px solid #FFFFFF'};
+    display: flex;
+    align-items: center;
+    margin:0 5px;
+`
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} placement="left-start" classes={{ popper: className }} />
@@ -27,6 +28,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
       boxShadow: '0px 3px 14px rgba(112, 144, 176, 0.08)',
       borderRadius: '20px',
       padding: '18px 22px',
+      color: '#000'
     },
 }));
 
@@ -71,8 +73,9 @@ const Baseline = style.div`
     margin-bottom: 24px;
 `
 
-const Doubt = ({content}) => {
-
+const Doubt = ({content,type}) => {
+    //type === 1  => Gray picture background
+    console.log('content===',content);
     const showClick = () => {
         console.log(222222);
     }
@@ -80,6 +83,7 @@ const Doubt = ({content}) => {
     return (
         <HtmlTooltip
             title={
+                !content?
               <>
                 {/* <Typography color="inherit">Tooltip with HTML</Typography>
                 <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
@@ -98,15 +102,16 @@ const Doubt = ({content}) => {
                     <div>Total APY</div>
                     <div className="leftTop">190%</div>
                 </TooltipList>
-              </>
+              </>:<div>{content}</div>
             }
         >
           <MyIconButton
             aria-label="expand row"
             size="medium"
+            type={type === 1}
             onClick={() => {showClick()}}
           >
-            <img src={doubtImg} alt="" />
+            <img src={type === 1 ?doubtGrayImg :doubtImg} alt="" />
         </MyIconButton>
       </HtmlTooltip>
         

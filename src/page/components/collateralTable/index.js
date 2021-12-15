@@ -13,12 +13,26 @@ import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
 import ProgressBar from '../ProgressBar';
 import useMobileDown from '../../../hooks/useMobileDown';
+import Doubt from '../Doubt'
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
   borderRadius: 0,
   marginBottom: 0,
 })
+
+const MyTableCell = styled(TableCell)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  '&>.table_text': {
+    color: '#7B84A3',
+    fontSize: '11px'
+  }
+})
+
+
 
 function createData(name, calories, fat, carbs) {
   return {
@@ -236,9 +250,11 @@ export default function CollateralTable() {
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">
+                      <MyTableCell align="right" >
                         <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
-                      </TableCell>
+                        <Doubt type={1} content={"When you invest here"}/>
+                        <div className="table_text">60% Max</div> 
+                      </MyTableCell>
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
