@@ -12,6 +12,7 @@ const IconName = styled.div`
   color:${({color})=>  color=== 'grey'? '#7B84A3':'#20CC8E'} ;
   background:${({color})=>  color=== 'grey'? '#F4F9FD':'rgba(55, 225, 164, 0.2)'} ;
   margin: 0 auto;
+  white-space: nowrap;
 `
 
 const CodeBlock = ({children,color}) => {
