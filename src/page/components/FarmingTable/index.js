@@ -23,6 +23,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TablePagination from '@mui/material/TablePagination';
 import IconNameLink from '../IconNameLink';
+import CodeBlock from '../CodeBlock';
 
 const ImgUp = style.img`
   transform: rotate(180deg);
@@ -120,14 +121,14 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'REWARD',
-    align: 'right',
+    align: 'center',
   },
   {
     id: 'total',
     numeric: true,
     disablePadding: false,
     label: 'Total APy',
-    align: 'right',
+    align: 'center',
   },
 ];
 
@@ -226,8 +227,14 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="center">
+          <div>{row.carbs}</div>
+          <CodeBlock color="grey">Re-staked</CodeBlock>
+        </TableCell>
+        <TableCell align="center">
+          <div>{row.protein}</div>
+          <CodeBlock>Auto Farming</CodeBlock>
+        </TableCell>
 
         <TableCell align="center">
           <MyIconButton
