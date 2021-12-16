@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import assetLogo from '../../..//public/icon/assetLogo.svg'
+import assetLogo from '../../../public/icon/assetLogo.svg'
 
 
 const ItemDiv = styled.div`

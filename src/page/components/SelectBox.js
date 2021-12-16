@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Fade } from '@mui/material'
 import { useState} from 'react';
-import arrowImg from '../..//public/icon/arrow.svg'
+import arrowImg from '../../public/icon/arrow.svg'
 
 const SelectDiv = styled.div`
     padding: 11px 18px 11px 14px;
