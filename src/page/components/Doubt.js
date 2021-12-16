@@ -1,7 +1,7 @@
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/system';
-import doubtImg from '../../img/icon/doubt.svg'
-import doubtGrayImg from '../../img/icon/doubtGray.svg'
+import doubtImg from '../..//public/icon/doubt.svg'
+import doubtGrayImg from '../..//public/icon/doubtGray.svg'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 // import Typography from '@mui/material/Typography';
 import style from 'styled-components';

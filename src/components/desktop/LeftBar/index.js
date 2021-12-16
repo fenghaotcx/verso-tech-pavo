@@ -5,6 +5,7 @@ import Logo from '../../Logo';
 import {useContext} from 'react';
 import { GlobalContext } from '../../../App';
 import LeftBarCom from './LeftBarCom';
+import SwitchTheme from './SwitchTheme'
 
 
 const LeftBar = () => {
@@ -29,6 +30,7 @@ const LeftBar = () => {
           return null
         }
       })}
+      <SwitchTheme />
     </LeftBarCom>  
   )
 };

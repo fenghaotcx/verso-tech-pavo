@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import LogoWhite from '../../../img/icon/LogoWhite.svg'
-import DollarImg from '../../../img/icon/Dollar.svg'
+import LogoWhite from '../../..//public/icon/LogoWhite.svg'
+import DollarImg from '../../..//public/icon/Dollar.svg'
 import MyButton from '../MyButton'
 
 const LeftDiv = styled.div`

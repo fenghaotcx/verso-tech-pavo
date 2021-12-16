@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import ArrowGreen from '../../img/icon/ArrowGreen.svg'
-import ArrowRed from '../../img/icon/ArrowRed.svg'
+import ArrowGreen from '../..//public/icon/ArrowGreen.svg'
+import ArrowRed from '../..//public/icon/ArrowRed.svg'
 
 
 const PercentageNumDiv = styled.div`

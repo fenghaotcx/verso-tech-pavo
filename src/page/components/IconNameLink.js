@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import LinkImg from '../../img/icon/link.svg'
-import AssetLogo from '../../img/icon/assetLogo.svg'
+import LinkImg from '../..//public/icon/link.svg'
+import AssetLogo from '../..//public/icon/assetLogo.svg'
 
 const IconName = styled.div`
   display: flex;

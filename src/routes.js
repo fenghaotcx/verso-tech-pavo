@@ -2,9 +2,9 @@ import { Navigate, useRoutes } from 'react-router-dom'
 import Dashboard from './page/Dashboard'
 import AutoFarm from './page/AutoFarm'
 import Swap from './page/Swap'
-import dashboardIcon from './img/icon/dashboardIcon.svg'
-import autoFarmIcon from './img/icon/autoFarmIcon.svg'
-import swapIcon from './img/icon/swapIcon.svg'
+import dashboardIcon from './/public/icon/dashboardIcon.svg'
+import autoFarmIcon from './/public/icon/autoFarmIcon.svg'
+import swapIcon from './/public/icon/swapIcon.svg'
 
 export const routes =  [
   { path: '/', 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import PiechartImg from '../../../img/icon/Piechart.svg'
+import PiechartImg from '../../..//public/icon/Piechart.svg'
 import SelectBox from '../SelectBox'
 import DonutChart from '../DonutChart'
 import AssetsItem from './AssetsItem'

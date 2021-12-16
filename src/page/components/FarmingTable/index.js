@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import ArrowDown from '../../../img/icon/Arrow-Down.svg';
+import ArrowDown from '../../..//public/icon/Arrow-Down.svg';
 import { styled } from '@mui/system';
 import style from 'styled-components';
 import MyButton from '../MyButton';
