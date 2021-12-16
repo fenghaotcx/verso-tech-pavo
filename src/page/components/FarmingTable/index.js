@@ -59,10 +59,13 @@ const BoxLeftItem =  style.div`
   margin-bottom: ${({last}) => last?'27px':'8px'};
   .left {
     color: ${({last}) => last?'#304FFD':'#7B84A3'};
+    white-space: nowrap;
   }
   .right {
     margin-left: 55px;
     color: ${({last}) => last?'#304FFD':'#153055'};
+    text-align: right;
+    white-space: nowrap;
   }
 `
 const BoxRight = style.div`
@@ -249,7 +252,7 @@ function Row(props) {
       <TableRow>
         <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: 'wrap',}} >
+            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',}} >
               <BoxLeft >
                 <Tit>Asset Details</Tit>
                 <BoxLeftItem>

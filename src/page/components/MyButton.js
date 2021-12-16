@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
  const MyButton = styled(Button)`
     height: 45px;
     font-weight: 700;
+    font-family: 'Poppins';
     font-size: 15px;
     background-color: ${({backgc}) => backgc !== 'bule'?'#fff':'#304FFD'};
     border-radius: 14px;
