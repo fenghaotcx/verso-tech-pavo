@@ -11,7 +11,7 @@ const MyIconButton = styled(IconButton)`
     background: none;
     width: 15px;
     height: 15px;
-    border: ${({type})=>type? '1.5px solid #A3AED0': '1.5px solid #FFFFFF'};
+    border: ${({my_type})=>my_type === 1? '1.5px solid #A3AED0': '1.5px solid #FFFFFF'};
     display: flex;
     align-items: center;
     margin-right: 5px;
@@ -108,7 +108,7 @@ const Doubt = ({content,type}) => {
           <MyIconButton
             aria-label="expand row"
             size="medium"
-            type={type === 1}
+            my_type={type}
             onClick={() => {showClick()}}
           >
             <img src={type === 1 ?doubtGrayImg :doubtImg} alt="" />

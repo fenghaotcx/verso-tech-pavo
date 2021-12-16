@@ -13,7 +13,8 @@ import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
 import ProgressBar from '../ProgressBar';
 import useMobileDown from '../../../hooks/useMobileDown';
-import Doubt from '../Doubt'
+import Doubt from '../Doubt';
+import IconNameLink from '../IconNameLink';
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -254,7 +255,7 @@ export default function CollateralTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        <IconNameLink name={row.name} />
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>

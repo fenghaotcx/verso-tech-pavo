@@ -22,6 +22,7 @@ import useMobileDown from '../../../hooks/useMobileDown';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TablePagination from '@mui/material/TablePagination';
+import IconNameLink from '../IconNameLink';
 
 const ImgUp = style.img`
   transform: rotate(180deg);
@@ -221,7 +222,7 @@ function Row(props) {
       <TableRow selected={isItemSelected} aria-checked={isItemSelected}>
         <TableCell padding="checkbox"></TableCell>
         <TableCell id={labelId} align="left" component="th" scope="row">
-          {row.name}
+          <IconNameLink name={row.name} />
         </TableCell>
         <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>

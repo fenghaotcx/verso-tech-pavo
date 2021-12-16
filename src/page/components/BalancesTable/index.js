@@ -11,6 +11,9 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
+import style from 'styled-components';
+import PercentageNum from '../PercentageNum';
+import IconNameLink from '../IconNameLink';
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -18,29 +21,35 @@ const MyPaper = styled(Paper)({
   marginBottom: 0,
 })
 
-function createData(name, calories, fat, carbs) {
+const FlexDiv = style.div`
+  display: flex;
+  justify-content: center;
+`
+
+function createData(name, calories, fat, carbs,protein) {
   return {
     name,
     calories,
     fat,
     carbs,
+    protein,
   };
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67),
-  createData('Donut', 452, 25.0, 51),
-  createData('Eclair', 262, 16.0, 24),
-  createData('Frozen yoghurt', 159, 6.0, 24),
-  createData('Gingerbread', 356, 16.0, 49),
-  createData('Honeycomb', 408, 3.2, 87),
-  createData('Ice cream sandwich', 237, 9.0, 37),
-  createData('Jelly Bean', 375, 0.0, 94),
-  createData('KitKat', 518, 26.0, 65),
-  createData('Lollipop', 392, 0.2, 98),
-  createData('Marshmallow', 318, 0, 81),
-  createData('Nougat', 360, 19.0, 9,),
-  createData('Oreo', 437, 18.0, 63),
+  createData('Cupcake', 305, 3.7, 67,5),
+  createData('Donut', 452, 25.0, 51,23),
+  createData('Eclair', 262, 16.0, 24,6),
+  createData('Frozen yoghurt', 159, 6.0, 24,2),
+  createData('Gingerbread', 356, 16.0, 49,4),
+  createData('Honeycomb', 408, 3.2, 87,7),
+  createData('Ice cream sandwich', 237, 9.0, 37,4),
+  createData('Jelly Bean', 375, 0.0, 94,8),
+  createData('KitKat', 518, 26.0, 65,5),
+  createData('Lollipop', 392, 0.2, 98,3),
+  createData('Marshmallow', 318, 0, 81,2),
+  createData('Nougat', 360, 19.0, 96),
+  createData('Oreo', 437, 18.0, 63,4),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -76,25 +85,31 @@ const headCells = [
     id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Platform',
+    label: 'Asset',
   },
   {
     id: 'calories',
     numeric: true,
     disablePadding: false,
-    label: 'Asset',
+    label: 'Value',
   },
   {
     id: 'fat',
     numeric: true,
     disablePadding: false,
-    label: 'Value',
+    label: 'Quantity',
   },
   {
     id: 'carbs',
     numeric: true,
     disablePadding: false,
-    label: 'Collateral Ratio',
+    label: 'Price',
+  },
+  {
+    id: 'protein',
+    numeric: true,
+    disablePadding: false,
+    label: 'Price',
   },
 ];
 
@@ -229,12 +244,16 @@ export default function BorrowingTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        <IconNameLink name={row.name} />
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
                       <TableCell align="center">{row.carbs}</TableCell>
-                      {/* <TableCell align="right">{row.protein}</TableCell> */}
+                      <TableCell align="center">
+                        <FlexDiv>
+                          <PercentageNum num={row.protein} type={index%2>=1?'rise':''}/>
+                        </FlexDiv>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
