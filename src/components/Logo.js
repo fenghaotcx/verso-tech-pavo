@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import logoImg from '../img/icon/Logo.svg'
 
 const LogoDiv = styled.div`
+  font-family: 'Poppins-Bold';
   font-weight: bold;
   font-size: 24px;
   line-height: 36px;

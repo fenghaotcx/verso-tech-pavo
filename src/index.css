@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Poppins-Bold';
+  src: url('./public/font/Poppins-Bold.ttf') format('woff2');    
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./public/font/Poppins-Light.ttf') format('woff2');    
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins';
@@ -9,11 +24,6 @@ body {
   user-select: none;/*选中文字时避免出现蓝色背景*/
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 div {

@@ -4,7 +4,7 @@ import { GlobalContext } from '../../App';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 
 const Tit = styled.div`
-  font-family: Work Sans;
+  font-family: 'Poppins-Bold';
   font-style: normal;
   font-weight: bold;
   font-size: ${({isMobile}) => isMobile?'22px':'40px'};
