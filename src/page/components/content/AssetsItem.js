@@ -47,7 +47,7 @@ const ItemTop = styled.div`
 const ItemBot = styled.div`
     display: flex;
     align-items: center;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 24px;
     line-height: 32px;
     color: #3F434A;

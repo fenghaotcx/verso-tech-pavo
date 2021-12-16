@@ -28,7 +28,7 @@ const Breakdown = styled.div`
   & .break_down {
     display: flex;
     align-items: center;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 20px;
     color: #153055;
     & img {

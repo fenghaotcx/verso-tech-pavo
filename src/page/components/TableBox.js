@@ -39,7 +39,7 @@ const TableBoxTopCont =  styled.div`
   background: linear-gradient(269deg, rgba(124, 141, 236, 0.15) 27.25%, rgba(186, 247, 255, 0.15) 93.09%);
   border-radius: 14px;
   &>.tit {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 20px;
     color: #37D7E1;
     @media (max-width: 1025px) {
@@ -58,7 +58,7 @@ const TableBoxTopCont =  styled.div`
       }
     }
     &>.right_total {
-      font-weight: 500;
+      font-weight: 700;
       font-size: 20px;
       color: #304FFD;
       margin-left: 50px;

@@ -43,7 +43,7 @@ const BoxLeft = style.div`
 `
 
 const Tit = style.div`
-  font-weight: 500;
+  font-weight: 700;
   font-size: 20px;
   line-height: 30px;
   color: #3F434A;

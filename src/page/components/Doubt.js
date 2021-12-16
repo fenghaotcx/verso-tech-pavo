@@ -58,7 +58,7 @@ const TooltipList = style.div`
     }
     &>.leftTop {
         color: #304FFD;
-        font-weight: 500;
+        font-weight: 700;
     }
     &:last-child {
         margin-bottom: 0px;

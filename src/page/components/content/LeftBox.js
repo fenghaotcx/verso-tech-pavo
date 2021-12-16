@@ -30,7 +30,7 @@ const LeftDiv = styled.div`
   }
   & .right_info {
     & div {
-        font-weight: 500;
+        font-weight: 700;
         font-size: 30px;
         line-height: 45px;
     }
