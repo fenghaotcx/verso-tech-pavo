@@ -252,7 +252,7 @@ function Row(props) {
       <TableRow>
         <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',}} >
+            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
               <BoxLeft >
                 <Tit>Asset Details</Tit>
                 <BoxLeftItem>
