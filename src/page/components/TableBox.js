@@ -7,6 +7,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const MyFormControlLabel = styled(FormControlLabel)({
   '&>.css-ahj2mt-MuiTypography-root': {
     fontSize: 12,
+    fontFamily: 'Poppins',
   }
 })
 

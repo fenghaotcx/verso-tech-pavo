@@ -12,6 +12,9 @@
   font-style: normal;
   font-display: swap;
 }
+* {
+  font-family: 'Poppins';
+}
 
 body {
   margin: 0;
@@ -28,6 +31,7 @@ body {
 
 div {
   box-sizing: border-box;
+  font-family: 'Poppins';
 }
 
 p,h1,h2,h3 {
