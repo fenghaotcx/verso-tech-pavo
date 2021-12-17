@@ -42,6 +42,7 @@ function App() {
   };
 
   const changeTheme = () => {
+    console.log('theme=====',theme);
     if (theme === LIGHT_THEME) {
       setTheme(DARK_THEME);
       localStorage.setItem('theme', DARK_THEME);
@@ -53,7 +54,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
-      <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme}}>
+      <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme}}>
         <Container>
           <LeftBar />
           <ContentRight isMobile={isMobile} />

@@ -30,7 +30,7 @@ const LeftBar = () => {
           return null
         }
       })}
-      <SwitchTheme />
+      <SwitchTheme changeTheme={changeTheme} />
     </LeftBarCom>  
   )
 };

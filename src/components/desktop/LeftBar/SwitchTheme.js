@@ -3,6 +3,29 @@ import clsx from 'clsx';
 import { styled } from '@mui/system';
 import { useSwitch } from '@mui/base/SwitchUnstyled';
 
+const Left = styled('div')`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  left: 0;
+  text-align: center;
+  color: #153055;
+  font-size: 14px;
+`
+
+const Right = styled('div')`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  right: 0;
+  text-align: center;
+  color: #153055;
+  font-size: 14px;
+  opacity: 1;
+`
+
 const BasicSwitchRoot = styled('span')`
   font-size: 0;
   position: relative;
@@ -13,20 +36,6 @@ const BasicSwitchRoot = styled('span')`
   background: linear-gradient(91.11deg, rgba(124, 141, 236, 0.15) 14.08%, rgba(255, 203, 186, 0.15) 98.54%);
   margin: 10px;
   cursor: pointer;
-  &:before{
-    content: "Day",
-    position: absolute;
-    display: block;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50%;
-    height: 100%;
-    line-height: 100%;
-    text-align: center;
-    border: 1px solid red;
-    color: #000;
-    font-size: 12px;
-  };
   &.Switch-disabled {
     opacity: 0.4;
     cursor: not-allowed;
@@ -36,6 +45,18 @@ const BasicSwitchRoot = styled('span')`
     background: linear-gradient(91.11deg, #EEF1FF 14.08%, #FFF3EF 98.54%);
     &>.Switch-checked {
       background: linear-gradient(180deg, rgba(13, 21, 66, 0.86) 0%, rgba(40, 19, 74, 0.84) 100%);
+      &>.thumb_content {
+        &.thumb_content_lfet {
+          display: none;
+        }
+        &.thumb_content_right {
+          display: inline-block;
+          transform: translate(40%,30%);
+        }
+      }
+    }
+    &>.right {
+      opacity: 0;
     }
   }
 `;
@@ -62,6 +83,30 @@ const BasicSwitchThumb = styled('span')`
   background-color: #fff;
   position: relative;
   transition: all 200ms ease;
+  &>.thumb_content {
+    position: absolute;
+    transform: translate(60%,25%);
+    color: #153055;
+    font-weight: 700;
+    font-size: 14px;
+    &.thumb_content_right {
+      display: none;
+    }
+    &>span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin-left: 5px;
+      background: #304FFD;
+      border-radius: 100%;
+    }
+  };
+  &>.thumb_content_right {
+    color: #FFFFFF;
+    &>span {
+      background: #FFFFFF;
+    }
+  }
   &.Switch-focusVisible {
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 1px 8px rgba(0, 0, 0, 0.25);
@@ -84,16 +129,21 @@ function BasicSwitch(props) {
 
   return (
     <BasicSwitchRoot className={clsx(stateClasses)}>
-      <BasicSwitchThumb className={clsx(stateClasses)} />
+      <Left className="left">Day</Left>
+      <Right className="right">Night</Right>
+      <BasicSwitchThumb className={clsx(stateClasses)} >
+        <div className="thumb_content thumb_content_lfet">Day<span></span></div>
+        <div className="thumb_content thumb_content_right">Night<span></span></div>
+      </BasicSwitchThumb>
       <BasicSwitchInput {...getInputProps()} aria-label="Demo switch" />
     </BasicSwitchRoot>
   );
 }
 
-export default function UseSwitchesBasic() {
+export default function SwitchTheme({changeTheme}) {
   return (
     <div>
-      <BasicSwitch />
+      <BasicSwitch onChange={()=>{changeTheme()}}/>
     </div>
   );
 }
