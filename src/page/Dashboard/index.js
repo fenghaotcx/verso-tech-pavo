@@ -7,6 +7,7 @@ import CollateralTable from '../components/CollateralTable';
 import FarmingTable from '../components/FarmingTable';
 import BalancesTable from '../components/BalancesTable';
 import BorrowingTable from '../components/BorrowingTable';
+import CollateralMoblie from '../components/CollateralTable/moblie/CollateralMoblie'
 import {useContext} from 'react';
 import { GlobalContext } from '../../App';
 
@@ -64,16 +65,16 @@ const Dashboard = () => {
           })}
         </TopDiv>
         <Content />
-        <TableBox name={'Collateral'}>
-          <CollateralTable />
+        <TableBox isMobile={isMobile} isNoTable={true} name={'Collateral'}>
+          {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable />}
         </TableBox>
-        <TableBox name={'Wallet Balances'}>
+        <TableBox isMobile={isMobile} marginType={true} name={'Wallet Balances'}>
           <BalancesTable />
         </TableBox>
-        <TableBox name={'Borrowing'}>
+        <TableBox isMobile={isMobile} name={'Borrowing'}>
           <BorrowingTable />
         </TableBox>
-        <TableBox name={'Farming'}>
+        <TableBox isMobile={isMobile} name={'Farming'}>
           <FarmingTable />
         </TableBox>
       </>

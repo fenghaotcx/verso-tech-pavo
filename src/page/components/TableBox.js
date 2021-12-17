@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -16,8 +16,10 @@ const TableDiv = styled.div`
   background: #FFFFFF;
   box-shadow: -4px 8px 24px rgba(44, 63, 88, 0.04);
   border-radius: 20px;
-  margin-bottom: 30px
+  margin-bottom: 30px;
+  ${({marginType,isMobile})=> marginType && isMobile?'margin-top:28px;':''}
 `
+
 const TableBoxTop =  styled.div`
   height: 107px;
   display: flex;
@@ -32,7 +34,7 @@ const TableBoxBot =  styled.div`
 
 const TableBoxTopCont =  styled.div`
   height: 48px;
-  width:  94%;
+  width: ${({isMobile,isNoTable})=> isMobile && isNoTable ?'100%':'94%'};
   padding: 0 25px;
   display: flex;
   align-items: center;
@@ -41,55 +43,62 @@ const TableBoxTopCont =  styled.div`
   border-radius: 14px;
   &>.tit {
     font-weight: 700;
-    font-size: 20px;
+    font-size: ${({isMobile})=> isMobile ?'12px':'20px'};
     color: #37D7E1;
-    @media (max-width: 1025px) {
-      font-size: 12px;
-      margin-right: 20px;
-    }
+    ${({isMobile})=> isMobile ?'margin-right: 20px;':''}
   }
   &>.right {
     display: flex;
     align-items: center;
-    &>.right_check {
-      font-size: 16px;
-      color: #7B84A3;
-      @media (max-width: 1025px) {
-        font-size: 12px;
-      }
-    }
     &>.right_total {
       font-weight: 700;
-      font-size: 20px;
+      font-size: ${({isMobile})=> isMobile ?'12px':'20px'};
       color: #304FFD;
       margin-left: 50px;
-      @media (max-width: 1025px) {
-        font-size: 12px;
-      }
     }
   }
 `
 
-function TableBox({children,name='Wallet Balances'}) {
+const RightCheckDiv =  styled.div`
+  font-size: ${({isMobile})=> isMobile ?'12px':'16px'};
+  color: #7B84A3;
+  ${({isMobile})=> isMobile ?'text-align: end;':''}
+`
+
+const RightCheck = ({isMobile}) => <RightCheckDiv isMobile={isMobile}>
+  <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
+</RightCheckDiv>
+
+const TableBoxTopContCom =({name,total,isMobile,isNoTable}) => {
   return (
-    <TableDiv>
+    <TableBoxTopCont isMobile={isMobile} isNoTable={isNoTable}>
+      <div className="tit">{name}</div>
+      <div className="right">
+        {!isMobile ?<RightCheck isMobile={isMobile}/>:<></>}
+        <div className="right_total">Total ${total}</div>
+      </div>
+    </TableBoxTopCont>
+  )
+}
+
+function TableBox({children,name='Wallet Balances',isMobile,total='10,000',isNoTable,marginType}) {
+  return (
+    isMobile && isNoTable?
+    <>
+      <TableBoxTopContCom isNoTable={isNoTable} name={name} isMobile={isMobile} total={total}/>
+      <RightCheck isMobile={isMobile}/>
+      {children}
+    </>
+    :
+    <TableDiv isMobile={isMobile} marginType={marginType}>
       <TableBoxTop>
-        <TableBoxTopCont>
-          <div className="tit">{name}</div>
-          <div className="right">
-            <div className="right_check">
-              {/* <Checkbox {...label} defaultChecked size="small" /> */}
-              <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
-            </div>
-            <div className="right_total">Total  $10,000</div>
-          </div>
-        </TableBoxTopCont>
+        <TableBoxTopContCom isNoTable={isNoTable}  name={name} isMobile={isMobile} total={total}/>
       </TableBoxTop>
+      {isMobile  && <RightCheck />}
       {children}
       <TableBoxBot />
     </TableDiv>
-    
-  );
+  )
 }
 
 export default TableBox;
