@@ -12,7 +12,7 @@ const DonutDiv = styled.div`
   width: 170px;
   margin-right: 50px;
   @media (max-width: 1025px) {
-    margin: 0 auto;
+    margin: 0 auto 25px;
   }
 `
 echarts.use([

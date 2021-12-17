@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import assetLogo from '../../../public/icon/assetLogo.svg'
-
+import useMobileDown from '../../../hooks/useMobileDown';
 
 const ItemDiv = styled.div`
     background: #FFFFFF;
@@ -10,7 +10,7 @@ const ItemDiv = styled.div`
     padding: 10px 20px;
     letter-spacing: -0.02em;
     @media (max-width: 1025px) {
-        padding: 5px;
+        padding: 9px 13px 11px;
     }
     & img {
         width: 40px;
@@ -52,9 +52,8 @@ const ItemBot = styled.div`
     line-height: 32px;
     color: #3F434A;
     @media (max-width: 1025px) {
-        font-size: 16px;
-        line-height: 24px;
-        justify-content: space-between;
+        font-size: 24px;
+        line-height: 32px;
         flex-wrap: wrap;
     }
     &>span {
@@ -76,9 +75,10 @@ const ItemBot = styled.div`
 `
 
 const AssetsItem = ({children}) => {
+    const isMobile = useMobileDown()
     return (
         <ItemDiv>
-            <img src={assetLogo} alt="" />
+            {isMobile?<></>:<img src={assetLogo} alt="" />}
             <ItemLfet>
                 <ItemTop>
                     <div>Mirror</div>
