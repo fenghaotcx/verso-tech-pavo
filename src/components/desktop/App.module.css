@@ -23,9 +23,10 @@
     text-decoration: none;
 }
 .navDivM {
-    width: 240px;
+    width: 100vw;
+    box-sizing: border-box;
     margin-bottom: 20px;
-    padding-left: 20px;
+    padding-left: 48px;
     overflow: hidden;
 }
 .active {
@@ -54,4 +55,9 @@
 }
 .active .iconImg {
     background: linear-gradient(180deg, rgba(48, 79, 253, 0.2) 0%, rgba(169, 116, 255, 0.2) 100%);
+}
+.close {
+    position: absolute;
+    bottom: 40px;
+    left: 46px;
 }

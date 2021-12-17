@@ -42,7 +42,6 @@ function App() {
   };
 
   const changeTheme = () => {
-    console.log('theme=====',theme);
     if (theme === LIGHT_THEME) {
       setTheme(DARK_THEME);
       localStorage.setItem('theme', DARK_THEME);

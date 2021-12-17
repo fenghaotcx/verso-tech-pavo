@@ -1,13 +1,14 @@
-import Title from '../components/Title'
-import TopDiv from '../components/TopDiv'
-import StatisticsBox from '../components/StatisticsBox'
-import Content from '../components/content'
-import TableBox from '../components/TableBox'
-import CollateralTable from '../components/CollateralTable'
-import FarmingTable from '../components/FarmingTable'
-import BalancesTable from '../components/BalancesTable'
-import BorrowingTable from '../components/BorrowingTable'
-
+import Title from '../components/Title';
+import TopDiv from '../components/TopDiv';
+import StatisticsBox from '../components/StatisticsBox';
+import Content from '../components/content';
+import TableBox from '../components/TableBox';
+import CollateralTable from '../components/CollateralTable';
+import FarmingTable from '../components/FarmingTable';
+import BalancesTable from '../components/BalancesTable';
+import BorrowingTable from '../components/BorrowingTable';
+import {useContext} from 'react';
+import { GlobalContext } from '../../App';
 
 // import styled from 'styled-components'
 
@@ -53,29 +54,30 @@ const arr = [
 
 
 const Dashboard = () => {
-    return (
-        <>
-          <Title>My Portfolio</Title>
-          <TopDiv>
-            {arr.map((item,index)=>{
-              return <StatisticsBox info={item}  key={index}/>
-            })}
-          </TopDiv>
-          <Content />
-          <TableBox name={'Collateral'}>
-            <CollateralTable />
-          </TableBox>
-          <TableBox name={'Wallet Balances'}>
-            <BalancesTable />
-          </TableBox>
-          <TableBox name={'Borrowing'}>
-            <BorrowingTable />
-          </TableBox>
-          <TableBox name={'Farming'}>
-            <FarmingTable />
-          </TableBox>
-        </>
-    )
+  const { isMobile } = useContext(GlobalContext)
+  return (
+      <>
+        <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
+        <TopDiv>
+          {arr.map((item,index)=>{
+            return <StatisticsBox info={item}  key={index}/>
+          })}
+        </TopDiv>
+        <Content />
+        <TableBox name={'Collateral'}>
+          <CollateralTable />
+        </TableBox>
+        <TableBox name={'Wallet Balances'}>
+          <BalancesTable />
+        </TableBox>
+        <TableBox name={'Borrowing'}>
+          <BorrowingTable />
+        </TableBox>
+        <TableBox name={'Farming'}>
+          <FarmingTable />
+        </TableBox>
+      </>
+  )
 }
 
 export default Dashboard

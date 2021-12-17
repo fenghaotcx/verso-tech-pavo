@@ -68,7 +68,7 @@ export const darkTheme = {
     connectborder: '1px solid #fff',
     title: '#ffffff',
     focused: '#75768d',
-    bubblePositive: '#95fa84',
+    bubblePositive: '#fff',
     bubbleNegative: '#d24a4a',
     lightBackground: '#eaeeff',
     toggleBackground: '#4d62ce',

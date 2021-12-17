@@ -5,7 +5,38 @@ import Logo from '../../Logo';
 import {useContext} from 'react';
 import { GlobalContext } from '../../../App';
 import LeftBarCom from './LeftBarCom';
-import SwitchTheme from './SwitchTheme'
+import SwitchTheme from './SwitchTheme';
+// import style from 'styled-components';
+import { styled } from '@mui/system';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+
+const MyIconButton = styled(IconButton)`
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const TopDiv  =  styled('div')`
+  width: 100%;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  &>button {
+    margin-right: 20px;
+  }
+`
+
+const TopClose = ({toggleDrawer}) => {
+  return (
+    <TopDiv>
+      <MyIconButton onClick={()=>{toggleDrawer(false)}}><CloseIcon /></MyIconButton>
+    </TopDiv>
+  )
+}
 
 
 const LeftBar = () => {
@@ -16,7 +47,8 @@ const LeftBar = () => {
 
   return (
     <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
-      <Logo isMobile={isMobile}/>
+      {isMobile?<></>:<Logo isMobile={isMobile}/>}
+      {isMobile?<TopClose toggleDrawer={toggleDrawer} />:<></>}
       {routes.map((item)=>{
         if(item?.name && item?.icon){
           return (
@@ -30,7 +62,9 @@ const LeftBar = () => {
           return null
         }
       })}
-      <SwitchTheme changeTheme={changeTheme} />
+      <div className={isMobile?Styles.close:''}>
+        <SwitchTheme changeTheme={changeTheme} />
+      </div>
     </LeftBarCom>  
   )
 };

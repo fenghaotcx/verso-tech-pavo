@@ -11,6 +11,9 @@ const DonutDiv = styled.div`
   height: 170px;
   width: 170px;
   margin-right: 50px;
+  @media (max-width: 1025px) {
+    margin: 0 auto;
+  }
 `
 echarts.use([
     TooltipComponent,

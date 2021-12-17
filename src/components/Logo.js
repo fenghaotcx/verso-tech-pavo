@@ -9,15 +9,14 @@ const LogoDiv = styled.div`
   display: flex;
   align-items: center;
   color: #3F434A;
-  margin-bottom: ${({isMobile}) => isMobile?'38px':'68px'};
-  ${({isMobile}) => isMobile?'padding: 20px 0 0 20px;':''}
+  margin-bottom: ${({isMobile}) => isMobile?'0':'68px'};
   & img {
     width: 26px;
     margin-right: 5px;
   }
 `
 
-const Logo = ({isMobile}) => <LogoDiv isMobile={isMobile}><img src = {logoImg} alt = "logo" />PAVO</LogoDiv>;
+const Logo = ({isMobile}) => <LogoDiv isMobile={isMobile}><img src = {logoImg} alt = "logo" />PAVO</LogoDiv>
 
 
 export default Logo
