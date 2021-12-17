@@ -21,11 +21,12 @@ const TableDiv = styled.div`
 `
 
 const TableBoxTop =  styled.div`
-  height: 107px;
+  height: ${({isMobile})=> isMobile ?'100%':'107px'};
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: ${({isMobile})=> isMobile ?'none':'1px solid #ccc'};
+  ${({isMobile})=> isMobile ?'padding-top: 12px;':''}
 `
 
 const TableBoxBot =  styled.div`
@@ -91,10 +92,10 @@ function TableBox({children,name='Wallet Balances',isMobile,total='10,000',isNoT
     </>
     :
     <TableDiv isMobile={isMobile} marginType={marginType}>
-      <TableBoxTop>
+      <TableBoxTop isMobile={isMobile}>
         <TableBoxTopContCom isNoTable={isNoTable}  name={name} isMobile={isMobile} total={total}/>
       </TableBoxTop>
-      {isMobile  && <RightCheck />}
+      {isMobile  && <RightCheck isMobile={isMobile} />}
       {children}
       <TableBoxBot />
     </TableDiv>
