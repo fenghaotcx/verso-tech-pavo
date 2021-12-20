@@ -9,8 +9,8 @@ export const lightTheme = {
   fontSizes,
   lineHeights,
   colors: {
-    background: '#ffffff',
-    background2: '#f4f6f8',
+    Leftbackground: '#ffffff',
+    background: 'linear-gradient(157.98deg, #F1F9FF 7.94%, #E7F7F4 34.28%, #F4F9FD 53.49%)',
     primary: '#ffffff',
     secondary: '#0221ba',
     text3: '#000',
@@ -52,8 +52,8 @@ export const darkTheme = {
   fontSizes,
   lineHeights,
   colors: {
-    background: '#202235',
-    background2: '#f4f6f8',
+    Leftbackground: 'linear-gradient(162.58deg, #383359 21.71%, #353257 73.67%)',
+    background: 'linear-gradient(162.58deg, #222032 21.71%, #141420 73.67%)',
     primary: '#0221ba',
     secondary: '#ffffff',
     text3: '#bdc3c7',

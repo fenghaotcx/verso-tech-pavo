@@ -140,10 +140,10 @@ function BasicSwitch(props) {
   );
 }
 
-export default function SwitchTheme({changeTheme}) {
+export default function SwitchTheme({changeTheme,theme}) {
   return (
     <div>
-      <BasicSwitch onChange={()=>{changeTheme()}}/>
+      <BasicSwitch checked = {theme !== 'light'} onChange={()=>{changeTheme()}}/>
     </div>
   );
 }

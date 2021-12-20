@@ -40,10 +40,9 @@ const TopClose = ({toggleDrawer}) => {
 
 
 const LeftBar = () => {
-  const { isMobile,toggleDrawer,isopen,changeTheme } = useContext(GlobalContext)
-  console.log('changeTheme=====',changeTheme);
-  console.log('isMobile=====',isMobile);
-  console.log('open=====',isopen);
+  const { isMobile,toggleDrawer,isopen,changeTheme,theme } = useContext(GlobalContext)
+
+  console.log('theme=====',theme);
 
   return (
     <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
@@ -63,7 +62,7 @@ const LeftBar = () => {
         }
       })}
       <div className={isMobile?Styles.close:''}>
-        <SwitchTheme changeTheme={changeTheme} />
+        <SwitchTheme theme={theme} changeTheme={changeTheme} />
       </div>
     </LeftBarCom>  
   )

@@ -19,7 +19,7 @@ const Left = styled.div`
   left: 0;
   top: 0;
   overflow: hidden;
-  background: ${({theme}) => theme.colors.bubblePositive};
+  background: ${({theme}) => theme.colors.Leftbackground};
 `
 
 const LeftBarCom = ({children,isMobile,toggleDrawer,isopen}) => {
