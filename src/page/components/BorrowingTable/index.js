@@ -133,27 +133,34 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         {!isMobile && <TableCell padding="checkbox" />}
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? isMobile?'center':'left' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+        {headCells.map((headCell) => {
+          if((headCell.label ===  'Platform' || headCell.label ===  'Value') && isMobile){
+            return null
+          }
+          return(
+            <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? isMobile?'center':'left' : 'left'}
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              sortDirection={orderBy === headCell.id ? order : false}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          )
+          
+        })}
       </TableRow>
     </TableHead>
   );
@@ -215,16 +222,16 @@ export default function BalancesTable(props) {
                   return (
                     <TableRow role="checkbox" tabIndex={-1} key={row.name} hover>
                       {!isMobile && <TableCell padding="checkbox"/>}
-                      <TableCell
+                      {!isMobile && <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
                       >
                         <IconNameLink isMobile={isMobile} name={row.name} />
-                      </TableCell>
+                      </TableCell>}
                       <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
+                      {!isMobile && <TableCell align="center">{row.fat}</TableCell>}
                       <TableCell align="center">{row.carbs}</TableCell>
                       <TableCell align="center">{row.protein}</TableCell>
                       <TableCell align="center">
