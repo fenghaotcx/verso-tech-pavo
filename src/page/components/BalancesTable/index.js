@@ -14,6 +14,15 @@ import { styled } from '@mui/system';
 import style from 'styled-components';
 import PercentageNum from '../PercentageNum';
 import IconNameLink from '../IconNameLink';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    '& .css-11w94w9-MuiTableCell-root,& .css-1yhpg23-MuiTableCell-root,& .css-6gz8hr-MuiTableCell-root': {
+      borderBottom: ({isMobile}) => isMobile?'none':'1px solid rgba(224, 224, 224, 1)',
+    },
+  },
+});
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -83,8 +92,8 @@ function stableSort(array, comparator) {
 const headCells = [
   {
     id: 'name',
-    numeric: false,
-    disablePadding: true,
+    numeric: true,
+    disablePadding: false,
     label: 'Asset',
   },
   {
@@ -114,16 +123,15 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort, isMobile, windowWidth } =
+  const { order, orderBy, onRequestSort, isMobile} =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-  console.log('windowWidth===',windowWidth);
   return (
     <TableHead>
       <TableRow>
-      {isMobile?<></>:<TableCell padding="checkbox" />}
+        {!isMobile && <TableCell padding="checkbox" />}
         {headCells.map((headCell,index) => {
           if(index === headCells.length -1 && isMobile){
             return null
@@ -131,8 +139,8 @@ function EnhancedTableHead(props) {
             return (
               <TableCell
               key={headCell.id}
-              align={headCell.numeric ? 'center' : 'left'}
-              padding={headCell.disablePadding ? 'none' : 'normal'}
+              align={headCell.numeric ? isMobile?'center':'left' : 'left'}
+              padding={isMobile ? 'none' : 'normal'}
               sortDirection={orderBy === headCell.id ? order : false}
             >
               <TableSortLabel
@@ -158,13 +166,14 @@ function EnhancedTableHead(props) {
 
 
 
-export default function BalancesTable({isMobile,windowWidth}) {
+export default function BalancesTable(props) {
+  const {isMobile,windowWidth} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [page, setPage] = useState(0);
   const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const classes = useStyles(props);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -188,11 +197,12 @@ export default function BalancesTable({isMobile,windowWidth}) {
   return (
     <Box sx={{ width: '100%' }}>
       <MyPaper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer sx={{ width: isMobile ? windowWidth-20 :'100%', overflowX:isMobile?'hidden':'auto',}}>
+        <TableContainer sx={{ width: isMobile ? windowWidth-20 :'100%', overflow:isMobile?'hidden':'auto',}}>
           <Table
             sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px'}}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+            className={classes.root}
           >
             <EnhancedTableHead
               order={order}
@@ -208,15 +218,15 @@ export default function BalancesTable({isMobile,windowWidth}) {
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow role="checkbox" tabIndex={-1} key={row.name} >
-                      {isMobile?<></>:<TableCell padding="checkbox"/>}
+                    <TableRow role="checkbox" tabIndex={-1} key={row.name} hover>
+                      {!isMobile && <TableCell padding="checkbox"/>}
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
                       <TableCell align="center">{row.carbs}</TableCell>
-                      {isMobile?<></>:<TableCell align="center">
+                      {!isMobile && <TableCell align="center">
                         <FlexDiv>
                           <PercentageNum num={row.protein} type={index%2>=1?'rise':''}/>
                         </FlexDiv>

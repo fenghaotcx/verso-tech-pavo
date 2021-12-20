@@ -72,10 +72,10 @@ const Dashboard = () => {
           <BalancesTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
         <TableBox isMobile={isMobile} name={'Borrowing'}>
-          <BorrowingTable />
+          <BorrowingTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
         <TableBox isMobile={isMobile} name={'Farming'}>
-          <FarmingTable />
+          <FarmingTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
       </>
   )

@@ -18,12 +18,20 @@ import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import useMobileDown from '../../../hooks/useMobileDown';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TablePagination from '@mui/material/TablePagination';
 import IconNameLink from '../IconNameLink';
 import CodeBlock from '../CodeBlock';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    '& .css-m1xwsv-MuiTableCell-root,& .css-177gid-MuiTableCell-root,& .css-1yhpg23-MuiTableCell-root,& .css-6gz8hr-MuiTableCell-root': {
+      borderBottom: ({isMobile}) => isMobile?'none':'1px solid rgba(224, 224, 224, 1)',
+    },
+  },
+});
 
 const ImgUp = style.img`
   transform: rotate(180deg);
@@ -100,7 +108,7 @@ const MyIconButton = styled(IconButton)({
 const headCells = [
   {
     id: 'name',
-    numeric: false,
+    numeric: true,
     disablePadding: false,
     label: 'Platform',
     align: 'left'
@@ -224,22 +232,22 @@ function Row(props) {
     <Fragment>
       {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}> */}
       <TableRow selected={isItemSelected} aria-checked={isItemSelected}>
-        <TableCell padding="checkbox"></TableCell>
-        <TableCell id={labelId} align="left" component="th" scope="row">
-          <IconNameLink name={row.name} />
-        </TableCell>
+        {!isMobile && <TableCell padding="checkbox" />}
+        {!isMobile && <TableCell id={labelId} align="left" component="th" scope="row">
+          <IconNameLink isMobile={isMobile} name={row.name} />
+        </TableCell>}
         <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="center">
           <div>{row.carbs}</div>
-          <CodeBlock color="grey">Re-staked</CodeBlock>
+          <CodeBlock isMobile={isMobile} color="grey">Re-staked</CodeBlock>
         </TableCell>
         <TableCell align="center">
           <div>{row.protein}</div>
-          <CodeBlock>Auto Farming</CodeBlock>
+          <CodeBlock isMobile={isMobile}>Auto Farming</CodeBlock>
         </TableCell>
 
-        <TableCell align="center">
+        {!isMobile && <TableCell align="center">
           <MyIconButton
             aria-label="expand row"
             size="medium"
@@ -247,9 +255,9 @@ function Row(props) {
           >
             {open ?  <img src={ArrowDown} alt =""/> : <ImgUp src={ArrowDown} alt =""/>}
           </MyIconButton>
-        </TableCell>
+        </TableCell>}
       </TableRow>
-      <TableRow>
+      {!isMobile && <TableRow>
         <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
@@ -284,13 +292,13 @@ function Row(props) {
             </Box>
           </Collapse>
         </TableCell>
-      </TableRow>
+      </TableRow>}
     </Fragment>
   );
 }
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
+  const { order, orderBy, onRequestSort,isMobile } =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -299,30 +307,38 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-      <TableCell padding="checkbox">
-                      </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.align}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-        <TableCell />
+        {!isMobile && <TableCell padding="checkbox" />}
+        {headCells.map((headCell,index) => {
+          if(headCell.id === 'fat' && isMobile){
+            headCell.label = <>Value/<br />Quanty</>
+          }
+          if(index===0 && isMobile){
+            return null
+          }else{
+            return(
+              <TableCell
+                key={headCell.id}
+                align={headCell.align}
+                padding={isMobile ? 'none' : 'normal'}
+                sortDirection={orderBy === headCell.id ? order : false}
+              >
+                <TableSortLabel
+                  active={orderBy === headCell.id}
+                  direction={orderBy === headCell.id ? order : 'asc'}
+                  onClick={createSortHandler(headCell.id)}
+                >
+                  {headCell.label}
+                  {orderBy === headCell.id ? (
+                    <Box component="span" sx={visuallyHidden}>
+                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                    </Box>
+                  ) : null}
+                </TableSortLabel>
+              </TableCell>
+            )
+          }
+        })}
+        {!isMobile && <TableCell /> }
       </TableRow>
     </TableHead>
   );
@@ -364,14 +380,14 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable() {
-  const isMobile = useMobileDown()
-  const [selected, setSelected] = useState([]);
+export default function CollapsibleTable(props) {
+  const {isMobile,windowWidth} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
+  const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
-
+  const classes = useStyles(props);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -387,43 +403,32 @@ export default function CollapsibleTable() {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   return (
     <>
       <MyTableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          {/* <TableHead>
-            <TableRow>
-              <TableCell>Platform</TableCell>
-              <TableCell align="right">Asset</TableCell>
-              <TableCell align="right">Value/Quanty</TableCell>
-              <TableCell align="right">REWARD</TableCell>
-              <TableCell align="right">Total APy</TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead> */}
+        <Table 
+          sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px'}}
+          aria-label="collapsible table"
+          className={classes.root}
+          size={dense ? 'small' : 'medium'}
+        >
           <EnhancedTableHead
-            numSelected={selected.length}
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={rows.length}
+            isMobile={isMobile}
+            windowWidth={windowWidth}
           />
           <TableBody>
           {stableSort(rows, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {
-              const isItemSelected = isSelected(row.name);
               const labelId = `enhanced-table-checkbox-${index}`;
             return (
-              <Row labelId={labelId} aria-checked={isItemSelected} isMobile={isMobile} key={row.name} index={index} row={row} />
+              <Row windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
             );
           })}
-
-            {/* {rows.map((row,index) => (
-              <Row isMobile={isMobile} key={row.name} index={index} row={row} />
-            ))} */}
           </TableBody>
         </Table>
       </MyTableContainer>

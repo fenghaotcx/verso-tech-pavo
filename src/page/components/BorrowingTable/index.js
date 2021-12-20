@@ -11,7 +11,16 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
-import IconNameLink from '../IconNameLink'
+import IconNameLink from '../IconNameLink';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    '& .css-11w94w9-MuiTableCell-root,& .css-1ndpvdd-MuiTableCell-root,& .css-10dfkli-MuiTableCell-root,& .css-1yhpg23-MuiTableCell-root': {
+      borderBottom: ({isMobile}) => isMobile?'none':'1px solid rgba(224, 224, 224, 1)',
+    },
+  },
+});
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -77,8 +86,8 @@ function stableSort(array, comparator) {
 const headCells = [
   {
     id: 'name',
-    numeric: false,
-    disablePadding: true,
+    numeric: true,
+    disablePadding: false,
     label: 'Platform',
   },
   {
@@ -115,21 +124,19 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
+  const { order, orderBy, onRequestSort,isMobile} =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-        </TableCell>
+        {!isMobile && <TableCell padding="checkbox" />}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'center' : 'left'}
+            align={headCell.numeric ? isMobile?'center':'left' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -154,14 +161,14 @@ function EnhancedTableHead(props) {
 
 
 
-export default function BalancesTable() {
+export default function BalancesTable(props) {
+  const {isMobile,windowWidth} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
-  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+  const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const classes = useStyles(props);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -169,25 +176,6 @@ export default function BalancesTable() {
   };
 
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -198,54 +186,42 @@ export default function BalancesTable() {
     setPage(0);
   };
 
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
       <MyPaper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
+        <TableContainer sx={{ width: isMobile ? windowWidth-20 :'100%', overflow:isMobile?'hidden':'auto',}}>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px' }}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+            className={classes.root}
           >
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              isMobile={isMobile}
+              windowWidth={windowWidth}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                      </TableCell>
+                    <TableRow role="checkbox" tabIndex={-1} key={row.name} hover>
+                      {!isMobile && <TableCell padding="checkbox"/>}
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
                       >
-                        <IconNameLink name={row.name} />
+                        <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>

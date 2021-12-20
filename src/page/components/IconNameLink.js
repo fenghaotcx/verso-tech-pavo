@@ -5,6 +5,7 @@ import AssetLogo from '../../public/icon/assetLogo.svg'
 const IconName = styled.div`
   display: flex;
   align-items: center;
+  ${({isMobile})=> isMobile?'width: 100%;justify-content: center;':''}
   &>img {
     width: 24px;
     margin-right: 7px;
@@ -12,7 +13,8 @@ const IconName = styled.div`
   &>div {
     font-size: ${({isMobile})=> isMobile?'13px':'16px'};
     line-height: 25px;
-    margin-right: 3px;
+    margin-right: ${({isMobile})=> isMobile?'0':'3px'};
+    ${({isMobile})=> isMobile?'text-align: center;max-width: fit-content;':'16px'}
   }
   &>a {
     height: 17px;
@@ -31,9 +33,9 @@ const IconName = styled.div`
 const IconNameLink = ({name,img,link,isMobile}) => {
   return (
     <IconName isMobile={isMobile}>
-      {isMobile?<></>:<img src={img?img:AssetLogo} alt=""/>}
+      {!isMobile && <img src={img?img:AssetLogo} alt=""/>}
       <div>{name}</div> 
-      {isMobile?<></>:<a href={link?link:''} rel="noreferrer" target="_blank">
+      {!isMobile && <a href={link?link:''} rel="noreferrer" target="_blank">
         <img src={LinkImg} alt=""/>
       </a>}
     </IconName>

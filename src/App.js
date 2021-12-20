@@ -35,8 +35,10 @@ function App() {
     if (currentTheme) {
       setTheme(currentTheme);
     }
-
-  }, []);
+    lightTheme.isMobile = isMobile
+    darkTheme.isMobile = isMobile
+    console.log('darkTheme===',darkTheme);
+  }, [isMobile]);
 
   const toggleDrawer = open => {
     console.log(222222);

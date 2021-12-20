@@ -2,22 +2,22 @@ import styled from 'styled-components';
 
 const IconName = styled.div`
   display: flex;
-  height: 25px;
+  height: ${({isMobile}) => isMobile? '15px':'25px'};
   width: fit-content;
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  font-size: 15px;
+  font-size: ${({isMobile}) => isMobile? '12px':'15px'};
   padding: 0 8px;
-  color:${({color})=>  color=== 'grey'? '#7B84A3':'#20CC8E'} ;
-  background:${({color})=>  color=== 'grey'? '#F4F9FD':'rgba(55, 225, 164, 0.2)'} ;
+  color:${({color})=> color === 'grey'? '#7B84A3':'#20CC8E'} ;
+  background:${({color})=> color === 'grey'? '#F4F9FD':'rgba(55, 225, 164, 0.2)'} ;
   margin: 0 auto;
   white-space: nowrap;
 `
 
-const CodeBlock = ({children,color}) => {
+const CodeBlock = ({children,color,isMobile}) => {
   return (
-    <IconName color={color}>
+    <IconName color={color} isMobile={isMobile}>
       {children}
     </IconName>
   )

@@ -78,7 +78,7 @@ const AssetsItem = ({children}) => {
     const isMobile = useMobileDown()
     return (
         <ItemDiv>
-            {isMobile?<></>:<img src={assetLogo} alt="" />}
+            {!isMobile && <img src={assetLogo} alt="" />}
             <ItemLfet>
                 <ItemTop>
                     <div>Mirror</div>

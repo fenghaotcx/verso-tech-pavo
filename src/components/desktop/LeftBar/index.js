@@ -47,7 +47,7 @@ const LeftBar = () => {
 
   return (
     <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
-      {isMobile?<></>:<Logo isMobile={isMobile}/>}
+      {!isMobile && <Logo isMobile={isMobile}/>}
       {isMobile?<TopClose toggleDrawer={toggleDrawer} />:<></>}
       {routes.map((item)=>{
         if(item?.name && item?.icon){
