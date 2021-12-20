@@ -22,7 +22,7 @@ const Left = styled.div`
   background: ${({theme}) => theme.colors.Leftbackground};
 `
 
-const LeftBarCom = ({children,isMobile,toggleDrawer,isopen}) => {
+const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls}) => {
   // const classes = useStyles()
   console.log('open====LeftBarCom=====',isopen);
   return (
@@ -34,7 +34,7 @@ const LeftBarCom = ({children,isMobile,toggleDrawer,isopen}) => {
       onClose={()=>{toggleDrawer(false)}}>
       {children}
     </Drawer>:
-    <Left>{children}</Left>
+    <Left className={cls}>{children}</Left>
   )
 };
   

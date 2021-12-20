@@ -45,13 +45,17 @@ const LeftBar = () => {
   console.log('theme=====',theme);
 
   return (
-    <LeftBarCom isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
-      {!isMobile && <Logo isMobile={isMobile}/>}
-      {isMobile?<TopClose toggleDrawer={toggleDrawer} />:<></>}
+    <LeftBarCom cls={theme === 'light'?'lightLeft':'darkLeft'} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
+      {!isMobile && <Logo theme={theme} isMobile={isMobile}/>}
+      {isMobile && <TopClose toggleDrawer={toggleDrawer} />}
       {routes.map((item)=>{
         if(item?.name && item?.icon){
           return (
-            <NavLink className={({ isActive }) => (isActive ? `${Styles.active} ${isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv}` : isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv)} 
+            <NavLink 
+              className={({ isActive }) => 
+              (isActive ? `${Styles.active} ${isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv}`: 
+               isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv
+              )} 
               to={item.path} key={item.name}>
                 <div className={Styles.iconImg}>{item.icon}</div>
                 {item.name}
