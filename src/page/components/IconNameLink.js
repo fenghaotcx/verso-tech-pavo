@@ -10,7 +10,7 @@ const IconName = styled.div`
     margin-right: 7px;
   }
   &>div {
-    font-size: 16px;
+    font-size: ${({isMobile})=> isMobile?'13px':'16px'};
     line-height: 25px;
     margin-right: 3px;
   }
@@ -28,14 +28,14 @@ const IconName = styled.div`
   }
 `
 
-const IconNameLink = ({name,img,link}) => {
+const IconNameLink = ({name,img,link,isMobile}) => {
   return (
-    <IconName >
-      <img src={img?img:AssetLogo} alt=""/>
+    <IconName isMobile={isMobile}>
+      {isMobile?<></>:<img src={img?img:AssetLogo} alt=""/>}
       <div>{name}</div> 
-      <a href={link?link:''} rel="noreferrer" target="_blank">
+      {isMobile?<></>:<a href={link?link:''} rel="noreferrer" target="_blank">
         <img src={LinkImg} alt=""/>
-      </a>
+      </a>}
     </IconName>
   )
 }

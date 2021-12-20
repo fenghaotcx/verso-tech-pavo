@@ -6,6 +6,7 @@ import { lightTheme, darkTheme } from './styles/theme';
 import { ThemeProvider } from 'styled-components';
 import { LIGHT_THEME, DARK_THEME } from './constants';
 import useMobileDown from './hooks/useMobileDown';
+import useWindowSize from './hooks/useWindowSize';
 
 const Container = styled.div`
   width: 100%;
@@ -28,12 +29,13 @@ function App() {
   const isMobile = useMobileDown()
   const [theme, setTheme] = useState(LIGHT_THEME);
   const [isopen,setShow] = useState(false)
-
+  const {windowWidth} = useWindowSize()
   useEffect(() => {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
       setTheme(currentTheme);
     }
+
   }, []);
 
   const toggleDrawer = open => {
@@ -53,7 +55,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
-      <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme}}>
+      <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
         <Container>
           <LeftBar />
           <ContentRight isMobile={isMobile} />

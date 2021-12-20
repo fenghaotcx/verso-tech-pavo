@@ -55,7 +55,7 @@ const arr = [
 
 
 const Dashboard = () => {
-  const { isMobile } = useContext(GlobalContext)
+  const { isMobile,windowWidth } = useContext(GlobalContext)
   return (
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
@@ -69,7 +69,7 @@ const Dashboard = () => {
           {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable />}
         </TableBox>
         <TableBox isMobile={isMobile} marginType={true} name={'Wallet Balances'}>
-          <BalancesTable />
+          <BalancesTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
         <TableBox isMobile={isMobile} name={'Borrowing'}>
           <BorrowingTable />

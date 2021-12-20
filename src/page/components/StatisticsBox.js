@@ -99,7 +99,7 @@ const StatisticsBox = ({info,children}) => {
         return () => {
             
         }
-    })
+    },[])
   return (
     <Box>
       <div className={`${Styles.type} ${Styles[`type_${info.index+1}`]}`}>

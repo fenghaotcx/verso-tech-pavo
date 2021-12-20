@@ -114,38 +114,43 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
+  const { order, orderBy, onRequestSort, isMobile, windowWidth } =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
+  console.log('windowWidth===',windowWidth);
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'center' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+      {isMobile?<></>:<TableCell padding="checkbox" />}
+        {headCells.map((headCell,index) => {
+          if(index === headCells.length -1 && isMobile){
+            return null
+          }else{
+            return (
+              <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? 'center' : 'left'}
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              sortDirection={orderBy === headCell.id ? order : false}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+            )
+          }
+        })}
       </TableRow>
     </TableHead>
   );
@@ -153,12 +158,11 @@ function EnhancedTableHead(props) {
 
 
 
-export default function BorrowingTable() {
+export default function BalancesTable({isMobile,windowWidth}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
-  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+  const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -167,26 +171,6 @@ export default function BorrowingTable() {
     setOrderBy(property);
   };
 
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -198,62 +182,45 @@ export default function BorrowingTable() {
   };
 
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
       <MyPaper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
+        <TableContainer sx={{ width: isMobile ? windowWidth-20 :'100%', overflowX:isMobile?'hidden':'auto',}}>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px'}}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              isMobile={isMobile}
+              windowWidth={windowWidth}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        <IconNameLink name={row.name} />
+                    <TableRow role="checkbox" tabIndex={-1} key={row.name} >
+                      {isMobile?<></>:<TableCell padding="checkbox"/>}
+                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                        <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
                       <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">
+                      {isMobile?<></>:<TableCell align="center">
                         <FlexDiv>
                           <PercentageNum num={row.protein} type={index%2>=1?'rise':''}/>
                         </FlexDiv>
-                      </TableCell>
+                      </TableCell>}
                     </TableRow>
                   );
                 })}
