@@ -24,12 +24,12 @@ echarts.use([
     GraphicComponent
   ]);
 
-const DonutChart = ({children}) => {
+const DonutChart = ({children,isMobile,theme}) => {
+    
     useEffect(()=>{
         var chartDom = document.getElementById('donutChart');
         var myChart = echarts.init(chartDom);
         var option;
-
         option = {
           tooltip: {
             trigger: 'item'
@@ -47,7 +47,7 @@ const DonutChart = ({children}) => {
                   style: {
                     text: '$260k',
                     textAlign: 'center',
-                    fill: 'color: #3F434A;',
+                    fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
                     width: 30,
                     height: 30,
                     fontWeight: 500,
@@ -63,7 +63,7 @@ const DonutChart = ({children}) => {
                   style: {
                     text: 'Total',
                     textAlign: 'center',
-                    fill: 'color: #7B84A3;',
+                    fill:  theme === 'dark'?'color: #A3AED0;':'color: #7B84A3;',
                     width: 30,
                     height: 30,
                     fontSize: 14,
@@ -109,7 +109,7 @@ const DonutChart = ({children}) => {
         };
 
         option && myChart.setOption(option);
-    },[])
+    },[theme])
 
     return (
         <DonutDiv id="donutChart"></DonutDiv>

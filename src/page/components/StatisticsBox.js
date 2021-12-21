@@ -99,7 +99,7 @@ const StatisticsBox = ({info,children,isMobile,theme}) => {
         return () => {
             
         }
-    },[])
+    },[info.index])
   return (
     <Box isMobile={isMobile} className={theme === 'dark'&& Styles.darkBox}>
       <div className={`${Styles.type} ${Styles[`type_${info.index+1}`]}`}>
