@@ -29,6 +29,9 @@ const useStyles = makeStyles({
         color: '#A3AED0',
       }
     },
+    '& .Mui-selected': {
+      background: 'linear-gradient(270.23deg, #7C9EF1 3.66%, #986FC1 38.95%, #6BCCD1 97.74%)',
+    }
   },
 });
 
@@ -182,17 +185,17 @@ export default function BalancesTable(props) {
   const {isMobile,windowWidth,theme} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
+  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const classes = useStyles(props);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -202,6 +205,28 @@ export default function BalancesTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    setSelected(newSelected);
+  };
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -228,9 +253,18 @@ export default function BalancesTable(props) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
+                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow role="checkbox" tabIndex={-1} key={row.name} hover>
+                    <TableRow 
+                      role="checkbox" 
+                      tabIndex={-1} 
+                      key={row.name} 
+                      hover
+                      onClick={(event) => handleClick(event, row.name)}
+                      aria-checked={isItemSelected}
+                      selected={isItemSelected}
+                    >
                       {!isMobile && <TableCell padding="checkbox"/>}
                       {!isMobile && <TableCell
                         component="th"

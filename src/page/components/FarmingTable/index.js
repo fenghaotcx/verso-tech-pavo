@@ -40,6 +40,9 @@ const useStyles = makeStyles({
         color: '#A3AED0',
       }
     },
+    '& .Mui-selected': {
+      background: 'linear-gradient(270.23deg, #7C9EF1 3.66%, #986FC1 38.95%, #6BCCD1 97.74%)',
+    }
   },
 });
 
@@ -181,7 +184,7 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
-  const { row , index,isMobile,isItemSelected,labelId,theme} = props;
+  const { row , index,isMobile,isItemSelected,labelId,theme,handleClick} = props;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     
@@ -241,7 +244,13 @@ function Row(props) {
   return (
     <Fragment>
       {/* <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}> */}
-      <TableRow selected={isItemSelected} aria-checked={isItemSelected}>
+      <TableRow 
+        selected={isItemSelected} 
+        aria-checked={isItemSelected}
+        onClick={(event) => handleClick(event, row.name)}
+        role="checkbox"
+        hover
+      >
         {!isMobile && <TableCell padding="checkbox" />}
         {!isMobile && <TableCell id={labelId} align="left" component="th" scope="row">
           <IconNameLink isMobile={isMobile} name={row.name} />
@@ -390,18 +399,40 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable(props) {
+export default function FarmingTable(props) {
   const {isMobile,windowWidth,theme} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
+  const [selected, setSelected] = useState([]);
   const [dense] = useState(isMobile);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
   const classes = useStyles(props);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+  };
+
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -412,6 +443,8 @@ export default function CollapsibleTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   return (
     <>
@@ -435,8 +468,9 @@ export default function CollapsibleTable(props) {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
+              const isItemSelected = isSelected(row.name);
             return (
-              <Row theme={theme} windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
+              <Row theme={theme} isItemSelected={isItemSelected} handleClick={handleClick} windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
             );
           })}
           </TableBody>

@@ -33,6 +33,9 @@ const useStyles = makeStyles({
         color: '#A3AED0',
       }
     },
+    '& .Mui-selected': {
+      background: 'linear-gradient(270.23deg, #7C9EF1 3.66%, #986FC1 38.95%, #6BCCD1 97.74%)',
+    }
   },
 });
 
