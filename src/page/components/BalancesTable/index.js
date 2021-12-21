@@ -18,8 +18,18 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
-    '& .css-11w94w9-MuiTableCell-root,& .css-1yhpg23-MuiTableCell-root,& .css-6gz8hr-MuiTableCell-root': {
-      borderBottom: ({isMobile}) => isMobile?'none':'1px solid rgba(224, 224, 224, 1)',
+    '& .MuiTableCell-root': {
+      fontFamily: 'Poppins',
+      borderBottom: ({theme,isMobile}) => isMobile?'none':theme === 'dark'?'1px solid #404572':'1px solid #ede9fe',
+    },
+    '& .MuiTableBody-root .MuiTableCell-root': {
+      color: ({theme}) => theme === 'dark'?'#fff':'#153055',
+    },
+    '& .MuiTableHead-root .MuiTableCell-root': {
+      color: '#A3AED0',
+      '& .Mui-active': {
+        color: '#A3AED0',
+      }
     },
   },
 });
@@ -167,7 +177,7 @@ function EnhancedTableHead(props) {
 
 
 export default function BalancesTable(props) {
-  const {isMobile,windowWidth} = props
+  const {isMobile,windowWidth,theme} = props
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [page, setPage] = useState(0);
@@ -196,7 +206,7 @@ export default function BalancesTable(props) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <MyPaper sx={{ width: '100%', mb: 2 }}>
+      <MyPaper sx={{ width: '100%', mb: 2,background:theme==='dark'?'#262A4F':'#fff' }}>
         <TableContainer sx={{ width: isMobile ? windowWidth-20 :'100%', overflow:isMobile?'hidden':'auto',}}>
           <Table
             sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px'}}
@@ -247,6 +257,7 @@ export default function BalancesTable(props) {
           </Table>
         </TableContainer>
         <TablePagination
+          sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rows.length}
