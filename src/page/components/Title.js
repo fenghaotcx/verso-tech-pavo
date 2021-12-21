@@ -10,7 +10,7 @@ const Tit = styled.div`
   font-weight: bold;
   font-size: ${({isMobile}) => isMobile?'22px':'40px'};
   line-height: 47px;
-  color: #153055;
+  color: ${({theme})=> theme.colors.font};
   margin-bottom: ${({isMobile}) => isMobile?'33px':'53px'};
   display: flex;
   align-items: center;

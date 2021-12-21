@@ -55,16 +55,16 @@ const arr = [
 
 
 const Dashboard = () => {
-  const { isMobile,windowWidth } = useContext(GlobalContext)
+  const { isMobile,windowWidth,theme } = useContext(GlobalContext)
   return (
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
         <TopDiv>
           {arr.map((item,index)=>{
-            return <StatisticsBox info={item}  key={index}/>
+            return <StatisticsBox isMobile={isMobile} theme={theme} info={item}  key={index}/>
           })}
         </TopDiv>
-        <Content />
+        <Content theme={theme} isMobile={isMobile}/>
         <TableBox isMobile={isMobile} isNoTable={true} name={'Collateral'}>
           {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable />}
         </TableBox>

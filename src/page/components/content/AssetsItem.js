@@ -3,7 +3,7 @@ import assetLogo from '../../../public/icon/assetLogo.svg'
 import useMobileDown from '../../../hooks/useMobileDown';
 
 const ItemDiv = styled.div`
-    background: #FFFFFF;
+    background: ${({theme})=> theme.colors.itemDivBg};
     box-shadow: 0px 3px 14px rgba(112, 144, 176, 0.08);
     border-radius: 8px;
     display: flex;
@@ -50,7 +50,7 @@ const ItemBot = styled.div`
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
-    color: #3F434A;
+    color: ${({theme})=> theme.colors.selectFont};
     @media (max-width: 1025px) {
         font-size: 24px;
         line-height: 32px;

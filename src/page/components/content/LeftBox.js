@@ -6,7 +6,7 @@ import MyButton from '../MyButton'
 const LeftDiv = styled.div`
   flex:1;
   height: 302px;
-  background: linear-gradient(123.34deg, #304FFD 7.62%, #74C5FF 97.61%);
+  background:${({theme})=> theme.colors.totalLeftBg};
   border-radius: 14px;
   position: relative;
   font-size: 15px;
@@ -15,9 +15,7 @@ const LeftDiv = styled.div`
   padding: 44px 10px 25px 28px;
   display: flex;
   justify-content: space-around;
-  @media (max-width: 1025px) {
-    margin-bottom: 20px;
-  }
+  ${({isMobile})=> isMobile?'margin-bottom: 20px;':''}
   & .white_logo {
     position: absolute;
     left: 0;
@@ -53,9 +51,9 @@ const Dollar = styled.div`
     }
 ` 
 
-const LeftBox = () => {
+const LeftBox = ({isMobile}) => {
     return (
-        <LeftDiv>
+        <LeftDiv isMobile={isMobile}>
             <img className="white_logo" src={LogoWhite} alt="" />
             <Dollar>
                 <img src={DollarImg} alt="" />

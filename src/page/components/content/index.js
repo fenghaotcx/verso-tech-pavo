@@ -15,11 +15,11 @@ const Box = styled.div`
 ` 
 
 
-const Content = () => {
+const Content = ({theme,isMobile}) => {
     return (
         <Box>
-          <LeftBox />
-          <RightBox />
+          <LeftBox isMobile={isMobile}/>
+          <RightBox isMobile={isMobile} theme={theme}/>
         </Box>
     )
 }

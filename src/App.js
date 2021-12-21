@@ -36,13 +36,13 @@ function App() {
     if (currentTheme) {
       setTheme(currentTheme);
     }
-    lightTheme.isMobile = isMobile
-    darkTheme.isMobile = isMobile
-    console.log('darkTheme===',darkTheme);
+    // lightTheme.isMobile = isMobile
+    // darkTheme.isMobile = isMobile
+    // console.log('darkTheme=======',darkTheme);
+    // console.log('lightTheme=======',lightTheme);
   }, [isMobile]);
 
   const toggleDrawer = open => {
-    console.log(222222);
     setShow(open)
   };
 
@@ -61,7 +61,7 @@ function App() {
       <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
         <Container>
           <LeftBar />
-          <ContentRight isMobile={isMobile} />
+          <ContentRight theme={theme} isMobile={isMobile} />
         </Container>
       </GlobalContext.Provider>
     </ThemeProvider>

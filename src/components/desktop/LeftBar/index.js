@@ -45,7 +45,7 @@ const LeftBar = () => {
   console.log('theme=====',theme);
 
   return (
-    <LeftBarCom cls={theme === 'light'?'lightLeft':'darkLeft'} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
+    <LeftBarCom cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
       {!isMobile && <Logo theme={theme} isMobile={isMobile}/>}
       {isMobile && <TopClose toggleDrawer={toggleDrawer} />}
       {routes.map((item)=>{

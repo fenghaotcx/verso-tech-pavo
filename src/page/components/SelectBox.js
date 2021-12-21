@@ -2,14 +2,15 @@ import styled from 'styled-components'
 import { Fade } from '@mui/material'
 import { useState} from 'react';
 import arrowImg from '../../public/icon/arrow.svg'
+import arrowImgDrak from '../../public/icon/arrowDark.svg'
 
 const SelectDiv = styled.div`
     padding: 11px 18px 11px 14px;
     height: 43px;
-    background: linear-gradient(91.11deg, #EEF1FF 14.08%, #FFF3EF 98.54%);
+    background: ${({theme})=> theme.colors.selectBg};
     border-radius: 14px;
     font-size: 14px;
-    color: #3F434A;
+    color: ${({theme})=> theme.colors.selectFont};
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -22,7 +23,7 @@ const SelectDiv = styled.div`
 
 const OptionCont  = styled.div`
     padding: 11px 14px;
-    background: linear-gradient(91.11deg, #EEF1FF 14.08%, #FFF3EF 98.54%);
+    background: ${({theme})=> theme.colors.selectBg};
     border-radius: 14px;
     font-size: 14px;
     line-height: 21px;
@@ -49,7 +50,7 @@ const OptionDiv =  ({options,OptionDivClick,isCurrent}) => {
     )
 }
 
-const SelectBox = ({sort,options}) => {
+const SelectBox = ({sort,options,theme}) => {
     // console.log('sort====',sort);
     // console.log('options====',options);
 
@@ -70,7 +71,7 @@ const SelectBox = ({sort,options}) => {
     return (
         <SelectDiv onClick={selectClick}>
             <div>{isCurrent}</div>
-            {sort === 'select' && <img className="arrow" src={arrowImg} alt="" />}
+            {sort === 'select' && <img className="arrow" src={theme === 'dark'?arrowImgDrak:arrowImg} alt="" />}
             <Fade in={isClick} unmountOnExit><div><OptionDiv isCurrent={isCurrent} options={options} OptionDivClick={OptionDivClick}/></div></Fade>
         </SelectDiv>
     )
