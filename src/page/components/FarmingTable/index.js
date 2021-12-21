@@ -64,7 +64,7 @@ const Tit = style.div`
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
-  color: #3F434A;
+  color: ${({theme})=> theme.colors.logoFont};
   margin-bottom: 24px;
 `
 
@@ -81,7 +81,7 @@ const BoxLeftItem =  style.div`
   }
   .right {
     margin-left: 55px;
-    color: ${({last}) => last?'#304FFD':'#153055'};
+    color: ${({last,theme}) => last?'#304FFD':theme.colors.font};
     text-align: right;
     white-space: nowrap;
   }
@@ -181,7 +181,7 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
-  const { row , index,isMobile,isItemSelected,labelId} = props;
+  const { row , index,isMobile,isItemSelected,labelId,theme} = props;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     
@@ -270,7 +270,7 @@ function Row(props) {
       {!isMobile && <TableRow>
         <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{bgcolor: '#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
+            <Box sx={{bgcolor: theme==='dark'?'#262A4F':'#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
               <BoxLeft >
                 <Tit>Asset Details</Tit>
                 <BoxLeftItem>
@@ -436,7 +436,7 @@ export default function CollapsibleTable(props) {
             .map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
             return (
-              <Row windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
+              <Row theme={theme} windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
             );
           })}
           </TableBody>
