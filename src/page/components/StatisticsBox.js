@@ -8,7 +8,7 @@ import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
 const Box = styled.div`
-  background: #FFFFFF;
+  background: ${({theme})=> theme.colors.statisticsBg};
   width: calc((100% - 18px * 2) / 3);
   border-radius: 16px;
   box-sizing: border-box;
@@ -24,7 +24,7 @@ const Box = styled.div`
 echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
 
 
-const StatisticsBox = ({info,children}) => {
+const StatisticsBox = ({info,children,isMobile,theme}) => {
     useEffect(() => {
         
         let chartDom = document.getElementById(`main_${info.index+1}`);
@@ -101,7 +101,7 @@ const StatisticsBox = ({info,children}) => {
         }
     },[])
   return (
-    <Box>
+    <Box isMobile={isMobile} className={theme === 'dark'&& Styles.darkBox}>
       <div className={`${Styles.type} ${Styles[`type_${info.index+1}`]}`}>
         <span className={Styles.name}>{info.name} </span> <span >(24h)</span>
       </div>
