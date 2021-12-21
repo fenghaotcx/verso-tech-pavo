@@ -15,7 +15,7 @@ const LeftDiv = styled.div`
   padding: 44px 10px 25px 28px;
   display: flex;
   justify-content: space-around;
-  ${({isMobile})=> isMobile?'margin-bottom: 20px;':''}
+  ${({isMobile})=> isMobile?'margin-bottom: 30px;':''}
   & .white_logo {
     position: absolute;
     left: 0;

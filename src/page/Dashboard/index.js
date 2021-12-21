@@ -59,7 +59,7 @@ const Dashboard = () => {
   return (
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
-        <TopDiv>
+        <TopDiv isMobile={isMobile}>
           {arr.map((item,index)=>{
             return <StatisticsBox isMobile={isMobile} theme={theme} info={item}  key={index}/>
           })}

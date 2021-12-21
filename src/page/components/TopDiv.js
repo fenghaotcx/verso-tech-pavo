@@ -6,13 +6,12 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: ${({isMobile})=> isMobile?'0':'32px'};
   @media (max-width: 1025px) {
     flex-wrap: wrap;
   }
 `
 
-
-const TopDiv = ({children}) => <Top>{children}</Top>
+const TopDiv = ({children,isMobile}) => <Top isMobile={isMobile}>{children}</Top>
 
 export default TopDiv
