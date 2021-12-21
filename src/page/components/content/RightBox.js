@@ -6,12 +6,18 @@ import DonutChart from '../DonutChart'
 import AssetsItem from './AssetsItem'
 
 const RightDiv = styled.div`
-  flex: ${({isMobile})=> isMobile?'1':'2'};
-  height: ${({isMobile})=> isMobile?'100%':'302px'};
-  margin-left: ${({isMobile})=> isMobile?'0':'18px'};
+  flex: 2;
+  height: 302px;
+  margin-left: 18px;
   background: ${({theme})=> theme.colors.Leftbackground};
   border-radius: 14px;
-  padding: ${({isMobile})=> isMobile?'18px 18px 32px 18px':'22px 45px 0 45px'};
+  padding: 22px 45px 0 45px;
+  @media (max-width: 1025px) {
+    flex:1;
+    margin-left: 0px;
+    padding: 18px 18px 32px 18px;
+    height: 100%;
+  }
 ` 
 
 const Breakdown = styled.div`
@@ -38,7 +44,9 @@ const BreakdownBot = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${({isMobile})=> isMobile?'flex-wrap: wrap;':''}
+  @media (max-width: 1025px) {
+    flex-wrap: wrap;
+  }
 `
 
 const AssetsDiv = styled.div`
@@ -48,8 +56,12 @@ const AssetsDiv = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   &>div {
-    width: ${({isMobile})=> isMobile?'calc((100% - 12px) / 2)':'calc((100% - 14px) / 2)'};
-    height:${({isMobile})=> isMobile?'75px':'calc((100% - 13px) / 2)'};
+    width: calc((100% - 14px) / 2);
+    height: calc((100% - 13px) / 2);
+    @media (max-width: 1025px) {
+      width: calc((100% - 12px) / 2);
+      height: 75px;
+    }
   }
 `
 
@@ -64,9 +76,9 @@ const RightBox = ({theme,isMobile}) => {
             <div className="break_down">Breakdown <img src={theme==='dark'?PiechartDrakImg:PiechartImg} alt="" /></div>
             <SelectBox options={arr} theme={theme} sort="select"/>
           </Breakdown>
-          <BreakdownBot isMobile={isMobile}>
+          <BreakdownBot>
               <DonutChart />
-              <AssetsDiv isMobile={isMobile}>
+              <AssetsDiv>
                   {arrItem.map((item,index)=>{
                       return <AssetsItem item={item} key={index}/>
                   })}
