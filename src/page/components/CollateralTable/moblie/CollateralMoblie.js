@@ -6,7 +6,7 @@ const CollateralDiv = styled.div`
   box-shadow: -4px 8px 24px rgba(44, 63, 88, 0.02);
   border-radius: 20px;
   padding: 19px 13px;
-  background: #fff;
+  background: ${({theme})=> theme.colors.Leftbackground};
   margin-bottom: 12px;
   &>.flex_box {
       display: flex;

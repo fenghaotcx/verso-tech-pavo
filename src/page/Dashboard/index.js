@@ -65,16 +65,16 @@ const Dashboard = () => {
           })}
         </TopDiv>
         <Content theme={theme} isMobile={isMobile}/>
-        <TableBox isMobile={isMobile} isNoTable={true} name={'Collateral'}>
+        <TableBox isNoTable={true} name={'Collateral'}>
           {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable />}
         </TableBox>
-        <TableBox isMobile={isMobile} marginType={true} name={'Wallet Balances'}>
+        <TableBox marginType={true} name={'Wallet Balances'}>
           <BalancesTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
-        <TableBox isMobile={isMobile} name={'Borrowing'}>
+        <TableBox name={'Borrowing'}>
           <BorrowingTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
-        <TableBox isMobile={isMobile} name={'Farming'}>
+        <TableBox name={'Farming'}>
           <FarmingTable windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
       </>

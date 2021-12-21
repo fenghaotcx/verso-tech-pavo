@@ -25,11 +25,11 @@ const MobTit = styled.div`
 `
 
 const Title = ({children}) => {
-  const {toggleDrawer,isMobile} = useContext(GlobalContext)
+  const {toggleDrawer,isMobile,theme} = useContext(GlobalContext)
   return (
     <>
       <Tit isMobile={isMobile}> 
-        {isMobile?<Logo isMobile={isMobile}/>:children}
+        {isMobile?<Logo theme={theme} isMobile={isMobile}/>:children}
         {isMobile?<DehazeIcon onClick={()=>{toggleDrawer(true)}} />:<></>}
       </Tit>
       {isMobile?<MobTit>{children}</MobTit>:<></>}

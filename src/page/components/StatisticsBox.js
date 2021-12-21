@@ -8,7 +8,7 @@ import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
 const Box = styled.div`
-  background: ${({theme})=> theme.colors.statisticsBg};
+  background: ${({theme})=> theme.colors.Leftbackground};
   width: calc((100% - 18px * 2) / 3);
   border-radius: 16px;
   box-sizing: border-box;

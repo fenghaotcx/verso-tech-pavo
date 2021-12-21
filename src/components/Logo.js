@@ -17,7 +17,7 @@ const LogoDiv = styled.div`
   }
 `
 
-const Logo = ({isMobile,theme}) => <LogoDiv isMobile={isMobile}><img src = {theme === 'light'?logoImg:logoImgDark} alt = "logo" />PAVO</LogoDiv>
+const Logo = ({isMobile,theme}) => <LogoDiv isMobile={isMobile}><img src = {theme === 'dark'?logoImgDark:logoImg} alt = "logo" />PAVO</LogoDiv>
 
 
 export default Logo
