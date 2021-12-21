@@ -16,6 +16,25 @@ import useMobileDown from '../../../hooks/useMobileDown';
 import Doubt from '../Doubt';
 import IconNameLink from '../IconNameLink';
 import style from 'styled-components';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: {
+    '& .MuiTableCell-root': {
+      fontFamily: 'Poppins',
+      borderBottom: ({theme}) => theme === 'dark'?'1px solid #404572':'1px solid #ede9fe',
+    },
+    '& .MuiTableBody-root .MuiTableCell-root': {
+      color: ({theme}) => theme === 'dark'?'#fff':'#153055',
+    },
+    '& .MuiTableHead-root .MuiTableCell-root': {
+      color: '#A3AED0',
+      '& .Mui-active': {
+        color: '#A3AED0',
+      }
+    },
+  },
+});
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -169,6 +188,7 @@ export default function CollateralTable({theme}) {
   const [page, setPage] = useState(0);
   const [dense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const classes = useStyles({theme});
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -217,9 +237,10 @@ export default function CollateralTable({theme}) {
       <MyPaper sx={{ width: '100%', mb: 2,background:theme==='dark'?'#262A4F':'#fff' }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750,}}
+            sx={{ minWidth: 750,color:'#fff'}}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+            className={classes.root}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -284,6 +305,7 @@ export default function CollateralTable({theme}) {
           </Table>
         </TableContainer>
         <TablePagination
+          sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rows.length}

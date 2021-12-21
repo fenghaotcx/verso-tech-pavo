@@ -30,7 +30,7 @@ const TableBoxTop =  styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: ${({isMobile})=> isMobile ?'none':'1px solid #ccc'};
+  border-bottom: ${({isMobile,theme})=> isMobile ?'none':theme.colors.tableBorder};
   ${({isMobile})=> isMobile ?'padding-top: 12px;':''}
 `
 
