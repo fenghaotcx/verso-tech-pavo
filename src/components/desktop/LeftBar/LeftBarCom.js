@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import Drawer from '@mui/material/Drawer';
-// import { makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 
-// const useStyles = makeStyles({
-//   drawer: {
-//     width: 400,
-//   }
-// })
+const useStyles = makeStyles({
+  drawer: {
+    '& .MuiPaper-root': {
+      background:  ({theme}) => theme === 'dark'?'linear-gradient(162.58deg, #3A395B 21.71%, #29293F 73.67%)':'#fff',
+    }
+  }
+})
 
 const anchor = 'left'
 
@@ -22,13 +24,13 @@ const Left = styled.div`
   background: ${({theme}) => theme.colors.Leftbackground};
 `
 
-const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls}) => {
-  // const classes = useStyles()
+const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls,theme}) => {
+  const classes = useStyles({theme})
   console.log('open====LeftBarCom=====',isopen);
   return (
     isMobile?
     <Drawer 
-      // className={`${classes.drawer}`} 
+      className={`${classes.drawer} ${cls}`} 
       anchor={anchor} 
       open={isopen} 
       onClose={()=>{toggleDrawer(false)}}>

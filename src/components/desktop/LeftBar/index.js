@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 const MyIconButton = styled(IconButton)`
   width: 26px;
   height: 26px;
-  border: 1.5px solid #000;
+  border: ${({theme})=> theme === 'dark'?'1.5px solid #fff;':'1.5px solid #000;'}
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,10 +30,10 @@ const TopDiv  =  styled('div')`
   }
 `
 
-const TopClose = ({toggleDrawer}) => {
+const TopClose = ({toggleDrawer,theme}) => {
   return (
     <TopDiv>
-      <MyIconButton onClick={()=>{toggleDrawer(false)}}><CloseIcon /></MyIconButton>
+      <MyIconButton theme={theme} onClick={()=>{toggleDrawer(false)}}><CloseIcon sx={{color: theme === 'dark'?'#fff':'#000',}} /></MyIconButton>
     </TopDiv>
   )
 }
@@ -45,9 +45,9 @@ const LeftBar = () => {
   console.log('theme=====',theme);
 
   return (
-    <LeftBarCom cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
+    <LeftBarCom cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} theme={theme} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
       {!isMobile && <Logo theme={theme} isMobile={isMobile}/>}
-      {isMobile && <TopClose toggleDrawer={toggleDrawer} />}
+      {isMobile && <TopClose theme={theme} toggleDrawer={toggleDrawer} />}
       {routes.map((item)=>{
         if(item?.name && item?.icon){
           return (
