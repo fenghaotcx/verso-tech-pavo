@@ -217,7 +217,7 @@ export default function CollateralTable({theme}) {
       <MyPaper sx={{ width: '100%', mb: 2,background:theme==='dark'?'#262A4F':'#fff' }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 750,}}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
