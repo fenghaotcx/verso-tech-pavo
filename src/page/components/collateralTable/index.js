@@ -15,6 +15,7 @@ import ProgressBar from '../ProgressBar';
 import useMobileDown from '../../../hooks/useMobileDown';
 import Doubt from '../Doubt';
 import IconNameLink from '../IconNameLink';
+import style from 'styled-components';
 
 const MyPaper = styled(Paper)({
   boxShadow: 'none',
@@ -22,26 +23,23 @@ const MyPaper = styled(Paper)({
   marginBottom: 0,
 })
 
-const MyTableCell = styled(TableCell)({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  '&>.table_left': {
-    marginLeft: '15px',
-    display: 'flex',
-    alignItems: 'center',
-    '&>.table_text': {
-      color: '#7B84A3',
-      fontSize: '11px',
-      display: 'flex',
-      alignItems: 'center',
+const TableCellDiv = style.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  &>.table_left {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    &>.table_text {
+      color: #7B84A3;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
     }
-  },
-  
-})
-
-
+  };
+`
 
 function createData(name, calories, fat, carbs) {
   return {
@@ -163,13 +161,13 @@ function EnhancedTableHead(props) {
 
 
 
-export default function CollateralTable() {
+export default function CollateralTable({theme}) {
   const isMobile = useMobileDown()
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+  const [dense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -216,7 +214,7 @@ export default function CollateralTable() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <MyPaper sx={{ width: '100%', mb: 2 }}>
+      <MyPaper sx={{ width: '100%', mb: 2,background:theme==='dark'?'#262A4F':'#fff' }}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -259,14 +257,16 @@ export default function CollateralTable() {
                       </TableCell>
                       <TableCell align="center">{row.calories}</TableCell>
                       <TableCell align="center">{row.fat}</TableCell>
-                      <MyTableCell align="right" >
-                        <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
-                        <div className="table_left">
-                          <Doubt type={1} content={"When you invest here"}/>
-                          <div className="table_text">60% Max</div> 
-                        </div>
-                        
-                      </MyTableCell>
+                      <TableCell align="right">
+                        <TableCellDiv>
+                          <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
+                          <div className="table_left">
+                            <Doubt type={1} content={"When you invest here"}/>
+                            <div className="table_text">60% Max</div> 
+                          </div>
+                        </TableCellDiv>
+                      </TableCell>
+                      
                       {/* <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );

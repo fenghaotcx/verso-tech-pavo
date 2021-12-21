@@ -66,7 +66,7 @@ const Dashboard = () => {
         </TopDiv>
         <Content theme={theme} isMobile={isMobile}/>
         <TableBox isNoTable={true} name={'Collateral'}>
-          {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable />}
+          {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable theme={theme}/>}
         </TableBox>
         <TableBox marginType={true} name={'Wallet Balances'}>
           <BalancesTable windowWidth={windowWidth} isMobile={isMobile}/>
