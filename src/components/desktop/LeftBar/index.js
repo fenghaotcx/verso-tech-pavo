@@ -89,7 +89,7 @@ const LeftBar = () => {
           return null
         }
       })}
-      <div className={isMobile && Styles.close}>
+      <div className={isMobile ? Styles.close:''}>
         <SwitchTheme theme={theme} changeTheme={changeTheme} />
       </div>
       {!isMobile && linkArr.map((item,index)=>{
