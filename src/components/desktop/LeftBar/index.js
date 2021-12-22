@@ -10,6 +10,7 @@ import SwitchTheme from './SwitchTheme';
 import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
+import ShareLink from './ShareLink'
 
 const MyIconButton = styled(IconButton)`
   width: 26px;
@@ -38,6 +39,13 @@ const TopClose = ({toggleDrawer,theme}) => {
   )
 }
 
+const linkArr = [
+  {
+    name: 'Discord',
+    link: ''
+  }
+]
+
 
 const LeftBar = () => {
   const { isMobile,toggleDrawer,isopen,changeTheme,theme } = useContext(GlobalContext)
@@ -65,9 +73,14 @@ const LeftBar = () => {
           return null
         }
       })}
-      <div className={isMobile?Styles.close:''}>
+      <div className={isMobile && Styles.close}>
         <SwitchTheme theme={theme} changeTheme={changeTheme} />
       </div>
+      {linkArr.map((item,index)=>{
+        return <ShareLink name={item.name} key={index} link={item.link} isMobile={isMobile}/>
+        })
+      }
+      
     </LeftBarCom>  
   )
 };
