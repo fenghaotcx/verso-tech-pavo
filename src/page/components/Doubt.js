@@ -52,6 +52,9 @@ const TooltipList = style.div`
         color: ${({theme}) => theme.colors.toolListFontLeftTop};
         font-weight: 700;
     }
+    &>.leftLastTop {
+        color: ${({theme}) => theme.colors.toolTotal};
+    }
     &:last-child {
         margin-bottom: 0px;
     }
@@ -101,7 +104,7 @@ const Doubt = ({content,type}) => {
                 </TooltipList>
                 <Baseline />
                 <TooltipList>
-                    <div>Total APY</div>
+                    <div className='leftLastTop'>Total APY</div>
                     <div className="leftTop">190%</div>
                 </TooltipList>
               </TooltipContent>:<TooltipContent>{content}</TooltipContent>
