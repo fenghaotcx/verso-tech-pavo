@@ -43,7 +43,23 @@ const linkArr = [
   {
     name: 'Discord',
     link: ''
-  }
+  },
+  {
+    name: 'Twitter',
+    link: ''
+  },
+  {
+    name: 'Telegram',
+    link: ''
+  },
+  {
+    name: 'Document',
+    link: ''
+  },
+  {
+    name: 'Github',
+    link: ''
+  },
 ]
 
 
@@ -76,7 +92,7 @@ const LeftBar = () => {
       <div className={isMobile && Styles.close}>
         <SwitchTheme theme={theme} changeTheme={changeTheme} />
       </div>
-      {linkArr.map((item,index)=>{
+      {!isMobile && linkArr.map((item,index)=>{
         return <ShareLink name={item.name} key={index} link={item.link} isMobile={isMobile}/>
         })
       }
