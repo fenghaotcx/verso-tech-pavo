@@ -27,6 +27,9 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
+    '&.MuiPaper-root': {
+      background: ({theme}) => theme === 'dark'?'#262A4F':'#fff',
+    },
     '& .MuiTableCell-root': {
       fontFamily: 'Poppins',
       borderBottom: ({theme,isMobile}) => isMobile?'none':theme === 'dark'?'1px solid #404572':'1px solid #ede9fe',
@@ -448,11 +451,11 @@ export default function FarmingTable(props) {
 
   return (
     <>
-      <MyTableContainer component={Paper}>
+      <MyTableContainer className={classes.root} theme={theme} component={Paper}>
         <Table 
           sx={{ minWidth: isMobile?windowWidth-20:750,fontSize:isMobile?'13px':'16px',background:theme==='dark'?'#262A4F':'#fff'}}
           aria-label="collapsible table"
-          className={classes.root}
+          // className={classes.root}
           size={dense ? 'small' : 'medium'}
         >
           <EnhancedTableHead
