@@ -47,7 +47,7 @@ const DonutChart = ({children,isMobile,theme}) => {
                   style: {
                     text: '$260k',
                     textAlign: 'center',
-                    fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
+                    // fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
                     width: 30,
                     height: 30,
                     fontWeight: 500,
@@ -63,7 +63,7 @@ const DonutChart = ({children,isMobile,theme}) => {
                   style: {
                     text: 'Total',
                     textAlign: 'center',
-                    fill:  theme === 'dark'?'color: #A3AED0;':'color: #7B84A3;',
+                    // fill:  theme === 'dark'?'color: #A3AED0;':'color: #7B84A3;',
                     width: 30,
                     height: 30,
                     fontSize: 14,
@@ -109,7 +109,7 @@ const DonutChart = ({children,isMobile,theme}) => {
         };
 
         option && myChart.setOption(option);
-    },[theme])
+    },[])
 
     return (
         <DonutDiv id="donutChart"></DonutDiv>
