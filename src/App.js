@@ -60,7 +60,7 @@ function App() {
     <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
       <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
         <Container>
-          {params.pathname !== '/' && <LeftBar />}
+          <LeftBar />
           <ContentRight theme={theme} isMobile={isMobile} />
         </Container>
       </GlobalContext.Provider>
