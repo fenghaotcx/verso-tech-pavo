@@ -8,8 +8,6 @@ import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
-import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 
 
@@ -30,7 +28,7 @@ function SimpleDialog(props) {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set backup account</DialogTitle>
+      <DialogTitle sx={{textAlign: 'center' }}>Connect Wallet</DialogTitle>
       <List sx={{ pt: 0 }}>
 
         <input defaultValue={address} onChange={handleAddress} placeholder="Enter a Terra address" />
@@ -45,15 +43,6 @@ function SimpleDialog(props) {
             <ListItemText primary={email} />
           </ListItem>
         ))}
-
-        <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Add account" />
-        </ListItem>
       </List>
     </Dialog>
   );
@@ -63,8 +52,6 @@ function SimpleDialog(props) {
 export default function LoginDialog() {
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(emails[1]);
-
-
   const [address, setAddress] = useState('')
 
   const validWalletAddress = useMemo(() => AccAddress.validate(address), [address]);
@@ -76,7 +63,6 @@ export default function LoginDialog() {
       } else return '* Terra Address is Invalid';
     }
   };
-
 
   const handleAddress = (e) => {
     e.preventDefault();
@@ -95,12 +81,8 @@ export default function LoginDialog() {
 
   return (
     <div>
-      <Typography variant="subtitle1" component="div">
-        Selected: {selectedValue}
-      </Typography>
-      <br />
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open simple dialog
+        Connect Wallet
       </Button>
       <SimpleDialog
         selectedValue={selectedValue}
