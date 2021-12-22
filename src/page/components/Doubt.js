@@ -3,7 +3,6 @@ import { styled } from '@mui/system';
 import doubtImg from '../../public/icon/doubt.svg'
 import doubtGrayImg from '../../public/icon/doubtGray.svg'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-// import Typography from '@mui/material/Typography';
 import style from 'styled-components';
 
 
@@ -19,16 +18,9 @@ const MyIconButton = styled(IconButton)`
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} placement="left-start" classes={{ popper: className }} />
-  ))(({ theme }) => ({
+  ))(() => ({
     [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: '#fff',
-      width: 300,
-      fontSize: 15,
-      border: '1px solid #EEF1FF',
-      boxShadow: '0px 3px 14px rgba(112, 144, 176, 0.08)',
-      borderRadius: '20px',
-      padding: '18px 22px',
-      color: '#000'
+        backgroundColor: 'rgba(0,0,0,0)',
     },
 }));
 
@@ -39,7 +31,7 @@ const TooltipTop = style.div`
     align-items: center;
     font-size: 15px;
     padding-left: 18px;
-    background: linear-gradient(269deg, rgba(124, 141, 236, 0.15) 27.25%, rgba(186, 255, 238, 0.15) 93.09%);
+    background: ${({theme}) => theme.colors.tooltipTopBg};
     border-radius: 14px;
     color: #153055;
     margin-bottom: 32px;
@@ -50,14 +42,14 @@ const TooltipList = style.div`
     display: flex;
     align-items: center;
     line-height: 150%;
-    color: #7B84A3;
+    color: ${({theme}) => theme.colors.toolListFont};
     justify-content: space-between;
     margin-bottom: 24px;
     &>.left {
-        color: #153055;
+        color: ${({theme}) => theme.colors.toolListFontLeft};
     }
     &>.leftTop {
-        color: #304FFD;
+        color: ${({theme}) => theme.colors.toolListFontLeftTop};
         font-weight: 700;
     }
     &:last-child {
@@ -72,6 +64,16 @@ const Baseline = style.div`
     opacity: 0.7;
     margin-bottom: 24px;
 `
+const TooltipContent = style.div`
+    background-color: ${({theme}) => theme.colors.tooltipBg};
+    width: 300px;
+    font-size: 15;
+    border: ${({theme}) => theme.colors.tooltipBorder};
+    box-shadow: 0px 3px 14px rgba(112, 144, 176, 0.08);
+    border-radius: 20px;
+    padding: 18px 22px;
+    color: ${({theme}) => theme.colors.tooltipFont};
+`
 
 const Doubt = ({content,type}) => {
     //type === 1  => Gray picture background
@@ -84,7 +86,7 @@ const Doubt = ({content,type}) => {
         <HtmlTooltip
             title={
                 !content?
-              <>
+              <TooltipContent>
                 {/* <Typography color="inherit">Tooltip with HTML</Typography>
                 <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
                 {"It's very engaging. Right?"} */}
@@ -102,7 +104,7 @@ const Doubt = ({content,type}) => {
                     <div>Total APY</div>
                     <div className="leftTop">190%</div>
                 </TooltipList>
-              </>:<div>{content}</div>
+              </TooltipContent>:<TooltipContent>{content}</TooltipContent>
             }
         >
           <MyIconButton
