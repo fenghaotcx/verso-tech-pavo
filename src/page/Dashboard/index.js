@@ -10,9 +10,7 @@ import BorrowingTable from '../components/BorrowingTable';
 import CollateralMoblie from '../components/CollateralTable/moblie/CollateralMoblie'
 import {useContext} from 'react';
 import { GlobalContext } from '../../App';
-
 // import styled from 'styled-components'
-
 
 // const Sa = styled.div`
 //   background: #FFFFFF;

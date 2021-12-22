@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import {useContext} from 'react';
 import { GlobalContext } from '../../App';
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import Logo from '../../components/Logo'
+import Logo from '../../components/Logo';
+import LoginDialog from '../../components/LoginDialog'
 
 const Tit = styled.div`
   font-family: 'Poppins-Bold';
@@ -30,9 +31,10 @@ const Title = ({children}) => {
     <>
       <Tit isMobile={isMobile}> 
         {isMobile?<Logo theme={theme} isMobile={isMobile}/>:children}
-        {isMobile?<DehazeIcon onClick={()=>{toggleDrawer(true)}} />:<></>}
+        {!isMobile && <LoginDialog />}
+        {isMobile && <DehazeIcon onClick={()=>{toggleDrawer(true)}} />}
       </Tit>
-      {isMobile?<MobTit>{children}</MobTit>:<></>}
+      {isMobile && <MobTit>{children}</MobTit>}
     </>
   )
 }
