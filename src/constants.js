@@ -52,6 +52,4 @@ export const WALLET_ADDRESS_TYPE = 'wallet';
 //   Mobile,
 // }
 
-export const TEFI_PREVIEW_IMAGE = 'https://storage.googleapis.com/tefi-app/tefi-preview.png';
-
 export const CLUB_DEPOSIT_ADDRESS = 'terra1lpccq0w9e36nlzhx3m6t8pphx8ncavslyul29g';

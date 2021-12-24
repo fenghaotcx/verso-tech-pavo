@@ -31,7 +31,8 @@ const Title = ({children}) => {
     <>
       <Tit isMobile={isMobile}> 
         {isMobile?<Logo theme={theme} isMobile={isMobile}/>:children}
-        {!isMobile && <LoginDialog />}
+        {/* {!isMobile && <LoginDialog isMobile={isMobile}/>} */}
+        <LoginDialog isMobile={isMobile}/>
         {isMobile && <DehazeIcon onClick={()=>{toggleDrawer(true)}} />}
       </Tit>
       {isMobile && <MobTit>{children}</MobTit>}

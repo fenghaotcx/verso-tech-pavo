@@ -1,60 +1,64 @@
 import {useState,useMemo} from 'react';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import PersonIcon from '@mui/icons-material/Person';
-import { blue } from '@mui/material/colors';
-
-
 import { AccAddress } from '@terra-money/terra.js';
+import styled from 'styled-components';
+import { ADDRESS_KEY } from '../constants';
+import { useNavigate } from 'react-router-dom';
+import useWallet from '../lib/useWallet';
+import ConnectModal from './ConnectModal';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+
+const DialogDiv = styled.div`
+  margin: 20px 40px;
+  width: 400px;
+  &>input {
+    width: 80%;
+    // border-radius: 9px;
+    // border: none;
+    outline: none;
+    margin: 0 auto;
+    padding: 0;
+  }
+`
+
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open,address,handleAddress,getWarningText } = props;
+  const { onClose, selectedValue, open,address,handleAddress,
+    getWarningText,validWalletAddress,navigate} = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
-
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const onAddressSubmit = () => {
+    localStorage.setItem(ADDRESS_KEY, address);
+    navigate('/autoFarm',{replace: true});
   };
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle sx={{textAlign: 'center' }}>Connect Wallet</DialogTitle>
-      <List sx={{ pt: 0 }}>
-
+      <DialogDiv>
         <input defaultValue={address} onChange={handleAddress} placeholder="Enter a Terra address" />
         <div>{getWarningText()}</div>
-        {emails.map((email) => (
-          <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={email} />
-          </ListItem>
-        ))}
-      </List>
+        <Button disabled={!validWalletAddress} onClick={onAddressSubmit} variant="contained">Submit</Button>
+        
+      </DialogDiv>
     </Dialog>
   );
 }
 
 
-export default function LoginDialog() {
+export default function LoginDialog({isMobile}) {
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(emails[1]);
   const [address, setAddress] = useState('')
+  const [showModal, setModalVisible] = useState(false);
 
   const validWalletAddress = useMemo(() => AccAddress.validate(address), [address]);
+  let navigate = useNavigate();
+  const { onConnect, useConnectedWallet } = useWallet();
+  const connectedWallet = useConnectedWallet();
 
   const getWarningText = () => {
     if (address) {
@@ -76,22 +80,36 @@ export default function LoginDialog() {
 
   const handleClose = (value) => {
     setOpen(false);
-    setSelectedValue(value);
+  };
+
+  const onTypeSelect = (type) => {
+    onConnect(type);
+    setModalVisible(false);
   };
 
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Connect Wallet
+        Connect 
+        {/* Wallet */}
       </Button>
+      <Button  
+         onClick={isMobile ? () => onTypeSelect('Mobile') : () => setModalVisible(!showModal)} variant="contained">
+            {connectedWallet?.terraAddress?'Connected':'Connect Wallet'}
+        </Button>
       <SimpleDialog
-        selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
         address={address}
         getWarningText={getWarningText}
         handleAddress={handleAddress}
+        validWalletAddress={validWalletAddress}
+        navigate={navigate}
+        isMobile={isMobile}
+        setModalVisible={setModalVisible}
+        showModal={showModal}
       />
+      <ConnectModal showModal={showModal} setModalVisible={setModalVisible} />
     </div>
   );
 }
