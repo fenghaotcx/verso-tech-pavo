@@ -85,8 +85,8 @@ const Dashboard = () => {
     console.log('walletAddress====',walletAddress);
   }, [address, setAddress,connectedWallet]);
 
-  const { query, loading, error, refetch, refreshing } = useAssetsDataContext();
-  console.log('query==',query);
+  const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
+  console.log('assets==',assets);
   console.log('loading==',loading);
   console.log('error==',error);
   console.log('refetch==',refetch);
