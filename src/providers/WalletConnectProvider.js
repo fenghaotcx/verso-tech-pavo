@@ -19,7 +19,7 @@ const WalletConnectProvider = ({ children }) => {
   
   return (
     <DynamicWalletProvider
-      defaultNetwork={networks.mainnet}
+      defaultNetwork={networks.testnet}
       walletConnectChainIds={walletConnectChainIds}
       connectorOpts={{ bridge: 'https://walletconnect.terra.dev/' }}
     >

@@ -80,7 +80,7 @@ const TooltipContent = style.div`
 
 const Doubt = ({content,type}) => {
     //type === 1  => Gray picture background
-    console.log('content===',content);
+    // console.log('content===',content);
     const showClick = () => {
         console.log(222222);
     }

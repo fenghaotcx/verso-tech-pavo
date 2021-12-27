@@ -37,9 +37,9 @@ function App() {
   const [isopen,setShow] = useState(false)
   const {windowWidth} = useWindowSize()
   const params = useLocation();
-  console.log('apolloClient========',apolloClient);
+  // console.log('apolloClient========',apolloClient);
   console.log('params====',params);
-  console.log('AssetsDataProvider=======',AssetsDataProvider);
+  // console.log('AssetsDataProvider=======',AssetsDataProvider);
   useEffect(() => {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {

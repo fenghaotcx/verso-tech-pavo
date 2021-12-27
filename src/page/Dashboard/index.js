@@ -8,8 +8,13 @@ import FarmingTable from '../components/FarmingTable';
 import BalancesTable from '../components/BalancesTable';
 import BorrowingTable from '../components/BorrowingTable';
 import CollateralMoblie from '../components/CollateralTable/moblie/CollateralMoblie'
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { GlobalContext } from '../../App';
+import { ADDRESS_KEY, LOCAL_ADDRESS_TYPE, WALLET_ADDRESS_TYPE } from '../../constants';
+import useWallet from '../../lib/useWallet';
+import { useAssetsDataContext } from '../../contexts';
+
+
 // import styled from 'styled-components'
 
 // const Sa = styled.div`
@@ -54,6 +59,41 @@ const arr = [
 
 const Dashboard = () => {
   const { isMobile,windowWidth,theme } = useContext(GlobalContext)
+
+
+
+  const [address, setAddress] = useState('');
+  const [addressType, setAddressType] = useState(WALLET_ADDRESS_TYPE);
+
+  const { useConnectedWallet } = useWallet();
+  const connectedWallet = useConnectedWallet();
+
+  useEffect(() => {
+    const localAddress = localStorage.getItem(ADDRESS_KEY);
+    console.log('connectedWallet==========',connectedWallet);
+    const walletAddress = connectedWallet?.terraAddress;
+    if (walletAddress) {
+      setAddress(walletAddress);
+      setAddressType(WALLET_ADDRESS_TYPE);
+    } else {
+      if (localAddress) {
+        setAddress(localAddress);
+        setAddressType(LOCAL_ADDRESS_TYPE);
+      }
+    }
+    console.log('localAddress====',localAddress);
+    console.log('walletAddress====',walletAddress);
+  }, [address, setAddress,connectedWallet]);
+
+  const { query, loading, error, refetch, refreshing } = useAssetsDataContext();
+  console.log('query==',query);
+  console.log('loading==',loading);
+  console.log('error==',error);
+  console.log('refetch==',refetch);
+  console.log('refreshing==',refreshing);
+
+
+
   return (
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
