@@ -22,8 +22,8 @@ const authLink = setContext((_,{ headers }) => {
 function createApolloClient() {
   return new ApolloClient({
     // ssrMode: typeof window === 'undefined',
-    // link: authLink.concat(httpLink),
-    uri: 'https://48p1r2roz4.sse.codesandbox.io',
+    link: authLink.concat(httpLink),
+    // uri: 'https://48p1r2roz4.sse.codesandbox.io',
     cache: new InMemoryCache(),
   });
 }
