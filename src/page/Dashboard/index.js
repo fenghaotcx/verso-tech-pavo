@@ -59,7 +59,7 @@ const arr = [
 const Dashboard = () => {
   const { isMobile,windowWidth,theme } = useContext(GlobalContext)
   const [address, setAddress] = useState('');
-  const [addressType, setAddressType] = useState(WALLET_ADDRESS_TYPE);
+  const [, setAddressType] = useState(WALLET_ADDRESS_TYPE);
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
   
@@ -92,13 +92,18 @@ const Dashboard = () => {
     const marketParams = await terra.market.parameters();
     const exchangeRates = await terra.oracle.exchangeRates();
     const bank = await terra.bank.total()
+    console.log('marketParams========',marketParams);
+    console.log('exchangeRates========',exchangeRates);
+    console.log('bank========',bank);
+    console.log('wallet========',wallet);
   }
   main()
   const offerCoin = new Coin('uusd', '1000000');
   terra.market.swapRate(offerCoin, 'ukrw').then(c => {
     console.log(`1111111111111======================${offerCoin.toString()} can be swapped for ${c.toString()}`);
   });
-  const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
+  // const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
+  const { assets, loading } = useAssetsDataContext();
 
 
   const allData= [
