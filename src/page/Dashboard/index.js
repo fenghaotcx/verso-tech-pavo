@@ -13,22 +13,22 @@ import { GlobalContext } from '../../App';
 import { ADDRESS_KEY, LOCAL_ADDRESS_TYPE, WALLET_ADDRESS_TYPE } from '../../constants';
 import useWallet from '../../lib/useWallet';
 import { useAssetsDataContext } from '../../contexts';
+import CircularProgress from '@mui/material/CircularProgress';
+import styled from 'styled-components';
+import { convertToFloatValue } from '../../utils/convertFloat';
+import { LCDClient,MnemonicKey,Coin, } from '@terra-money/terra.js';
+import { useUusdBalance } from "../native/balance"
 
 
-// import styled from 'styled-components'
+const LoadDiv = styled.div`
+  width: 100%;
+  height:  calc(100vh - 178px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+`
 
-// const Sa = styled.div`
-//   background: #FFFFFF;
-//   width: calc((100% - 18px * 2) / 3);
-//   height: 173px;
-//   border-radius: 16px;
-//   box-sizing: border-box;
-//   padding: 17px 20px;
-//   @media (max-width: 1025px) {
-//     padding: 5px 7px;
-//   }
-
-// `
 const arr = [
   {
     name: 'Total Net Worth',
@@ -56,21 +56,15 @@ const arr = [
   }
 ]
 
-
 const Dashboard = () => {
   const { isMobile,windowWidth,theme } = useContext(GlobalContext)
-
-
-
   const [address, setAddress] = useState('');
   const [addressType, setAddressType] = useState(WALLET_ADDRESS_TYPE);
-
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
-
+  
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
-    console.log('connectedWallet==========',connectedWallet);
     const walletAddress = connectedWallet?.terraAddress;
     if (walletAddress) {
       setAddress(walletAddress);
@@ -80,21 +74,83 @@ const Dashboard = () => {
         setAddress(localAddress);
         setAddressType(LOCAL_ADDRESS_TYPE);
       }
-    }
+    }    
     console.log('localAddress====',localAddress);
     console.log('walletAddress====',walletAddress);
-  }, [address, setAddress,connectedWallet]);
+    
+  }, [address, setAddress,connectedWallet,]);
 
+
+  const terra = new LCDClient({
+      URL: 'https://lcd.terra.dev',
+      chainID: 'columbus-5'
+  });
+
+  const mk = new MnemonicKey();
+  const wallet = terra.wallet(mk);
+  const  main = async() => {
+    const marketParams = await terra.market.parameters();
+    const exchangeRates = await terra.oracle.exchangeRates();
+    const bank = await terra.bank.total()
+  }
+  main()
+  const offerCoin = new Coin('uusd', '1000000');
+  terra.market.swapRate(offerCoin, 'ukrw').then(c => {
+    console.log(`1111111111111======================${offerCoin.toString()} can be swapped for ${c.toString()}`);
+  });
   const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
-  console.log('assets==',assets);
-  console.log('loading==',loading);
-  console.log('error==',error);
-  console.log('refetch==',refetch);
-  console.log('refreshing==',refreshing);
 
 
+  const allData= [
+    assets?.assets,
+    assets?.pylon,
+    assets?.anchorEarn,
+    assets?.anchorBond,
+    assets?.anchorBorrow,
+    assets?.rewards,
+    assets?.pools,
+    assets?.mirrorBorrow,
+    assets?.mirrorShortFarm,
+    assets?.specFarm,
+    assets?.specReward,
+    assets?.starterraFarms,
+    assets?.loterra,
+    assets?.lunaStaking,
+    assets?.airdrops,
+    assets?.apollo,
+    assets?.nexus,
+  ]
+  let totalBorrowing = 0;
+  let totalAssets = 0;
+  let totalRewards = 0;
+  allData.forEach((data) => {
+    totalBorrowing += data?.totalBorrow ? data.totalBorrow : 0;
+    totalAssets += data?.totalValue ? data.totalValue : 0;
+    totalAssets += data?.totalGov ? data.totalGov : 0;
+    totalRewards += data?.totalReward ? data.totalReward : 0;
+  });
+
+  const getTotalMarketValue = () => {
+    const total = totalAssets + totalRewards - totalBorrowing;
+
+    return total;
+  };
+
+  const totalMarketValue = getTotalMarketValue().toFixed(3);
+  arr[0].totol = convertToFloatValue(totalMarketValue.toString())
+  arr[1].totol = convertToFloatValue(totalAssets.toString())
+  arr[2].totol = convertToFloatValue(totalBorrowing.toString())
+
+
+  const uusd = useUusdBalance()
+
+  console.log('uusd==============uusd==============uusd================uusd===========uusd',uusd);
 
   return (
+      loading?
+      <LoadDiv>
+        <CircularProgress color="primary" />
+      </LoadDiv>:
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
         <TopDiv isMobile={isMobile}>

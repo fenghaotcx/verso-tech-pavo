@@ -66,8 +66,6 @@ const linkArr = [
 const LeftBar = () => {
   const { isMobile,toggleDrawer,isopen,changeTheme,theme } = useContext(GlobalContext)
 
-  console.log('theme=====',theme);
-
   return (
     <LeftBarCom cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} theme={theme} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
       {!isMobile && <Logo theme={theme} isMobile={isMobile}/>}

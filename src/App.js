@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import React, { useState, useEffect, createContext } from 'react';
 import LeftBar from './components/desktop/LeftBar';
 import { ApolloProvider } from '@apollo/client';
@@ -11,13 +10,8 @@ import useWindowSize from './hooks/useWindowSize';
 import { useLocation  } from "react-router-dom";
 import { useApollo } from './lib/apolloClient';
 import { WalletConnectProvider,AssetsDataProvider } from './providers';
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  color: ${({theme})=> theme.colors.font};
-`
+import { RecoilRoot } from "recoil";
+import Container from "./page/Container";
 
 // function reducer(state, action) {
 //   switch (action.type) {
@@ -37,16 +31,12 @@ function App() {
   const [isopen,setShow] = useState(false)
   const {windowWidth} = useWindowSize()
   const params = useLocation();
-  // console.log('apolloClient========',apolloClient);
   console.log('params====',params);
-  // console.log('AssetsDataProvider=======',AssetsDataProvider);
   useEffect(() => {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
       setTheme(currentTheme);
     }
-    // console.log('darkTheme=======',darkTheme);
-    // console.log('lightTheme=======',lightTheme);
   }, [isMobile]);
 
   const toggleDrawer = open => {
@@ -64,20 +54,22 @@ function App() {
   };
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
-        <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
-          <WalletConnectProvider>
-            <AssetsDataProvider>
-              <Container>
-                <LeftBar />
-                <ContentRight theme={theme} isMobile={isMobile} />
-              </Container>
-            </AssetsDataProvider>
-          </WalletConnectProvider>
-        </GlobalContext.Provider>
-      </ThemeProvider>
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
+          <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
+            <WalletConnectProvider>
+              <AssetsDataProvider>
+                <Container>
+                  <LeftBar />
+                  <ContentRight theme={theme} isMobile={isMobile} />
+                </Container>
+              </AssetsDataProvider>
+            </WalletConnectProvider>
+          </GlobalContext.Provider>
+        </ThemeProvider>
+      </ApolloProvider>
+    </RecoilRoot>
   );
 }
 
