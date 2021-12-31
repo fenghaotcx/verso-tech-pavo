@@ -16,7 +16,7 @@ export const bankBalanceQuery = selector({
   get: async ({ get }) => {
     get(bankBalanceIndexState)
     const address = get(addressState) || localStorage.getItem(ADDRESS_KEY)
-    console.log('addressState=========addressState',addressState,'===========',address,'=================',get(addressState));
+    // console.log('addressState=========addressState',addressState,'===========',address,'=================',get(addressState));
     if (address) {
       const getNativeQuery = get(getNativeQueryQuery)
       return await getNativeQuery(

@@ -20,9 +20,9 @@ import { ADDRESS_KEY } from '../constants';
 import { useConnectedWallet } from "@terra-money/wallet-provider"
 
 const useAddress = () => {
-  console.log('====================================');
-  console.log(localStorage.getItem(ADDRESS_KEY));
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(localStorage.getItem(ADDRESS_KEY));
+  // console.log('====================================');
   const connectedWallet = useConnectedWallet()
   // return connectedWallet?.terraAddress || ""
   return localStorage.getItem(ADDRESS_KEY) || connectedWallet?.terraAddress 

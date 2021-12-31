@@ -22,6 +22,5 @@ export const useMyHolding = () => {
     .filter(({ balance }) => gt(balance, 0))
 
   const totalValue = sum(dataSource.map(({ value }) => value))
-  console.log('totalValue==============totalValue==============totalValue',totalValue);
   return { dataSource, totalValue, isLoading }
 }

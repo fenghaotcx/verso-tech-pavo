@@ -62,7 +62,8 @@ const Dashboard = () => {
   const [, setAddressType] = useState(WALLET_ADDRESS_TYPE);
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
-  const { list } = useMyTotal()
+  // const { list,total } = useMyTotal()
+  const MyTotal = useMyTotal()
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
     const walletAddress = connectedWallet?.terraAddress;
@@ -75,8 +76,8 @@ const Dashboard = () => {
         setAddressType(LOCAL_ADDRESS_TYPE);
       }
     }    
-    console.log('localAddress====',localAddress);
-    console.log('walletAddress====',walletAddress);
+    // console.log('localAddress====',localAddress);
+    // console.log('walletAddress====',walletAddress);
     
   }, [address, setAddress,connectedWallet,]);
 
@@ -92,15 +93,15 @@ const Dashboard = () => {
     const marketParams = await terra.market.parameters();
     const exchangeRates = await terra.oracle.exchangeRates();
     const bank = await terra.bank.total()
-    console.log('marketParams========',marketParams);
-    console.log('exchangeRates========',exchangeRates);
-    console.log('bank========',bank);
-    console.log('wallet========',wallet);
+    // console.log('marketParams========',marketParams);
+    // console.log('exchangeRates========',exchangeRates);
+    // console.log('bank========',bank);
+    // console.log('wallet========',wallet);
   }
   main()
   const offerCoin = new Coin('uusd', '1000000');
   terra.market.swapRate(offerCoin, 'ukrw').then(c => {
-    console.log(`1111111111111======================${offerCoin.toString()} can be swapped for ${c.toString()}`);
+    // console.log(`1111111111111======================${offerCoin.toString()} can be swapped for ${c.toString()}`);
   });
   // const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
   const { assets, loading } = useAssetsDataContext();
@@ -149,7 +150,13 @@ const Dashboard = () => {
   
 
   // console.log('total==============total==============total================total===========total',total);
-  console.log('list==============list==============list================list===========list',list);
+  // console.log('list==============list==============list================list===========list',list);
+  console.log('MyTotal==============MyTotal==============MyTotal================MyTotal===========MyTotal',MyTotal);
+  console.log('assets==============assets==============assets================assets===========assets',assets);
+
+  
+
+  
 
   return (
       loading?
