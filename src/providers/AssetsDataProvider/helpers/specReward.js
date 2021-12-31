@@ -3,7 +3,7 @@ import { times } from '../../../utils/math';
 
 export const getSpecRewardData = (spectrum) => {
   const getRewardsTotal = () => {
-    return spectrum?.spectrumTotal?.rewardsTotal ?? '0';
+    return spectrum?.spectrumTotal?.rewardsTotal || '0';
   };
 
   const formatApr = (apr = '0') => {

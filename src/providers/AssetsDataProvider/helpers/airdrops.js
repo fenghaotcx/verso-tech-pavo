@@ -2,9 +2,9 @@ import { convertToFloatValue } from '../../../utils/convertFloat';
 
 export const getAirdropsData = (anchor, mirror, pylon) => {
   const getAirdropTotal = () => {
-    const mirrorTotal = parseFloat(mirror?.total?.mirrorAirdropSum ?? '0');
-    const anchorTotal = parseFloat(anchor?.total?.airdropSum ?? '0');
-    const pylonTotal = parseFloat(pylon?.pylonSum?.pylonAirdropSum ?? '0');
+    const mirrorTotal = parseFloat(mirror?.total?.mirrorAirdropSum || '0');
+    const anchorTotal = parseFloat(anchor?.total?.airdropSum || '0');
+    const pylonTotal = parseFloat(pylon?.pylonSum?.pylonAirdropSum || '0');
     const total = (mirrorTotal + anchorTotal + pylonTotal).toFixed(3);
     return total;
   };

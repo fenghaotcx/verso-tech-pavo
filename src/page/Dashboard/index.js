@@ -17,7 +17,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 import { convertToFloatValue } from '../../utils/convertFloat';
 import { LCDClient,MnemonicKey,Coin, } from '@terra-money/terra.js';
-import { useUusdBalance } from "../native/balance"
+import  {useMyTotal}  from '../../data/my/total';
 
 
 const LoadDiv = styled.div`
@@ -62,7 +62,7 @@ const Dashboard = () => {
   const [, setAddressType] = useState(WALLET_ADDRESS_TYPE);
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
-  
+  const { list } = useMyTotal()
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
     const walletAddress = connectedWallet?.terraAddress;
@@ -146,10 +146,10 @@ const Dashboard = () => {
   arr[1].totol = convertToFloatValue(totalAssets.toString())
   arr[2].totol = convertToFloatValue(totalBorrowing.toString())
 
+  
 
-  const uusd = useUusdBalance()
-
-  console.log('uusd==============uusd==============uusd================uusd===========uusd',uusd);
+  // console.log('total==============total==============total================total===========total',total);
+  console.log('list==============list==============list================list===========list',list);
 
   return (
       loading?

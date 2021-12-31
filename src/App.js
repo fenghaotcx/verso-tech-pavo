@@ -10,17 +10,7 @@ import useWindowSize from './hooks/useWindowSize';
 import { useLocation  } from "react-router-dom";
 import { useApollo } from './lib/apolloClient';
 import { WalletConnectProvider,AssetsDataProvider } from './providers';
-import { RecoilRoot } from "recoil";
 import Container from "./page/Container";
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'set_rate':
-//       return {...state, rate: action.payload}
-//     default:
-//       throw new Error();
-//   }
-// }
 
 export const GlobalContext = createContext({})
 
@@ -54,22 +44,20 @@ function App() {
   };
 
   return (
-    <RecoilRoot>
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
-          <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
-            <WalletConnectProvider>
-              <AssetsDataProvider>
-                <Container>
-                  <LeftBar />
-                  <ContentRight theme={theme} isMobile={isMobile} />
-                </Container>
-              </AssetsDataProvider>
-            </WalletConnectProvider>
-          </GlobalContext.Provider>
-        </ThemeProvider>
-      </ApolloProvider>
-    </RecoilRoot>
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider theme={theme === LIGHT_THEME ? lightTheme : darkTheme}>
+        <GlobalContext.Provider value={{isMobile,toggleDrawer,isopen,changeTheme,theme,windowWidth}}>
+          <WalletConnectProvider>
+            <AssetsDataProvider>
+              <Container>
+                <LeftBar />
+                <ContentRight theme={theme} isMobile={isMobile} />
+              </Container>
+            </AssetsDataProvider>
+          </WalletConnectProvider>
+        </GlobalContext.Provider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 

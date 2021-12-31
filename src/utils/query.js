@@ -12,7 +12,6 @@ export const getNativeQueryQuery = selector({
   get: ({ get }) => {
     get(locationKeyState)
     const url = get(mantleURLQuery)
-
     return async(
       params,
       name

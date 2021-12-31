@@ -19,10 +19,10 @@ export const getAssetData = (
     const pylonHoldingsSum = pylon?.pylonSum?.pylonHoldingsSum;
     const spectrumSum = spectrum?.spectrumTotal?.holdingsTotal;
     const anchorTotal = anchor?.total?.anchorHoldingsSum;
-    const terraworldSum = terraworld?.twdHoldings?.value ?? '0';
-    const tflokiSum = tfloki?.tflokiHoldings?.value ?? '0';
-    const nexusSum = nexus?.nexusHoldings?.value ?? '0';
-    const vkrSum = valkyrie?.vkrHoldings?.value ?? '0';
+    const terraworldSum = terraworld?.twdHoldings?.value || '0';
+    const tflokiSum = tfloki?.tflokiHoldings?.value || '0';
+    const nexusSum = nexus?.nexusHoldings?.value || '0';
+    const vkrSum = valkyrie?.vkrHoldings?.value || '0';
 
     const total =
       parseFloat(spectrumSum) +
@@ -33,7 +33,7 @@ export const getAssetData = (
       parseFloat(tflokiSum) +
       parseFloat(nexusSum) +
       parseFloat(vkrSum);
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
   const holdings = [
     ...spectrum?.specHoldings,

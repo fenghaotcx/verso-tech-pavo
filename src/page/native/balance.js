@@ -1,20 +1,10 @@
 import { atom, selector } from "recoil"
 import { useStoreLoadable } from "../../utils/loadable"
 import { getNativeQueryQuery } from "../../utils/query"
-// import { nativeBalancesQuery } from "../contract/normalize"
+import { nativeBalancesQuery } from "../../data/contract/normalize"
 import { addressState } from "../../wallet"
 import { BANK_BALANCES_ADDRESS } from "./gqldocs"
-const reduceByDenom = (coins) =>
-  coins.reduce(
-    (acc, { Amount, Denom }) => ({ ...acc, [Denom]: Amount }),
-    {}
-  )
-
-const nativeBalancesQuery = selector({
-  key: "nativeBalances",
-  get: ({ get }) =>
-    reduceByDenom(get(bankBalanceQuery)?.BankBalancesAddress?.Result ?? []),
-})
+import { ADDRESS_KEY } from '../../constants';
 
 export const bankBalanceIndexState = atom({
   key: "bankBalanceIndexState",
@@ -25,8 +15,8 @@ export const bankBalanceQuery = selector({
   key: "bankBalance",
   get: async ({ get }) => {
     get(bankBalanceIndexState)
-    const address = get(addressState)
-    console.log('addressState=========addressState',addressState,'===========',address);
+    const address = get(addressState) || localStorage.getItem(ADDRESS_KEY)
+    console.log('addressState=========addressState',addressState,'===========',address,'=================',get(addressState));
     if (address) {
       const getNativeQuery = get(getNativeQueryQuery)
       return await getNativeQuery(

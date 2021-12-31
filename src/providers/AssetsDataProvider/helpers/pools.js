@@ -20,12 +20,12 @@ export const getPoolData = (
 
   const getPoolTotal = () => {
     const pylonPoolTotal = pylon?.pylonSum?.pylonPoolSum;
-    const lotaPoolTotal = loterra?.lotaPool?.totalLpUstValue ?? '0';
-    const terraworldTotal = terraworld?.twdPool?.totalLpUstValue ?? '0';
-    const alteredTotal = altered?.altePool?.totalLpUstValue ?? '0';
-    const tflokiTotal = tfloki?.flokiPool?.totalLpUstValue ?? '0';
-    const nexusTotal = nexus?.total?.nexusPoolSum ?? '0';
-    const vkrTotal = valkyrie?.vkrPool?.totalLpUstValue ?? '0';
+    const lotaPoolTotal = loterra?.lotaPool?.totalLpUstValue || '0';
+    const terraworldTotal = terraworld?.twdPool?.totalLpUstValue || '0';
+    const alteredTotal = altered?.altePool?.totalLpUstValue || '0';
+    const tflokiTotal = tfloki?.flokiPool?.totalLpUstValue || '0';
+    const nexusTotal = nexus?.total?.nexusPoolSum || '0';
+    const vkrTotal = valkyrie?.vkrPool?.totalLpUstValue || '0';
 
     const total =
       parseFloat(terraworldTotal) +
@@ -39,7 +39,7 @@ export const getPoolData = (
       parseFloat(nexusTotal) +
       parseFloat(vkrTotal);
 
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
 
   const pool = [

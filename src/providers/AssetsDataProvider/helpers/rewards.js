@@ -31,19 +31,19 @@ export const getRewardData = (
     const ancTotal = totalReward;
     const mirrorTotal = mirror?.total?.mirrorPoolRewardsSum;
     const pylonPoolTotal = pylon?.pylonSum?.pylonPoolRewardsSum;
-    const loterraRewards = loterra?.lotaGov?.rewardsValue ?? '0';
-    const loterraPoolRewards = loterra?.lotaPool?.rewardsValue ?? '0';
+    const loterraRewards = loterra?.lotaGov?.rewardsValue || '0';
+    const loterraPoolRewards = loterra?.lotaPool?.rewardsValue || '0';
     const starterraRewards = starterra?.govRewardsTotal;
     // const terraworldRewards = math.plus(
-    //   terraworld?.twdPool?.rewardsValue ?? '0',
-    //   terraworld?.twdGov?.rewardsValue ?? '0',
+    //   terraworld?.twdPool?.rewardsValue || '0',
+    //   terraworld?.twdGov?.rewardsValue || '0',
     // );
     const terraworldRewards =  +terraworld?.twdPool?.rewardsValue + +terraworld?.twdGov?.rewardsValue
-    const alteredRewards = altered?.altePool?.rewardsValue ?? '0';
-    const flokiRewards = tfloki?.flokiPool?.rewardsValue ?? '0';
-    // const nexusRewards = math.plus(nexus?.total?.nexusPoolRewardsSum ?? '0', nexus?.nexusGov?.rewardsValue ?? '0');
+    const alteredRewards = altered?.altePool?.rewardsValue || '0';
+    const flokiRewards = tfloki?.flokiPool?.rewardsValue || '0';
+    // const nexusRewards = math.plus(nexus?.total?.nexusPoolRewardsSum || '0', nexus?.nexusGov?.rewardsValue || '0');
     const nexusRewards = +nexus?.total?.nexusPoolRewardsSum  + +nexus?.nexusGov?.rewardsValue
-    const vkrRewards = valkyrie?.vkrPool?.rewardsValue ?? '0';
+    const vkrRewards = valkyrie?.vkrPool?.rewardsValue || '0';
 
     const total =
       parseFloat(mirrorTotal) +
@@ -58,19 +58,19 @@ export const getRewardData = (
       parseFloat(nexusRewards) +
       parseFloat(vkrRewards);
 
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
 
   const getGovStaked = () => {
-    const ancGov = parseFloat(anchor?.gov?.value ?? '0');
-    const mirrorGov = parseFloat(mirror?.gov?.value ?? '0');
-    const pylonGov = parseFloat(pylon?.gov?.value ?? '0');
-    const specGov = parseFloat(spectrum?.specGov?.value ?? '0');
-    const lotaGov = parseFloat(loterra?.lotaGov?.value ?? '0');
+    const ancGov = parseFloat(anchor?.gov?.value || '0');
+    const mirrorGov = parseFloat(mirror?.gov?.value || '0');
+    const pylonGov = parseFloat(pylon?.gov?.value || '0');
+    const specGov = parseFloat(spectrum?.specGov?.value || '0');
+    const lotaGov = parseFloat(loterra?.lotaGov?.value || '0');
     const sttGov = parseFloat(starterra?.govStakedTotal);
-    const twdGov = parseFloat(terraworld?.twdGov?.value ?? '0');
-    const vkrGov = parseFloat(valkyrie?.vkrGov?.value ?? '0');
-    const nexusGov = parseFloat(nexus?.nexusGov?.value ?? '0');
+    const twdGov = parseFloat(terraworld?.twdGov?.value || '0');
+    const vkrGov = parseFloat(valkyrie?.vkrGov?.value || '0');
+    const nexusGov = parseFloat(nexus?.nexusGov?.value || '0');
     const govStaked = mirrorGov + ancGov + pylonGov + specGov + lotaGov + sttGov + twdGov + vkrGov + nexusGov;
     return govStaked;
   };
@@ -112,7 +112,7 @@ export const getRewardData = (
 
     pool?.map((item) => {
       const value = parseFloat(item?.totalLpUstValue);
-      const apr = parseFloat(item?.apr ?? item?.apy);
+      const apr = parseFloat(item?.apr || item?.apy);
       if (value && apr) {
         const daily = (apr / 365) * value;
         const monthly = daily * 30;

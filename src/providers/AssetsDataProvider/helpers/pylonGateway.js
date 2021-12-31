@@ -3,7 +3,7 @@ import { convertToFloatValue } from '../../../utils/convertFloat';
 export const getPylonGatewayData = (pylon) => {
   const getGatewayTotal = () => {
     const total = parseFloat(pylon?.pylonSum?.gatewayDepositsSum);
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
 
   const gatewayData = pylon.pylonGateway

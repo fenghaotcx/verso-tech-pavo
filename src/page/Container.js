@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useInitAddress, useInitNetwork, useLocationKey } from "../layouts/init"
+import { usePollingPrices } from "../utils/app"
 
 const ContainerDiv = styled.div`
   width: 100%;
@@ -9,7 +10,7 @@ const ContainerDiv = styled.div`
 `
 
 const Container = ({children}) => {
-
+    usePollingPrices()
     useLocationKey()
     useInitAddress()
     useInitNetwork()

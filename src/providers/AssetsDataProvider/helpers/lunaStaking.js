@@ -12,12 +12,12 @@ export const getLunaStakingData = (core) => {
 
   const getStakedTotal = () => {
     const total = core?.total?.stakedSum;
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
 
   const getUnStakedTotal = () => {
     const total = core?.total?.unstakedSum;
-    return total.toString() ?? '0';
+    return total.toString() || '0';
   };
 
   const data = core.staking.map((asset) => {
