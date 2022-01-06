@@ -17,7 +17,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 import { convertToFloatValue } from '../../utils/convertFloat';
 import { LCDClient,MnemonicKey,Coin, } from '@terra-money/terra.js';
-import  {useMyTotal}  from '../../data/my/total';
+// import  {useMyTotal}  from '../../data/my/total';
 
 
 const LoadDiv = styled.div`
@@ -61,8 +61,7 @@ const Dashboard = () => {
   const [, setAddressType] = useState(WALLET_ADDRESS_TYPE);
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
-  // const { list,total } = useMyTotal()
-  const MyTotal = useMyTotal()
+  // const MyTotal = useMyTotal()
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
     const walletAddress = connectedWallet?.terraAddress;
@@ -150,7 +149,7 @@ const Dashboard = () => {
 
   // console.log('total==============total==============total================total===========total',total);
   // console.log('list==============list==============list================list===========list',list);
-  console.log('MyTotal==============MyTotal==============MyTotal================MyTotal===========MyTotal',MyTotal);
+  // console.log('MyTotal==============MyTotal==============MyTotal================MyTotal===========MyTotal',MyTotal);
   console.log('assets==============assets==============assets================assets===========assets',assets);
 
   
