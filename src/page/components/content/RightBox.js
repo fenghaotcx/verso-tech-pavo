@@ -1,9 +1,10 @@
-import styled from 'styled-components'
-import PiechartImg from '../../../public/icon/Piechart.svg'
-import PiechartDrakImg from '../../../public/icon/PiehartDark.svg'
-import SelectBox from '../SelectBox'
-import DonutChart from '../DonutChart'
-import AssetsItem from './AssetsItem'
+import styled from 'styled-components';
+import PiechartImg from '../../../public/icon/Piechart.svg';
+import PiechartDrakImg from '../../../public/icon/PiehartDark.svg';
+// import SelectBox from '../SelectBox';
+import DonutChart from '../DonutChart';
+import AssetsItem from './AssetsItem';
+import {rmoney} from '../../../utils/convertFloat';
 
 const RightDiv = styled.div`
   flex: 2;
@@ -65,23 +66,47 @@ const AssetsDiv = styled.div`
   }
 `
 
-const arr = ['By Platforms','By Assets','By Types']
-const arrItem = [1,2,3,4]
+// const arr = ['By Platforms','By Assets','By Types']
+// const arrItem = [1,2,3,4]
 
 
-const RightBox = ({theme,isMobile}) => {
+const RightBox = ({theme,isMobile,assets}) => {
+    console.log('assets===============assets=====assets',assets);
+    let AssetsItemArr = null
+    let OthersItemArr = [
+      {name: 'Others'},
+      {name: 'Others'},
+      {value: '0'},
+      {price: '0'},
+      {value: 0},
+    ]
+    if(assets?.data?.length>=4){
+      AssetsItemArr = assets.data.slice(0,3)
+      console.log('AssetsItemArr===========',AssetsItemArr);
+      OthersItemArr[4].value  = assets.totalValue
+      AssetsItemArr.map((item,index)=>{
+        OthersItemArr[4].value -= rmoney(item[4]?.value)
+        AssetsItemArr[index][4].value = rmoney(AssetsItemArr[index][4].value)
+        return null
+      })
+      OthersItemArr[4].value = +OthersItemArr[4].value.toFixed(3)
+      AssetsItemArr.push(OthersItemArr)
+    }
+    
+    console.log('AssetsItemArr===========',AssetsItemArr);
+
     return (
       <RightDiv isMobile={isMobile}>
           <Breakdown>
             <div className="break_down">Breakdown <img src={theme==='dark'?PiechartDrakImg:PiechartImg} alt="" /></div>
-            <SelectBox options={arr} theme={theme} sort="select"/>
+            {/* <SelectBox options={arr} theme={theme} sort="select"/> */}
           </Breakdown>
           <BreakdownBot>
-              <DonutChart theme={theme} isMobile={isMobile}/>
+              <DonutChart assets={assets} theme={theme} isMobile={isMobile}/>
               <AssetsDiv>
-                  {arrItem.map((item,index)=>{
-                      return <AssetsItem item={item} key={index}/>
-                  })}
+                {AssetsItemArr && AssetsItemArr.map((item,index)=>{
+                  return <AssetsItem data={item} index={index} key={index}/>
+                })}
               </AssetsDiv>
           </BreakdownBot>
       </RightDiv>

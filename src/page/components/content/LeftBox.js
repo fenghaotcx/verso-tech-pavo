@@ -51,7 +51,8 @@ const Dollar = styled.div`
     }
 ` 
 
-const LeftBox = ({isMobile}) => {
+const LeftBox = ({isMobile,airdrops}) => {
+    console.log('airdrops===========',airdrops);
     return (
         <LeftDiv isMobile={isMobile}>
             <img className="white_logo" src={LogoWhite} alt="" />
@@ -62,7 +63,7 @@ const LeftBox = ({isMobile}) => {
                 <p>Total Farming APR </p>
                 <div>30%</div>
                 <p>Pending Rewards & Airdrops</p>
-                <div className="total">$120</div>
+                <div className="total">{airdrops?.total}</div>
                 <MyButton>Claim All</MyButton>
             </div>
         </LeftDiv>

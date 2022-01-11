@@ -169,7 +169,7 @@ const Dashboard = () => {
             return <StatisticsBox isMobile={isMobile} theme={theme} info={item}  key={index}/>
           })}
         </TopDiv>
-        <Content theme={theme} isMobile={isMobile}/>
+        <Content assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
         <TableBox isNoTable={true} name={'Collateral'}>
           {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable theme={theme}/>}
         </TableBox>

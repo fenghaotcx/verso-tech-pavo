@@ -5,6 +5,7 @@ import { PieChart } from 'echarts/charts';
 import { LabelLayout } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useEffect} from 'react';
+import {numberFormat} from '../../utils/convertFloat' 
 
 
 const DonutDiv = styled.div`
@@ -24,7 +25,7 @@ echarts.use([
     GraphicComponent
   ]);
 
-const DonutChart = ({children,isMobile,theme}) => {
+const DonutChart = ({children,isMobile,theme,assets}) => {
     
     useEffect(()=>{
         var chartDom = document.getElementById('donutChart');
@@ -45,7 +46,7 @@ const DonutChart = ({children,isMobile,theme}) => {
               children:[
                   {type:'text',
                   style: {
-                    text: '$260k',
+                    text:`${ numberFormat(assets?.totalValue)}` || '0',
                     textAlign: 'center',
                     // fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
                     width: 30,
@@ -109,7 +110,7 @@ const DonutChart = ({children,isMobile,theme}) => {
         };
 
         option && myChart.setOption(option);
-    },[])
+    },[assets])
 
     return (
         <DonutDiv id="donutChart"></DonutDiv>

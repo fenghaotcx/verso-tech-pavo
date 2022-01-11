@@ -1,6 +1,7 @@
-import styled from 'styled-components'
-import assetLogo from '../../../public/icon/assetLogo.svg'
+import styled from 'styled-components';
+import assetLogo from '../../../public/icon/assetLogo.svg';
 import useMobileDown from '../../../hooks/useMobileDown';
+import {numberFormat} from '../../../utils/convertFloat';
 
 const ItemDiv = styled.div`
     background: ${({theme})=> theme.colors.itemDivBg};
@@ -74,18 +75,19 @@ const ItemBot = styled.div`
     }
 `
 
-const AssetsItem = ({children}) => {
+const AssetsItem = ({data}) => {
+    // console.log('AssetsItem=======================data==================',data);
     const isMobile = useMobileDown()
     return (
         <ItemDiv>
             {!isMobile && <img src={assetLogo} alt="" />}
             <ItemLfet>
                 <ItemTop>
-                    <div>Mirror</div>
+                    {data && <div>{data[0]?.name || data[0]?.url}</div>}
                     <span></span>
                 </ItemTop>
                 <ItemBot>
-                    <div>$100k</div>
+                    {data && <div>{numberFormat(data[4]?.value)}</div>}
                     <span>55%</span>
                 </ItemBot>
             </ItemLfet>
