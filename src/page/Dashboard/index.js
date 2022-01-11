@@ -22,7 +22,8 @@ import { LCDClient,MnemonicKey,Coin, } from '@terra-money/terra.js';
 
 const LoadDiv = styled.div`
   width: 100%;
-  height:  calc(100vh - 178px);
+  // height:  calc(100vh - 178px);
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

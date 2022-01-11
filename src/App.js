@@ -24,10 +24,15 @@ function App() {
   console.log('params====',params);
   useEffect(() => {
     const currentTheme = localStorage.getItem('theme');
+    const terra_extension = localStorage.getItem('__terra_extension_router_session__');
+    if(isMobile && terra_extension){
+      console.log('terra_extension',terra_extension);
+      localStorage.setItem('__terra_extension_router_session__', null)
+    }
     if (currentTheme) {
       setTheme(currentTheme);
     }
-  }, [isMobile]);
+  }, [theme,isMobile]);
 
   const toggleDrawer = open => {
     setShow(open)
