@@ -80,16 +80,18 @@ const RightBox = ({theme,isMobile,assets}) => {
       {price: '0'},
       {value: 0},
     ]
-    if(assets?.data?.length>=4){
+    if(assets?.data?.length>=4 && assets?.totalValue){
       AssetsItemArr = assets.data.slice(0,3)
       console.log('AssetsItemArr===========',AssetsItemArr);
       OthersItemArr[4].value  = assets.totalValue
       AssetsItemArr.map((item,index)=>{
         OthersItemArr[4].value -= rmoney(item[4]?.value)
+        AssetsItemArr[index][5] = {percentage: (item[4]?.value /assets?.totalValue * 100).toFixed(1)}
         AssetsItemArr[index][4].value = rmoney(AssetsItemArr[index][4].value)
         return null
       })
       OthersItemArr[4].value = +OthersItemArr[4].value.toFixed(3)
+      OthersItemArr[OthersItemArr.length] = {percentage: (OthersItemArr[4].value /assets?.totalValue * 100).toFixed(1)}
       AssetsItemArr.push(OthersItemArr)
     }
     

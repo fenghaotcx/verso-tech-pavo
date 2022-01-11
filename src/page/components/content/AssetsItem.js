@@ -13,6 +13,10 @@ const ItemDiv = styled.div`
     @media (max-width: 1025px) {
         padding: 9px 13px 11px;
     }
+    & .ImgDiv {
+        width: 40px;
+        margin-right: 14px;
+    }
     & img {
         width: 40px;
         margin-right: 14px;
@@ -80,7 +84,7 @@ const AssetsItem = ({data}) => {
     const isMobile = useMobileDown()
     return (
         <ItemDiv>
-            {!isMobile && <img src={assetLogo} alt="" />}
+            {data[0]?.name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:<div className='ImgDiv'></div>}
             <ItemLfet>
                 <ItemTop>
                     {data && <div>{data[0]?.name || data[0]?.url}</div>}
@@ -88,7 +92,7 @@ const AssetsItem = ({data}) => {
                 </ItemTop>
                 <ItemBot>
                     {data && <div>{numberFormat(data[4]?.value)}</div>}
-                    <span>55%</span>
+                    {data && <span>{data[5]?.percentage}%</span>}
                 </ItemBot>
             </ItemLfet>
         </ItemDiv>
