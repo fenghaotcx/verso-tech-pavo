@@ -80,15 +80,16 @@ const ItemBot = styled.div`
     }
 `
 
-const AssetsItem = ({data}) => {
+const AssetsItem = ({data,index}) => {
     const isMobile = useMobileDown()
+    const color = ['#5b79d6','#ff7171','#ffdd6a','#90cc7b']
     return (
         <ItemDiv>
-            {data[0].name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:<div className='ImgDiv'></div>}
+            {data[0].name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:!isMobile && <div className='ImgDiv'></div>}
             <ItemLfet>
                 <ItemTop>
                     <div>{data[0].name || data[0].url}</div>
-                    <span></span>
+                    <span style={{background:color[index]}}></span>
                 </ItemTop>
                 <ItemBot>
                     <div>{numberFormat(data[4].value)}</div>

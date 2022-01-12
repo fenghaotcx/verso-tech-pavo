@@ -46,6 +46,7 @@ const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr}) => {
         //     top: '5%',
         //     left: 'center'
         //   },
+          color: ['#5b79d6','#ff7171','#ffdd6a','#90cc7b'],
           graphic: [
               {type: 'group',
               left: 'center',
