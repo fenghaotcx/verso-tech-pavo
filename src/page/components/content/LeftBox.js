@@ -63,7 +63,7 @@ const LeftBox = ({isMobile,airdrops}) => {
                 <p>Total Farming APR </p>
                 <div>30%</div>
                 <p>Pending Rewards & Airdrops</p>
-                <div className="total">{airdrops?.total}</div>
+                <div className="total">{airdrops.total||0}</div>
                 <MyButton>Claim All</MyButton>
             </div>
         </LeftDiv>

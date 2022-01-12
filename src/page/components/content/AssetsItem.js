@@ -10,6 +10,7 @@ const ItemDiv = styled.div`
     display: flex;
     padding: 10px 20px;
     letter-spacing: -0.02em;
+    justify-content: space-between;
     @media (max-width: 1025px) {
         padding: 9px 13px 11px;
     }
@@ -19,7 +20,7 @@ const ItemDiv = styled.div`
     }
     & img {
         width: 40px;
-        margin-right: 14px;
+        // margin-right: 14px;
     }
 `
 const ItemLfet = styled.div`
@@ -80,19 +81,18 @@ const ItemBot = styled.div`
 `
 
 const AssetsItem = ({data}) => {
-    // console.log('AssetsItem=======================data==================',data);
     const isMobile = useMobileDown()
     return (
         <ItemDiv>
-            {data[0]?.name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:<div className='ImgDiv'></div>}
+            {data[0].name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:<div className='ImgDiv'></div>}
             <ItemLfet>
                 <ItemTop>
-                    {data && <div>{data[0]?.name || data[0]?.url}</div>}
+                    <div>{data[0].name || data[0].url}</div>
                     <span></span>
                 </ItemTop>
                 <ItemBot>
-                    {data && <div>{numberFormat(data[4]?.value)}</div>}
-                    {data && <span>{data[5]?.percentage}%</span>}
+                    <div>{numberFormat(data[4].value)}</div>
+                    <span>{data[5].percentage}%</span>
                 </ItemBot>
             </ItemLfet>
         </ItemDiv>

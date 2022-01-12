@@ -18,8 +18,8 @@ const Box = styled.div`
 const Content = ({theme,isMobile,airdrops,assets}) => {
     return (
         <Box>
-          <LeftBox airdrops={airdrops} isMobile={isMobile}/>
-          <RightBox assets={assets} isMobile={isMobile} theme={theme}/>
+          {airdrops && <LeftBox airdrops={airdrops} isMobile={isMobile}/>}
+          {assets && <RightBox assets={assets} isMobile={isMobile} theme={theme}/>}
         </Box>
     )
 }
