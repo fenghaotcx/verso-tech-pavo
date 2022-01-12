@@ -113,7 +113,7 @@ const RightBox = ({theme,isMobile,assets}) => {
             {/* <SelectBox options={arr} theme={theme} sort="select"/> */}
           </Breakdown>
           <BreakdownBot>
-              <DonutChart assets={assets} theme={theme} isMobile={isMobile}/>
+              <DonutChart AssetsItemArr={AssetsItemArr} assets={assets} theme={theme} isMobile={isMobile}/>
               <AssetsDiv>
                 {AssetsItemArr && AssetsItemArr.map((item,index)=>{
                   return <AssetsItem data={item} index={index} key={index}/>

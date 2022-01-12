@@ -5,7 +5,7 @@ import { PieChart } from 'echarts/charts';
 import { LabelLayout } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useEffect} from 'react';
-import {numberFormat} from '../../utils/convertFloat' 
+import {numberFormat} from '../../utils/convertFloat';
 
 
 const DonutDiv = styled.div`
@@ -25,8 +25,15 @@ echarts.use([
     GraphicComponent
   ]);
 
-const DonutChart = ({children,isMobile,theme,assets}) => {
+const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr}) => {
     
+    let data = AssetsItemArr.map((item,index)=> {
+      let obj = {
+        name: item[0].name || item[0].url,
+        value: item[4].value,
+      }
+      return obj
+    })
     useEffect(()=>{
         var chartDom = document.getElementById('donutChart');
         var myChart = echarts.init(chartDom);
@@ -46,7 +53,7 @@ const DonutChart = ({children,isMobile,theme,assets}) => {
               children:[
                   {type:'text',
                   style: {
-                    text:`${ numberFormat(assets?.totalValue)}` || '0',
+                    text:`${ numberFormat(assets.totalValue)}` || '0',
                     textAlign: 'center',
                     // fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
                     width: 30,
@@ -75,7 +82,7 @@ const DonutChart = ({children,isMobile,theme,assets}) => {
         ],
           series: [
             {
-              name: 'Access From',
+              name: 'Access',
               type: 'pie',
               radius: ['75%', '90%'],
               avoidLabelOverlap: false,
@@ -98,19 +105,13 @@ const DonutChart = ({children,isMobile,theme,assets}) => {
               labelLine: {
                 show: false
               },
-              data: [
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
-              ]
+              data
             }
           ]
         };
 
         option && myChart.setOption(option);
-    },[assets])
+    },[data,assets.totalValue])
 
     return (
         <DonutDiv id="donutChart"></DonutDiv>
