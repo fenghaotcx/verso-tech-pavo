@@ -71,7 +71,7 @@ const AssetsDiv = styled.div`
 
 
 const RightBox = ({theme,isMobile,assets}) => {
-    console.log('assets===============assets=====assets',assets);
+    // console.log('assets===============assets=====assets',assets);
     let AssetsItemArr = null
     let OthersItemArr = [
       {name: 'Others'},
@@ -104,7 +104,7 @@ const RightBox = ({theme,isMobile,assets}) => {
       AssetsItemArr = assets.data
       assetsMap()
     }
-    console.log('AssetsItemArr===========',AssetsItemArr);
+    // console.log('AssetsItemArr===========',AssetsItemArr);
 
     return (
       <RightDiv isMobile={isMobile}>

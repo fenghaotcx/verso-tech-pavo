@@ -52,7 +52,7 @@ const Dollar = styled.div`
 ` 
 
 const LeftBox = ({isMobile,airdrops}) => {
-    console.log('airdrops===========',airdrops);
+    // console.log('airdrops===========',airdrops);
     return (
         <LeftDiv isMobile={isMobile}>
             <img className="white_logo" src={LogoWhite} alt="" />

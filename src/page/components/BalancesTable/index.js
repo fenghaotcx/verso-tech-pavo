@@ -110,29 +110,29 @@ const headCells = [
     label: 'Asset',
   },
   {
-    id: 'calories',
+    id: 'value',
     numeric: true,
     disablePadding: false,
     label: 'Value',
   },
   {
-    id: 'fat',
+    id: 'quantity',
     numeric: true,
     disablePadding: false,
     label: 'Quantity',
   },
   {
-    id: 'carbs',
+    id: 'price',
     numeric: true,
     disablePadding: false,
     label: 'Price',
   },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Price',
-  },
+  // {
+  //   id: 'Price',
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: 'Price',
+  // },
 ];
 
 function EnhancedTableHead(props) {
@@ -180,7 +180,8 @@ function EnhancedTableHead(props) {
 
 
 export default function BalancesTable(props) {
-  const {isMobile,windowWidth,theme} = props
+  const {isMobile,windowWidth,theme,assets} = props
+  console.log('BalancesTable============BalancesTable====',assets);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);

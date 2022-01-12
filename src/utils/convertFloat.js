@@ -35,5 +35,5 @@ export const rmoney = (s) => {
   if(s.indexOf('$')!==-1){
     s = s.slice(1)
   }
-  return parseFloat(s.replace(/[^\d\.-]/g, ""));
+  return parseFloat(s.replace(/[^\d\\.-]/g, ""));
 }

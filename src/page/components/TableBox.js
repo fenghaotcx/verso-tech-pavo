@@ -81,13 +81,13 @@ const TableBoxTopContCom =({name,total,isMobile,isNoTable}) => {
       <div className="tit">{name}</div>
       <div className="right">
         {!isMobile ?<RightCheck isMobile={isMobile}/>:<></>}
-        <div className="right_total">Total ${total}</div>
+        <div className="right_total">Total {total}</div>
       </div>
     </TableBoxTopCont>
   )
 }
 
-function TableBox({children,name='Wallet Balances',total='10,000',isNoTable,marginType}) {
+function TableBox({children,name='Wallet Balances',total='0',isNoTable,marginType}) {
   const { isMobile} = useContext(GlobalContext)
   return (
     isMobile && isNoTable?
