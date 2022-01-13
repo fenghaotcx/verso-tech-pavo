@@ -15,6 +15,7 @@ import style from 'styled-components';
 import PercentageNum from '../PercentageNum';
 import IconNameLink from '../IconNameLink';
 import { makeStyles } from '@mui/styles';
+import {rmoney,convertToFloatValue} from '../../../utils/convertFloat';
 
 const useStyles = makeStyles({
   root: {
@@ -47,32 +48,6 @@ const FlexDiv = style.div`
   display: flex;
   justify-content: center;
 `
-
-function createData(name, calories, fat, carbs,protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67,5),
-  createData('Donut', 452, 25.0, 51,23),
-  createData('Eclair', 262, 16.0, 24,6),
-  createData('Frozen yoghurt', 159, 6.0, 24,2),
-  createData('Gingerbread', 356, 16.0, 49,4),
-  createData('Honeycomb', 408, 3.2, 87,7),
-  createData('Ice cream sandwich', 237, 9.0, 37,4),
-  createData('Jelly Bean', 375, 0.0, 94,8),
-  createData('KitKat', 518, 26.0, 65,5),
-  createData('Lollipop', 392, 0.2, 98,3),
-  createData('Marshmallow', 318, 0, 81,2),
-  createData('Nougat', 360, 19.0, 96),
-  createData('Oreo', 437, 18.0, 63,4),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -183,19 +158,15 @@ export default function BalancesTable(props) {
   const {isMobile,windowWidth,theme,assets} = props;
   let data = null
   if(assets?.data){
-    data = assets.data.map((item,index)=>{
-      // console.log('item===',item);
+    data = assets.data.map((item)=>{
       return {
         name: item[0].name || item[0].url,
-        value: item[4].value,
-        quantity: item[2].value,
-        price: item[3].price
+        value: rmoney(item[4].value),
+        quantity: rmoney(item[2].value),
+        price: rmoney(item[3].price),
       }
     })
-    
   }
-  console.log('BalancesTable============BalancesTable====',data);
-
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -212,7 +183,6 @@ export default function BalancesTable(props) {
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
@@ -225,7 +195,6 @@ export default function BalancesTable(props) {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -281,9 +250,9 @@ export default function BalancesTable(props) {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
-                      <TableCell align="center">{row.value}</TableCell>
-                      <TableCell align="center">{row.quantity}</TableCell>
-                      <TableCell align="center">{row.price}</TableCell>
+                      <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>
+                      <TableCell align="center">{convertToFloatValue(row.quantity)}</TableCell>
+                      <TableCell align="center">${convertToFloatValue(row.price)}</TableCell>
                       {/* {!isMobile && <TableCell align="center">
                         <FlexDiv>
                           <PercentageNum num={row.protein} type={index%2>=1?'rise':''}/>
