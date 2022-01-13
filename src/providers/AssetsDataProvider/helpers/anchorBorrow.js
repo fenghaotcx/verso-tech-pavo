@@ -38,5 +38,6 @@ export const getAnchorBorrowData = (borrow) => {
     total: '$' + convertToFloatValue(borrow?.value),
     totalValue: parseFloat(borrow?.totalCollateralValue),
     totalBorrow: parseFloat(borrow?.value),
+    totalValueString: '$' + convertToFloatValue(borrow?.totalCollateralValue),
   };
 };

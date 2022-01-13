@@ -176,7 +176,7 @@ const Dashboard = () => {
         <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
           {assets?.assets && <BalancesTable assets={assets?.assets}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>}
         </TableBox>
-        <TableBox total={assets?.anchorBorrow?.total} name={'Borrowing'}>
+        <TableBox total={assets?.anchorBorrow?.totalValueString} name={'Borrowing'}>
           <BorrowingTable borrow={assets?.anchorBorrow || {}}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>
         </TableBox>
         <TableBox name={'Farming'}>
