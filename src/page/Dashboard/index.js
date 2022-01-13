@@ -174,7 +174,7 @@ const Dashboard = () => {
           {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable theme={theme}/>}
         </TableBox>
         <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
-          <BalancesTable assets={assets?.assets}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>
+          {assets?.assets && <BalancesTable assets={assets?.assets}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>}
         </TableBox>
         <TableBox name={'Borrowing'}>
           <BorrowingTable  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>

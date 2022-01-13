@@ -111,19 +111,19 @@ const headCells = [
   },
   {
     id: 'value',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Value',
   },
   {
     id: 'quantity',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Quantity',
   },
   {
     id: 'price',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Price',
   },
@@ -152,7 +152,7 @@ function EnhancedTableHead(props) {
             return (
               <TableCell
               key={headCell.id}
-              align={headCell.numeric ? isMobile?'center':'left' : 'left'}
+              align={headCell.numeric ? isMobile?'center':'left' : 'center'}
               padding={isMobile ? 'none' : 'normal'}
               sortDirection={orderBy === headCell.id ? order : false}
               >
@@ -180,8 +180,22 @@ function EnhancedTableHead(props) {
 
 
 export default function BalancesTable(props) {
-  const {isMobile,windowWidth,theme,assets} = props
-  console.log('BalancesTable============BalancesTable====',assets);
+  const {isMobile,windowWidth,theme,assets} = props;
+  let data = null
+  if(assets?.data){
+    data = assets.data.map((item,index)=>{
+      // console.log('item===',item);
+      return {
+        name: item[0].name || item[0].url,
+        value: item[4].value,
+        quantity: item[2].value,
+        price: item[3].price
+      }
+    })
+    
+  }
+  console.log('BalancesTable============BalancesTable====',data);
+
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -227,7 +241,7 @@ export default function BalancesTable(props) {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -243,12 +257,12 @@ export default function BalancesTable(props) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
               isMobile={isMobile}
               windowWidth={windowWidth}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
@@ -267,14 +281,14 @@ export default function BalancesTable(props) {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      {!isMobile && <TableCell align="center">
+                      <TableCell align="center">{row.value}</TableCell>
+                      <TableCell align="center">{row.quantity}</TableCell>
+                      <TableCell align="center">{row.price}</TableCell>
+                      {/* {!isMobile && <TableCell align="center">
                         <FlexDiv>
                           <PercentageNum num={row.protein} type={index%2>=1?'rise':''}/>
                         </FlexDiv>
-                      </TableCell>}
+                      </TableCell>} */}
                     </TableRow>
                   );
                 })}
@@ -294,7 +308,7 @@ export default function BalancesTable(props) {
           sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
