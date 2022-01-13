@@ -11,8 +11,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
-import style from 'styled-components';
-import PercentageNum from '../PercentageNum';
+// import style from 'styled-components';
+// import PercentageNum from '../PercentageNum';
 import IconNameLink from '../IconNameLink';
 import { makeStyles } from '@mui/styles';
 import {rmoney,convertToFloatValue} from '../../../utils/convertFloat';
@@ -44,10 +44,10 @@ const MyPaper = styled(Paper)({
   marginBottom: 0,
 })
 
-const FlexDiv = style.div`
-  display: flex;
-  justify-content: center;
-`
+// const FlexDiv = style.div`
+//   display: flex;
+//   justify-content: center;
+// `
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -120,32 +120,28 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         {!isMobile && <TableCell padding="checkbox" />}
-        {headCells.map((headCell,index) => {
-          if(index === headCells.length -1 && isMobile){
-            return null
-          }else{
-            return (
-              <TableCell
+        {headCells.map((headCell) => {
+          return (
+            <TableCell
               key={headCell.id}
               align={headCell.numeric ? isMobile?'center':'left' : 'center'}
               padding={isMobile ? 'none' : 'normal'}
               sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
               >
-                <TableSortLabel
-                  active={orderBy === headCell.id}
-                  direction={orderBy === headCell.id ? order : 'asc'}
-                  onClick={createSortHandler(headCell.id)}
-                >
-                  {headCell.label}
-                  {orderBy === headCell.id ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                    </Box>
-                  ) : null}
-                </TableSortLabel>
-              </TableCell>
-            )
-          }
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          )
         })}
       </TableRow>
     </TableHead>
