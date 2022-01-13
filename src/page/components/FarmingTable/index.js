@@ -403,7 +403,9 @@ const rows = [
 ];
 
 export default function FarmingTable(props) {
-  const {isMobile,windowWidth,theme} = props
+  const {isMobile,windowWidth,theme,farm,reward} = props
+  // console.log('farm==========',farm);
+  // console.log('reward==========',reward);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);

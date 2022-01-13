@@ -13,6 +13,7 @@ import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/system';
 import IconNameLink from '../IconNameLink';
 import { makeStyles } from '@mui/styles';
+import {rmoney,convertToFloatValue} from '../../../utils/convertFloat';
 
 const useStyles = makeStyles({
   root: {
@@ -40,33 +41,6 @@ const MyPaper = styled(Paper)({
   borderRadius: 0,
   marginBottom: 0,
 })
-
-function createData(name, calories, fat, carbs,protein,apr) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    apr
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67,20,10),
-  createData('Donut', 452, 25.0, 51,20,20),
-  createData('Eclair', 262, 16.0, 24,20,12),
-  createData('Frozen yoghurt', 159, 6.0, 24,20,20),
-  createData('Gingerbread', 356, 16.0, 49,20,16),
-  createData('Honeycomb', 408, 3.2, 87,20,20),
-  createData('Ice cream sandwich', 237, 9.0, 37,20,18),
-  createData('Jelly Bean', 375, 0.0, 94,20,20),
-  createData('KitKat', 518, 26.0, 65,20,12),
-  createData('Lollipop', 392, 0.2, 98,20,20),
-  createData('Marshmallow', 318, 0, 81,20,11),
-  createData('Nougat', 360, 19.0, 9,20,20),
-  createData('Oreo', 437, 18.0, 63,20,19),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -98,31 +72,31 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
-    numeric: true,
+    id: 'platform',
+    numeric: false,
     disablePadding: false,
     label: 'Platform',
   },
   {
-    id: 'calories',
+    id: 'asset',
     numeric: true,
     disablePadding: false,
     label: 'Asset',
   },
   {
-    id: 'fat',
+    id: 'value',
     numeric: true,
     disablePadding: false,
     label: 'Value',
   },
   {
-    id: 'carbs',
+    id: 'quantity',
     numeric: true,
     disablePadding: false,
     label: 'Quantity',
   },
   {
-    id: 'protein',
+    id: 'price',
     numeric: true,
     disablePadding: false,
     label: 'Price',
@@ -153,7 +127,7 @@ function EnhancedTableHead(props) {
           return(
             <TableCell
               key={headCell.id}
-              align={headCell.numeric ? isMobile?'center':'left' : 'left'}
+              align={headCell.numeric ? isMobile?'center':'center' : 'left'}
               padding={headCell.disablePadding ? 'none' : 'normal'}
               sortDirection={orderBy === headCell.id ? order : false}
             >
@@ -182,7 +156,24 @@ function EnhancedTableHead(props) {
 
 
 export default function BalancesTable(props) {
-  const {isMobile,windowWidth,theme} = props
+  const {isMobile,windowWidth,theme,borrow} = props
+  console.log('====================================');
+  console.log(borrow);
+  console.log('====================================');
+  let data = [] 
+  if(borrow?.data){
+    data = borrow.data.map(item=>{
+      return {
+        platform: item[4].Platform,
+        asset: item[0].collateralList[0].symbol,
+        value: rmoney(item[1].collateralValue),
+        quantity: item[0].collateralList[0].balance,
+        price: item[0].collateralList[0].price,
+        apr: item[3].apr,
+      }
+    })
+  }
+  
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -229,7 +220,7 @@ export default function BalancesTable(props) {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -245,23 +236,23 @@ export default function BalancesTable(props) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
               isMobile={isMobile}
               windowWidth={windowWidth}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.platform);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow 
                       role="checkbox" 
                       tabIndex={-1} 
-                      key={row.name} 
+                      key={row.platform} 
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.platform)}
                       aria-checked={isItemSelected}
                       selected={isItemSelected}
                     >
@@ -272,14 +263,14 @@ export default function BalancesTable(props) {
                         scope="row"
                         padding="none"
                       >
-                        <IconNameLink isMobile={isMobile} name={row.name} />
+                        <IconNameLink isMobile={isMobile} name={row.platform} />
                       </TableCell>}
-                      <TableCell align="center">{row.calories}</TableCell>
-                      {!isMobile && <TableCell align="center">{row.fat}</TableCell>}
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">{row.protein}</TableCell>
+                      <TableCell align="center">{row.asset}</TableCell>
+                      {!isMobile && <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>}
+                      <TableCell align="center">{row.quantity}</TableCell>
+                      <TableCell align="center">${convertToFloatValue(row.price)}</TableCell>
                       <TableCell align="center">
-                        <div style={{color: row.apr>=20?'#FF7373':'#20CC8E'}}>{row.apr}%</div>
+                        <div style={{color: row.apr.indexOf('-')!==-1?'#FF7373':'#20CC8E'}}>{row.apr}</div>
                       </TableCell>
                     </TableRow>
                   );
@@ -300,7 +291,7 @@ export default function BalancesTable(props) {
           sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

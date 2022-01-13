@@ -7,6 +7,9 @@ export const getAnchorBorrowData = (borrow) => {
     return {
       token: convertToFloatValue(item.balance) + ' ' + item.symbol,
       tokenValue: '$' + convertToFloatValue(item.value),
+      symbol: item.symbol,
+      balance: item.balance,
+      price: item.price,
     };
   });
 
@@ -25,6 +28,9 @@ export const getAnchorBorrowData = (borrow) => {
         },
         {
           apr: convertToFloatValue(borrow?.netApy) + '%',
+        },
+        {
+          Platform: 'Anchor',
         },
       ],
     ],
