@@ -269,52 +269,56 @@ function Row(props) {
           <CodeBlock isMobile={isMobile}>Auto Farming</CodeBlock>
         </TableCell>
 
-        {!isMobile && <TableCell align="center">
-          <MyIconButton
-            aria-label="expand row"
-            size="medium"
-            onClick={() => {showClick(index)}}
-          >
-            {open ?  <img src={ArrowDown} alt =""/> : <ImgUp src={ArrowDown} alt =""/>}
-          </MyIconButton>
-        </TableCell>}
+        {/* {!isMobile && 
+          <TableCell align="center">
+            <MyIconButton
+              aria-label="expand row"
+              size="medium"
+              onClick={() => {showClick(index)}}
+            >
+              {open ?  <img src={ArrowDown} alt =""/> : <ImgUp src={ArrowDown} alt =""/>}
+            </MyIconButton>
+          </TableCell>
+        } */}
       </TableRow>
-      {!isMobile && <TableRow>
-        <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{bgcolor: theme==='dark'?'#262A4F':'#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
-              <BoxLeft >
-                <Tit>Asset Details</Tit>
-                <BoxLeftItem>
-                  <div className="left">mAPPL</div>
-                  <div className="right">17.39</div>
-                </BoxLeftItem>
-                <BoxLeftItem>
-                  <div className="left">UST</div>
-                  <div className="right">2500</div>
-                </BoxLeftItem>
-                <BoxLeftItem>
-                  <div className="left">Est. Daily Earning</div>
-                  <div className="right">$136.98</div>
-                </BoxLeftItem>
-                <BoxLeftItem last={true}>
-                  <div className="left">Pending Reward</div>
-                  <div className="right">$100 (2.4 Pavo)</div>
-                </BoxLeftItem>
-                <MyButton backgc={'bule'}>Claim</MyButton>
-              </BoxLeft>
-              <BoxRight >
-                <div>
-                  <Tit>Change in Value</Tit>
-                </div>
-                <TableDiv>
-                  <div id={`table_main_${index+1}`}></div>
-                </TableDiv>
-              </BoxRight>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>}
+      {/* {!isMobile && 
+        <TableRow>
+          <TableCell padding = "none"  style={{ paddingBottom: 0, paddingTop: 0}} colSpan={7}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box sx={{bgcolor: theme==='dark'?'#262A4F':'#fdfcfe',m: 0,p: isMobile?'20px':'25px 45px',display: 'flex',flexWrap: isMobile?'wrap':'nowrap',width:isMobile?'100vw':'100%'}} >
+                <BoxLeft >
+                  <Tit>Asset Details</Tit>
+                  <BoxLeftItem>
+                    <div className="left">mAPPL</div>
+                    <div className="right">17.39</div>
+                  </BoxLeftItem>
+                  <BoxLeftItem>
+                    <div className="left">UST</div>
+                    <div className="right">2500</div>
+                  </BoxLeftItem>
+                  <BoxLeftItem>
+                    <div className="left">Est. Daily Earning</div>
+                    <div className="right">$136.98</div>
+                  </BoxLeftItem>
+                  <BoxLeftItem last={true}>
+                    <div className="left">Pending Reward</div>
+                    <div className="right">$100 (2.4 Pavo)</div>
+                  </BoxLeftItem>
+                  <MyButton backgc={'bule'}>Claim</MyButton>
+                </BoxLeft>
+                <BoxRight >
+                  <div>
+                    <Tit>Change in Value</Tit>
+                  </div>
+                  <TableDiv>
+                    <div id={`table_main_${index+1}`}></div>
+                  </TableDiv>
+                </BoxRight>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      } */}
     </Fragment>
   );
 }
@@ -360,7 +364,7 @@ function EnhancedTableHead(props) {
             )
           }
         })}
-        {!isMobile && <TableCell /> }
+        {/* {!isMobile && <TableCell /> } */}
       </TableRow>
     </TableHead>
   );
@@ -475,7 +479,16 @@ export default function FarmingTable(props) {
               const labelId = `enhanced-table-checkbox-${index}`;
               const isItemSelected = isSelected(row.name);
             return (
-              <Row theme={theme} isItemSelected={isItemSelected} handleClick={handleClick} windowWidth={windowWidth} labelId={labelId} isMobile={isMobile} key={row.name} index={index} row={row} />
+              <Row theme={theme} 
+                isItemSelected={isItemSelected} 
+                handleClick={handleClick} 
+                windowWidth={windowWidth} 
+                labelId={labelId} 
+                isMobile={isMobile} 
+                key={row.name} 
+                index={index} 
+                row={row}
+              />
             );
           })}
           </TableBody>

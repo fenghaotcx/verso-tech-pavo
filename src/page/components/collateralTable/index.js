@@ -17,6 +17,7 @@ import Doubt from '../Doubt';
 import IconNameLink from '../IconNameLink';
 import style from 'styled-components';
 import { makeStyles } from '@mui/styles';
+import {convertToFloatValue} from '../../../utils/convertFloat';
 
 const useStyles = makeStyles({
   root: {
@@ -63,31 +64,6 @@ const TableCellDiv = style.div`
   };
 `
 
-function createData(name, calories, fat, carbs) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 57),
-  createData('Donut', 452, 25.0, 51),
-  createData('Eclair', 262, 16.0, 24),
-  createData('Frozen yoghurt', 159, 6.0, 24),
-  createData('Gingerbread', 356, 16.0, 49),
-  createData('Honeycomb', 408, 3.2, 57),
-  createData('Ice cream sandwich', 237, 9.0, 37),
-  createData('Jelly Bean', 375, 0.0, 54),
-  createData('KitKat', 518, 26.0, 45),
-  createData('Lollipop', 392, 0.2, 38),
-  createData('Marshmallow', 318, 0, 51),
-  createData('Nougat', 360, 19.0, 20,),
-  createData('Oreo', 437, 18.0, 53),
-];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -118,25 +94,25 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: 'platform',
     numeric: false,
     disablePadding: true,
     label: 'Platform',
   },
   {
-    id: 'calories',
+    id: 'asset',
     numeric: true,
     disablePadding: false,
     label: 'Asset',
   },
   {
-    id: 'fat',
+    id: 'value',
     numeric: true,
     disablePadding: false,
     label: 'Value',
   },
   {
-    id: 'carbs',
+    id: 'percentage',
     numeric: true,
     disablePadding: false,
     label: 'Collateral Ratio',
@@ -183,7 +159,18 @@ function EnhancedTableHead(props) {
 
 
 
-export default function CollateralTable({theme}) {
+export default function CollateralTable({theme,borrow}) {
+  let data = []
+  if(borrow?.data){
+    data = borrow.data.map(item=>{
+      return {
+        platform: item[4].Platform,
+        asset: item[0].collateralList[0].symbol,
+        value: borrow.totalBorrow,
+        percentage: borrow.percentage
+      }
+    })
+  }
   const isMobile = useMobileDown()
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -233,7 +220,7 @@ export default function CollateralTable({theme}) {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -250,23 +237,23 @@ export default function CollateralTable({theme}) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.platform);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.platform)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.platform}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -277,13 +264,13 @@ export default function CollateralTable({theme}) {
                         scope="row"
                         padding="none"
                       >
-                        <IconNameLink name={row.name} />
+                        <IconNameLink name={row.platform} />
                       </TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
+                      <TableCell align="center">{row.asset}</TableCell>
+                      <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>
                       <TableCell align="right">
                         <TableCellDiv>
-                          <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.carbs} />
+                          <ProgressBar isMobile= {isMobile} type={index>2?'':'Increase'} num={row.percentage} />
                           <div className="table_left">
                             <Doubt type={1} content={"When you invest here"}/>
                             <div className="table_text">60% Max</div> 
@@ -311,7 +298,7 @@ export default function CollateralTable({theme}) {
           sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

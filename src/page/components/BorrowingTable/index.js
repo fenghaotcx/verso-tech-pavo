@@ -157,9 +157,6 @@ function EnhancedTableHead(props) {
 
 export default function BalancesTable(props) {
   const {isMobile,windowWidth,theme,borrow} = props
-  console.log('====================================');
-  console.log(borrow);
-  console.log('====================================');
   let data = [] 
   if(borrow?.data){
     data = borrow.data.map(item=>{

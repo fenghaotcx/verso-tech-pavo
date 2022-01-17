@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ProgressBar from '../../../components/ProgressBar';
+import {convertToFloatValue} from '../../../../utils/convertFloat';
 
 const CollateralDiv = styled.div`
   width:100%;
@@ -37,18 +38,18 @@ const CollateralDiv = styled.div`
   }
 `
 
-const arr = [
+let arr = [
     {
         tit: 'Platform',
-        val: 'Anchor'
+        val: ''
     },
     {
         tit: 'ASSET',
-        val: 'bLuna+bETH'
+        val: ''
     },
     {
         tit: 'VALUE',
-        val: '$5K'
+        val: ''
     }
 ]
 
@@ -61,15 +62,26 @@ const FlexItem = ({tit,val}) =>{
     )
 }
 
-const CollateralMoblie = ({isMobile}) => {
+const CollateralMoblie = ({isMobile,borrow}) => {
+  // let data = []
+  if(borrow?.data){
+    // data = 
+    borrow.data.map(item=>{
+      arr[0].val = item[4].Platform
+      arr[1].val = item[0].collateralList[0].symbol
+      arr[2].val = borrow.totalBorrow
+      return null
+      // return arr
+    })
+  }
   return (
     <CollateralDiv>
       <div className='flex_box'>
-          {arr.map((item,index)=> <FlexItem key={index} tit={item.tit}  val={item.val}/>)}
+          {arr.map((item,index)=> <FlexItem key={index} tit={item.tit}  val={item.tit ==='VALUE'?`$${convertToFloatValue(item.val)}`: item.val}/>)}
       </div>
       <div className='ratio'>COLLATERAL RATIO (60% Max)</div>
       <div>
-        <ProgressBar isMobile= {isMobile} type={'Increase'} num={40} />
+        <ProgressBar isMobile= {isMobile} type={'Increase'} num={borrow?.percentage} />
       </div>
     </CollateralDiv>
   )

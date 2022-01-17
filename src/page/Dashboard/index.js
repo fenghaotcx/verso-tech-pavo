@@ -151,7 +151,7 @@ const Dashboard = () => {
   // console.log('total==============total==============total================total===========total',total);
   // console.log('list==============list==============list================list===========list',list);
   // console.log('MyTotal==============MyTotal==============MyTotal================MyTotal===========MyTotal',MyTotal);
-  console.log('assets==============assets==============assets================assets===========assets',assets);
+  // console.log('assets==============assets==============assets================assets===========assets',assets);
 
   
 
@@ -170,8 +170,8 @@ const Dashboard = () => {
           })}
         </TopDiv>
         <Content assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
-        <TableBox isNoTable={true} name={'Collateral'}>
-          {isMobile ? <CollateralMoblie isMobile={isMobile}/>:<CollateralTable theme={theme}/>}
+        <TableBox total={assets?.anchorBorrow?.total} isNoTable={true} name={'Collateral'}>
+          {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>:<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
         </TableBox>
         <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
           {assets?.assets && <BalancesTable assets={assets?.assets}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>}
