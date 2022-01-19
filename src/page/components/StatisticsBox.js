@@ -1,4 +1,4 @@
-import { useEffect} from 'react';
+// import { useEffect} from 'react';
 import styled from 'styled-components'
 import Styles from './StatisticsBox.module.css'
 import * as echarts from 'echarts/core';
@@ -104,7 +104,7 @@ const StatisticsBox = ({info,children,isMobile,theme}) => {
     <Box isMobile={isMobile} className={theme === 'dark'&& Styles.darkBox}>
       <div className={`${Styles.type} ${Styles[`type_${info.index+1}`]}`}>
         <span className={Styles.name}>{info.name}</span>
-        <span >(24h)</span>
+        {/* <span >(24h)</span> */}
       </div>
       <div className={Styles.info}>
           <div className={Styles.info_left}>

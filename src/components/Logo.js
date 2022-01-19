@@ -1,6 +1,8 @@
-import styled from 'styled-components'
-import logoImg from '../public/icon/Logo.svg'
-import logoImgDark from '../public/icon/LogoDark.svg'
+import styled from 'styled-components';
+import logoImg from '../public/icon/Logo.svg';
+import logoImgM from '../public/icon/LogoM.svg';
+import logoImgDark from '../public/icon/LogoDark.svg';
+import logoImgDarkM from '../public/icon/LogoDarkM.svg';
 
 const LogoDiv = styled.div`
   font-family: 'Poppins-Bold';
@@ -11,13 +13,18 @@ const LogoDiv = styled.div`
   align-items: center;
   color: ${({theme})=> theme.colors.font};
   margin-bottom: ${({isMobile}) => isMobile?'0':'68px'};
-  & img {
-    width: 26px;
-    margin-right: 5px;
+  &>.logo {
+    width: ${({isMobile})=> isMobile?'97px':'110px'};
   }
 `
 
-const Logo = ({isMobile,theme}) => <LogoDiv isMobile={isMobile}><img src = {theme === 'dark'?logoImgDark:logoImg} alt = "logo" />PAVO</LogoDiv>
+const Logo = ({isMobile,theme}) => 
+  <LogoDiv isMobile={isMobile}>
+    {!isMobile?
+      <img className='logo' src={theme === 'dark'?logoImgDark:logoImg} alt = "logo" />:
+      <img className='logoM' src={theme === 'dark'?logoImgDarkM:logoImgM} alt = "logo" />
+    }
+  </LogoDiv>
 
 
 export default Logo

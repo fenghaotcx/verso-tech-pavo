@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import {useContext} from 'react';
 import { GlobalContext } from '../../App';
-import DehazeIcon from '@mui/icons-material/Dehaze';
+// import DehazeIcon from '@mui/icons-material/Dehaze';
+import menuImg from '../../public/icon/menu.svg';
+import menuImgDark from '../../public/icon/menuDark.svg';
 import Logo from '../../components/Logo';
 import LoginDialog from '../../components/LoginDialog'
 
@@ -33,7 +35,7 @@ const Title = ({children}) => {
         {isMobile?<Logo theme={theme} isMobile={isMobile}/>:children}
         {/* {!isMobile && <LoginDialog isMobile={isMobile}/>} */}
         <LoginDialog isMobile={isMobile}/>
-        {isMobile && <DehazeIcon onClick={()=>{toggleDrawer(true)}} />}
+        {isMobile && <img src={theme === 'dark'?menuImgDark:menuImg} alt='' onClick={()=>{toggleDrawer(true)}} />}
       </Tit>
       {isMobile && <MobTit>{children}</MobTit>}
     </>
