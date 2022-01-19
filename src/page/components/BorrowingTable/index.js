@@ -264,7 +264,7 @@ export default function BalancesTable(props) {
                       </TableCell>}
                       <TableCell align="center">{row.asset}</TableCell>
                       {!isMobile && <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>}
-                      <TableCell align="center">{row.quantity}</TableCell>
+                      <TableCell align="center">{convertToFloatValue(row.quantity)}</TableCell>
                       <TableCell align="center">${convertToFloatValue(row.price)}</TableCell>
                       <TableCell align="center">
                         <div style={{color: row.apr.indexOf('-')!==-1?'#FF7373':'#20CC8E'}}>{row.apr}</div>

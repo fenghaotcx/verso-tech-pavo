@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import LinkImg from '../../public/icon/link.svg'
-import AssetLogo from '../../public/icon/assetLogo.svg'
+// import LinkImg from '../../public/icon/link.svg'
+// import AssetLogo from '../../public/icon/assetLogo.svg'
 
 const IconName = styled.div`
   display: flex;
@@ -33,11 +33,11 @@ const IconName = styled.div`
 const IconNameLink = ({name,img,link,isMobile}) => {
   return (
     <IconName isMobile={isMobile}>
-      {!isMobile && <img src={img?img:AssetLogo} alt=""/>}
+      {/* {!isMobile && <img src={img?img:AssetLogo} alt=""/>} */}
       <div>{name}</div> 
-      {!isMobile && <a href={link?link:''} rel="noreferrer" target="_blank">
+      {/* {!isMobile && <a href={link?link:''} rel="noreferrer" target="_blank">
         <img src={LinkImg} alt=""/>
-      </a>}
+      </a>} */}
     </IconName>
   )
 }

@@ -16,7 +16,6 @@ import { useAssetsDataContext } from '../../contexts';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 import { convertToFloatValue } from '../../utils/convertFloat';
-import { LCDClient,MnemonicKey,Coin, } from '@terra-money/terra.js';
 // import  {useMyTotal}  from '../../data/my/total';
 
 
@@ -79,33 +78,8 @@ const Dashboard = () => {
     // console.log('walletAddress====',walletAddress);
     
   }, [address, setAddress,connectedWallet,]);
-
-
-  const terra = new LCDClient({
-      URL: 'https://lcd.terra.dev',
-      chainID: 'columbus-5'
-  });
-
-  const mk = new MnemonicKey();
-  const wallet = terra.wallet(mk);
-  const  main = async() => {
-    const marketParams = await terra.market.parameters();
-    const exchangeRates = await terra.oracle.exchangeRates();
-    const bank = await terra.bank.total()
-    // console.log('marketParams========',marketParams);
-    // console.log('exchangeRates========',exchangeRates);
-    // console.log('bank========',bank);
-    // console.log('wallet========',wallet);
-  }
-  main()
-  const offerCoin = new Coin('uusd', '1000000');
-  terra.market.swapRate(offerCoin, 'ukrw').then(c => {
-    // console.log(`1111111111111======================${offerCoin.toString()} can be swapped for ${c.toString()}`);
-  });
   // const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
   const { assets, loading } = useAssetsDataContext();
-
-
   const allData= [
     assets?.assets,
     assets?.pylon,
@@ -145,17 +119,7 @@ const Dashboard = () => {
   arr[0].totol = convertToFloatValue(totalMarketValue.toString())
   arr[1].totol = convertToFloatValue(totalAssets.toString())
   arr[2].totol = convertToFloatValue(totalBorrowing.toString())
-
-  
-
-  // console.log('total==============total==============total================total===========total',total);
-  // console.log('list==============list==============list================list===========list',list);
-  // console.log('MyTotal==============MyTotal==============MyTotal================MyTotal===========MyTotal',MyTotal);
-  // console.log('assets==============assets==============assets================assets===========assets',assets);
-
-  
-
-  
+  console.log('assets==============assets==============assets================assets===========assets',assets);
 
   return (
       loading?
@@ -171,16 +135,38 @@ const Dashboard = () => {
         </TopDiv>
         <Content assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
         <TableBox total={assets?.anchorBorrow?.total} isNoTable={true} name={'Collateral'}>
-          {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>:<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
+          {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>
+            :<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
         </TableBox>
         <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
-          {assets?.assets && <BalancesTable assets={assets?.assets}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>}
+          {assets?.assets && 
+            <BalancesTable 
+              assets={assets?.assets}  
+              theme={theme} 
+              windowWidth={windowWidth} 
+              isMobile={isMobile}
+            />
+          }
         </TableBox>
         <TableBox total={assets?.anchorBorrow?.totalValueString} name={'Borrowing'}>
-          <BorrowingTable borrow={assets?.anchorBorrow || {}}  theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>
+          <BorrowingTable 
+            borrow={assets?.anchorBorrow || {}}  
+            mirrorBorrow={assets?.mirrorBorrow || {}} 
+            theme={theme} 
+            windowWidth={windowWidth} 
+            isMobile={isMobile}
+          />
         </TableBox>
-        <TableBox name={'Farming'}>
-          <FarmingTable farm={assets?.specFarm} reward={assets?.specReward} theme={theme} windowWidth={windowWidth} isMobile={isMobile}/>
+        <TableBox total={`$${convertToFloatValue(assets?.starterraFarms?.totalValue)}`} name={'Farming'}>
+          <FarmingTable 
+            // mirrorShortFarm={assets?.mirrorShortFarm}
+            starterraFarms={assets?.starterraFarms} 
+            specFarm={assets?.specFarm} 
+            specReward={assets?.specReward} 
+            theme={theme} 
+            windowWidth={windowWidth} 
+            isMobile={isMobile}
+          />
         </TableBox>
       </>
   )

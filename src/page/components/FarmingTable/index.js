@@ -1,7 +1,7 @@
 import { useState,Fragment,useEffect} from 'react';
 import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
+// import Collapse from '@mui/material/Collapse';
+// import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,10 +9,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import ArrowDown from '../../../public/icon/Arrow-Down.svg';
+// import ArrowDown from '../../../public/icon/Arrow-Down.svg';
 import { styled } from '@mui/system';
-import style from 'styled-components';
-import MyButton from '../MyButton';
+// import style from 'styled-components';
+// import MyButton from '../MyButton';
 import * as echarts from 'echarts/core';
 import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
@@ -22,8 +22,9 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TablePagination from '@mui/material/TablePagination';
 import IconNameLink from '../IconNameLink';
-import CodeBlock from '../CodeBlock';
+// import CodeBlock from '../CodeBlock';
 import { makeStyles } from '@mui/styles';
+import {convertToFloatValue,rmoney} from '../../../utils/convertFloat';
 
 const useStyles = makeStyles({
   root: {
@@ -49,65 +50,65 @@ const useStyles = makeStyles({
   },
 });
 
-const ImgUp = style.img`
-  transform: rotate(180deg);
-`
+// const ImgUp = style.img`
+//   transform: rotate(180deg);
+// `
 
-const BoxLeft = style.div`
-  padding-right: 4%;
-  border-right: 1px solid #ccc;
-  margin-right: 4%;
-  @media (max-width: 1025px) {
-    width: calc((100vw - 60px));
-    padding-right: 0;
-    border-right: none;
-    margin-right: 0;
-    margin-bottom: 40px;
-  }
-`
+// const BoxLeft = style.div`
+//   padding-right: 4%;
+//   border-right: 1px solid #ccc;
+//   margin-right: 4%;
+//   @media (max-width: 1025px) {
+//     width: calc((100vw - 60px));
+//     padding-right: 0;
+//     border-right: none;
+//     margin-right: 0;
+//     margin-bottom: 40px;
+//   }
+// `
 
-const Tit = style.div`
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
-  color: ${({theme})=> theme.colors.logoFont};
-  margin-bottom: 24px;
-`
+// const Tit = style.div`
+//   font-weight: 700;
+//   font-size: 20px;
+//   line-height: 30px;
+//   color: ${({theme})=> theme.colors.logoFont};
+//   margin-bottom: 24px;
+// `
 
-const BoxLeftItem =  style.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 15px;
-  line-height: 150%;
-  margin-bottom: ${({last}) => last?'27px':'8px'};
-  .left {
-    color: ${({last}) => last?'#304FFD':'#7B84A3'};
-    white-space: nowrap;
-  }
-  .right {
-    margin-left: 55px;
-    color: ${({last,theme}) => last?'#304FFD':theme.colors.font};
-    text-align: right;
-    white-space: nowrap;
-  }
-`
-const BoxRight = style.div`
-  width: 100%;
-  flex: 1;
-`
+// const BoxLeftItem =  style.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   font-size: 15px;
+//   line-height: 150%;
+//   margin-bottom: ${({last}) => last?'27px':'8px'};
+//   .left {
+//     color: ${({last}) => last?'#304FFD':'#7B84A3'};
+//     white-space: nowrap;
+//   }
+//   .right {
+//     margin-left: 55px;
+//     color: ${({last,theme}) => last?'#304FFD':theme.colors.font};
+//     text-align: right;
+//     white-space: nowrap;
+//   }
+// `
+// const BoxRight = style.div`
+//   width: 100%;
+//   flex: 1;
+// `
 
-const TableDiv = style.div`
-  width: 100%;
-  height: 200px;
-  &>div {
-    width: 100%;
-    height: 200px;
-  }
-  @media (max-width: 1025px) {
-    width: calc((100vw - 60px));
-  }
-`
+// const TableDiv = style.div`
+//   width: 100%;
+//   height: 200px;
+//   &>div {
+//     width: 100%;
+//     height: 200px;
+//   }
+//   @media (max-width: 1025px) {
+//     width: calc((100vw - 60px));
+//   }
+// `
 
 const MyTableContainer = styled(TableContainer)({
   boxShadow: 'none',
@@ -115,43 +116,43 @@ const MyTableContainer = styled(TableContainer)({
   marginBottom: 0,
 })
 
-const MyIconButton = styled(IconButton)({
-  background: 'linear-gradient(91.11deg, rgba(124, 141, 236, 0.15) 14.08%, rgba(255, 203, 186, 0.15) 98.54%)',
-  width: '25px',
-  height: '25px',
-})
+// const MyIconButton = styled(IconButton)({
+//   background: 'linear-gradient(91.11deg, rgba(124, 141, 236, 0.15) 14.08%, rgba(255, 203, 186, 0.15) 98.54%)',
+//   width: '25px',
+//   height: '25px',
+// })
 
 const headCells = [
   {
-    id: 'name',
+    id: 'platform',
     numeric: true,
     disablePadding: false,
     label: 'Platform',
     align: 'left'
   },
   {
-    id: 'calories',
+    id: 'asset',
     numeric: true,
     disablePadding: false,
     label: 'Asset',
     align: 'right',
   },
   {
-    id: 'fat',
+    id: 'value',
     numeric: true,
     disablePadding: false,
     label: 'Value/Quanty',
     align: 'right',
   },
   {
-    id: 'carbs',
+    id: 'reward',
     numeric: true,
     disablePadding: false,
     label: 'REWARD',
     align: 'center',
   },
   {
-    id: 'total',
+    id: 'apy',
     numeric: true,
     disablePadding: false,
     label: 'Total APy',
@@ -161,88 +162,64 @@ const headCells = [
 
 echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
 
-
-
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
-
 function Row(props) {
   const { row , index,isMobile,isItemSelected,labelId,theme,handleClick} = props;
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  console.log('theme=====',theme);
   useEffect(() => {
     
   },[index])
 
-  const showClick = (index) =>{
-    setOpen(!open)
-    setTimeout(()=>{
-      let chartDom = document.getElementById(`table_main_${index+1}`);
-      console.log('chartDom===',chartDom);
-      console.log('index===',index);
-      if(!chartDom) return
-      let myChart = echarts.init(chartDom);
-      let option;
+  // const showClick = (index) =>{
+  //   setOpen(!open)
+  //   setTimeout(()=>{
+  //     let chartDom = document.getElementById(`table_main_${index+1}`);
+  //     console.log('chartDom===',chartDom);
+  //     console.log('index===',index);
+  //     if(!chartDom) return
+  //     let myChart = echarts.init(chartDom);
+  //     let option;
 
-      option = {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            smooth: true,
-            symbol: 'none',
-            areaStyle: {
-              // 填充色渐变
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#3aa7ff" },
-                { offset: 0.6, color: "rgba(48, 79, 253, 0.2)" },
-                { offset: 1, color: "rgba(169, 116, 255, 0)" }
-              ])
-            },
-          }
-        ],
-        tooltip : {
-          trigger: 'axis',
-          axisPointer: {
-              type: 'cross',//指示类型
-              label: {
-                // 横纵坐标指示区块颜色
-                  backgroundColor: '#6a7985'
-              }
-          }
-        }
-      };
+  //     option = {
+  //       xAxis: {
+  //         type: 'category',
+  //         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  //       },
+  //       yAxis: {
+  //         type: 'value'
+  //       },
+  //       series: [
+  //         {
+  //           data: [820, 932, 901, 934, 1290, 1330, 1320],
+  //           type: 'line',
+  //           smooth: true,
+  //           symbol: 'none',
+  //           areaStyle: {
+  //             // 填充色渐变
+  //             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+  //               { offset: 0, color: "#3aa7ff" },
+  //               { offset: 0.6, color: "rgba(48, 79, 253, 0.2)" },
+  //               { offset: 1, color: "rgba(169, 116, 255, 0)" }
+  //             ])
+  //           },
+  //         }
+  //       ],
+  //       tooltip : {
+  //         trigger: 'axis',
+  //         axisPointer: {
+  //             type: 'cross',//指示类型
+  //             label: {
+  //               // 横纵坐标指示区块颜色
+  //                 backgroundColor: '#6a7985'
+  //             }
+  //         }
+  //       }
+  //     };
 
-      option && myChart.setOption(option);
-    })
+  //     option && myChart.setOption(option);
+  //   })
     
-  }
+  // }
   
   return (
     <Fragment>
@@ -250,23 +227,27 @@ function Row(props) {
       <TableRow 
         selected={isItemSelected} 
         aria-checked={isItemSelected}
-        onClick={(event) => handleClick(event, row.name)}
+        onClick={(event) => handleClick(event, row.platform)}
         role="checkbox"
         hover
       >
         {!isMobile && <TableCell padding="checkbox" />}
         {!isMobile && <TableCell id={labelId} align="left" component="th" scope="row">
-          <IconNameLink isMobile={isMobile} name={row.name} />
+          <IconNameLink isMobile={isMobile} name={row.platform} />
         </TableCell>}
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="center">
-          <div>{row.carbs}</div>
-          <CodeBlock isMobile={isMobile} color="grey">Re-staked</CodeBlock>
+        <TableCell align="right">{row.asset}</TableCell>
+        <TableCell align="right">
+          <div>{row.value}</div>
+          <div>{row.value_token}</div>
         </TableCell>
         <TableCell align="center">
-          <div>{row.protein}</div>
-          <CodeBlock isMobile={isMobile}>Auto Farming</CodeBlock>
+          <div>${convertToFloatValue(row.reward)}</div>
+          <div>{row.reward_token}</div>
+          {/* <CodeBlock isMobile={isMobile} color="grey">Re-staked</CodeBlock> */}
+        </TableCell>
+        <TableCell align="center">
+          <div>{row.apy}</div>
+          {/* <CodeBlock isMobile={isMobile}>Auto Farming</CodeBlock> */}
         </TableCell>
 
         {/* {!isMobile && 
@@ -398,18 +379,27 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
 
 export default function FarmingTable(props) {
-  const {isMobile,windowWidth,theme,farm,reward} = props
-  // console.log('farm==========',farm);
-  // console.log('reward==========',reward);
+  const {isMobile,windowWidth,theme,specFarm,specReward,starterraFarms} = props
+  console.log('specFarm==========',specFarm);
+  console.log('specReward==========',specReward);
+  let data = []
+  if(JSON.stringify(starterraFarms) !== '{}' && starterraFarms){
+    console.log('starterraFarms==========starterraFarms============',starterraFarms);
+    data = starterraFarms.data.map(item=>{
+      return {
+        platform: 'StarTerra',
+        asset: item[0].name,
+        value: item[2].lpData.token1,
+        value_token: item[2].lpData.token2,
+        reward: rmoney(item[5].reward.tokenValue),
+        reward_token: item[5].reward.token,
+        apy: '-',
+      }
+    })
+  }
+
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -468,16 +458,16 @@ export default function FarmingTable(props) {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={rows.length}
+            rowCount={data.length}
             isMobile={isMobile}
             windowWidth={windowWidth}
           />
           <TableBody>
-          {stableSort(rows, getComparator(order, orderBy))
+          {stableSort(data, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
-              const isItemSelected = isSelected(row.name);
+              const isItemSelected = isSelected(row.platform);
             return (
               <Row theme={theme} 
                 isItemSelected={isItemSelected} 
@@ -485,7 +475,7 @@ export default function FarmingTable(props) {
                 windowWidth={windowWidth} 
                 labelId={labelId} 
                 isMobile={isMobile} 
-                key={row.name} 
+                key={row.platform} 
                 index={index} 
                 row={row}
               />
@@ -498,7 +488,7 @@ export default function FarmingTable(props) {
           sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

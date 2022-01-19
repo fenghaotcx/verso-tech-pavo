@@ -1,7 +1,8 @@
 import { convertToFloatValue } from '../../../utils/convertFloat';
 
 export const getApolloVaultData = (apolloData) => {
-  const apolloVaults = apolloData.vaults.sort(
+  const vaults = JSON.parse(JSON.stringify(apolloData.vaults))
+  const apolloVaults = vaults.sort(
     (a, b) => parseFloat(b.stakedLpUstValue) - parseFloat(a.stakedLpUstValue),
   );
 

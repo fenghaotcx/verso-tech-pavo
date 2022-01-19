@@ -1,5 +1,5 @@
 import styled from 'styled-components' 
-import Doubt from './Doubt'
+// import Doubt from './Doubt'
 
 
 const ProgressDiv = styled.div`
@@ -26,7 +26,8 @@ const ProgressBar = ({type='Increase',num=42,isMobile}) => {
     return (
         <ProgressDiv isMobile={isMobile} type={type}>
             <ProgressFloat isMobile={isMobile} type={type} num={num}>
-               {!isMobile && +num>=25?<Doubt />:<></>} {num}%
+               {/* {!isMobile && +num>=25?<Doubt />:<></>}  */}
+               {num}%
             </ProgressFloat>
         </ProgressDiv>
     )

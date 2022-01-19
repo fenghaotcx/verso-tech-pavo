@@ -6,7 +6,7 @@ export const convertToFloatValue = (value,fix) => {
   } else if (Math.abs(floatValue) <= 0.001) {
     return floatValue.toFixed(8);
   } else {
-    return numberFormat(floatValue.toFixed(fix||3));
+    return numberFormat(floatValue.toFixed(fix||2));
   }
 };
 

@@ -73,11 +73,6 @@ export default function LoginDialog({isMobile}) {
     setAddress(e.target.value);
   };
 
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = (value) => {
     setOpen(false);
   };
@@ -89,10 +84,6 @@ export default function LoginDialog({isMobile}) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Connect 
-        {/* Wallet */}
-      </Button>
       <Button  
          onClick={isMobile ? () => onTypeSelect('Mobile') : () => setModalVisible(!showModal)} variant="contained">
             {connectedWallet?.terraAddress?'Connected':'Connect Wallet'}
