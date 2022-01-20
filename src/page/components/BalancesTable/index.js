@@ -152,7 +152,7 @@ function EnhancedTableHead(props) {
 
 export default function BalancesTable(props) {
   const {isMobile,windowWidth,theme,assets} = props;
-  let data = null
+  let data = []
   if(assets?.data){
     data = assets.data.map((item)=>{
       return {
@@ -222,7 +222,7 @@ export default function BalancesTable(props) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={data.length}
+              rowCount={data?.length||0}
               isMobile={isMobile}
               windowWidth={windowWidth}
             />
@@ -273,7 +273,7 @@ export default function BalancesTable(props) {
           sx={{ color:theme==='dark'?'#fff':'#000' }}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.length}
+          count={data?.length||0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

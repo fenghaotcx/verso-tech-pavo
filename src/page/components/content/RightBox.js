@@ -72,7 +72,7 @@ const AssetsDiv = styled.div`
 
 const RightBox = ({theme,isMobile,assets}) => {
     // console.log('assets===============assets=====assets',assets);
-    let AssetsItemArr = null
+    let AssetsItemArr = []
     let OthersItemArr = [
       {name: 'Others'},
       {name: 'Others'},
@@ -80,8 +80,8 @@ const RightBox = ({theme,isMobile,assets}) => {
       {price: '0'},
       {value: 0},
     ]
-    const OldTotal = assets.totalValue
-    let total = assets.totalValue
+    const OldTotal = assets?.totalValue ||0
+    let total = assets?.totalValue || 0
     const assetsMap = (isOther) => {
       AssetsItemArr.map((item,index)=>{
         if(isOther){
@@ -92,7 +92,7 @@ const RightBox = ({theme,isMobile,assets}) => {
         return null
       })
     }
-    if(assets.data.length >= 4){
+    if(assets?.data && assets?.data?.length >= 4){
       AssetsItemArr = assets.data.slice(0,3)
       AssetsItemArr.push(OthersItemArr)
       assetsMap(true)
@@ -101,7 +101,7 @@ const RightBox = ({theme,isMobile,assets}) => {
       AssetsItemArr[ArrLen][4].value = otherTotal
       AssetsItemArr[ArrLen][5] = {percentage: (otherTotal/OldTotal * 100).toFixed(1)}
     }else{
-      AssetsItemArr = assets.data
+      AssetsItemArr = assets?.data || []
       assetsMap()
     }
     // console.log('AssetsItemArr===========',AssetsItemArr);

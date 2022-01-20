@@ -32,27 +32,27 @@ const DialogDiv = styles.div`
 `
 const MyButton = styled(Button)`
   border-radius: 10px;
-  background: ${({isMobile})=>isMobile? '#FFF':'#304FFD'};
-  height: ${({isMobile})=>isMobile? '32px':'46px'};
+  background: ${({ismobile})=>ismobile==='true'? '#FFF':'#304FFD'};
+  height: ${({ismobile})=>ismobile==='true'? '32px':'46px'};
   font-family: 'Poppins';
   font-weight: 500;
-  font-size: ${({isMobile})=>isMobile? '12px':'15px'};
-  color: ${({isMobile})=>isMobile? ' #3F434A':'#fff'};
+  font-size: ${({ismobile})=>ismobile==='true'? '12px':'15px'};
+  color: ${({ismobile})=>ismobile==='true'? ' #3F434A':'#fff'};
   text-transform: Capitalize;
-  padding: 0 ${({isMobile})=>isMobile? '14px':'20px'};
+  padding: 0 ${({ismobile})=>ismobile==='true'? '14px':'20px'};
   // margin-left: ${({index})=> index===0 ?'40px':'24px'};
   display: flex;
   align-items: center;
   & .walletImg {
-    margin-right: ${({isMobile})=>isMobile? '8px':'12px'};
+    margin-right: ${({ismobile})=>ismobile==='true'? '8px':'12px'};
   }
   & .down {
     margin-left: 12px;
   }
-  ${() =>
+  ${({ismobile}) =>
       css({
         '&:hover': {
-          backgroundColor: '#304FFD',
+          backgroundColor:  ismobile==='true'? '#fff':'#304FFD',
         },
       })
   }
@@ -120,7 +120,7 @@ export default function LoginDialog({isMobile}) {
   return (
     <ConnectBtn>
       <MyButton  
-        isMobile={isMobile}
+        ismobile={isMobile.toString()}
         onClick={isMobile ? () => onTypeSelect('Mobile') : () => setModalVisible(!showModal)} variant="contained"
       >
         <img className='walletImg' src={isMobile?walletDarkImg:walletImg} alt='' />

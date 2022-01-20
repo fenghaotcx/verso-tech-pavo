@@ -1,20 +1,20 @@
 import styled from 'styled-components';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import {useContext} from 'react';
 import { GlobalContext } from '../../App';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const MyFormControlLabel = styled(FormControlLabel)({
-  '&>.css-ahj2mt-MuiTypography-root': {
-    fontSize: 12,
-    fontFamily: 'Poppins',
-  },
-  '&>.MuiCheckbox-root': {
-    color: '#A3AED0',
-  }
-})
+// const MyFormControlLabel = styled(FormControlLabel)({
+//   '&>.css-ahj2mt-MuiTypography-root': {
+//     fontSize: 12,
+//     fontFamily: 'Poppins',
+//   },
+//   '&>.MuiCheckbox-root': {
+//     color: '#A3AED0',
+//   }
+// })
 
 const TableDiv = styled.div`
   width: 100%;
@@ -69,10 +69,16 @@ const RightCheckDiv =  styled.div`
   font-size: ${({isMobile})=> isMobile ?'12px':'16px'};
   color: ${({theme})=> theme.colors.lableFont};
   ${({isMobile})=> isMobile ?'text-align: end;':''}
+
+  margin: 20px 0;
 `
 
+// const RightCheck = ({isMobile}) => <RightCheckDiv isMobile={isMobile}>
+//   <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
+// </RightCheckDiv>
+
 const RightCheck = ({isMobile}) => <RightCheckDiv isMobile={isMobile}>
-  <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" />
+  {/* <MyFormControlLabel control={<Checkbox {...label}  size="small" />} label="Hide small balances" /> */}
 </RightCheckDiv>
 
 const TableBoxTopContCom =({name,total,isMobile,isNoTable}) => {

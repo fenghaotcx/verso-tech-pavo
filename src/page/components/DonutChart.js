@@ -25,7 +25,7 @@ echarts.use([
     GraphicComponent
   ]);
 
-const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr}) => {
+const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr=[]}) => {
     
     let data = AssetsItemArr.map((item,index)=> {
       let obj = {
@@ -54,7 +54,7 @@ const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr}) => {
               children:[
                   {type:'text',
                   style: {
-                    text:`${ numberFormat(assets.totalValue)}` || '0',
+                    text:`${ numberFormat(assets?.totalValue||0)}`,
                     textAlign: 'center',
                     // fill: theme === 'dark'?'color: #fff;':'color: #3F434A;',
                     width: 30,
@@ -112,7 +112,7 @@ const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr}) => {
         };
 
         option && myChart.setOption(option);
-    },[data,assets.totalValue])
+    },)
 
     return (
         <DonutDiv id="donutChart"></DonutDiv>

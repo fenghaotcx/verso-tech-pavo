@@ -16,13 +16,13 @@ import { useAssetsDataContext } from '../../contexts';
 import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 import { convertToFloatValue } from '../../utils/convertFloat';
+import Snackbar from '@mui/material/Snackbar';
 // import  {useMyTotal}  from '../../data/my/total';
 
 
 const LoadDiv = styled.div`
   width: 100%;
-  // height:  calc(100vh - 178px);
-  height: 100vh;
+  height:  calc(100vh - ${({isMobile})=>isMobile?'180px':'278px'});
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,6 +61,7 @@ const Dashboard = () => {
   const [, setAddressType] = useState(WALLET_ADDRESS_TYPE);
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
+  const [open, setOpen] = useState(false);
   // const MyTotal = useMyTotal()
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
@@ -79,7 +80,7 @@ const Dashboard = () => {
     
   }, [address, setAddress,connectedWallet,]);
   // const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
-  const { assets, loading } = useAssetsDataContext();
+  let { assets, loading } = useAssetsDataContext();
   const allData= [
     assets?.assets,
     assets?.pylon,
@@ -120,54 +121,59 @@ const Dashboard = () => {
   arr[1].totol = convertToFloatValue(totalAssets.toString())
   arr[2].totol = convertToFloatValue(totalBorrowing.toString())
   console.log('assets==============assets==============assets================assets===========assets',assets);
-
   return (
-      loading?
-      <LoadDiv>
-        <CircularProgress color="primary" />
-      </LoadDiv>:
       <>
         <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
-        <TopDiv isMobile={isMobile}>
-          {arr.map((item,index)=>{
-            return <StatisticsBox isMobile={isMobile} theme={theme} info={item}  key={index}/>
-          })}
-        </TopDiv>
-        <Content assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
-        <TableBox total={assets?.anchorBorrow?.total} isNoTable={true} name={'Collateral'}>
-          {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>
-            :<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
-        </TableBox>
-        <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
-          {assets?.assets && 
+        {loading?
+        <LoadDiv isMobile={isMobile}>
+          <CircularProgress color="primary" />
+        </LoadDiv>:
+        <>
+          <TopDiv isMobile={isMobile}>
+            {arr.map((item,index)=>{
+              return <StatisticsBox isMobile={isMobile} theme={theme} info={item}  key={index}/>
+            })}
+          </TopDiv>
+          <Content setOpen={setOpen}  assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
+          <TableBox total={assets?.anchorBorrow?.total} isNoTable={true} name={'Collateral'}>
+            {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>
+              :<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
+          </TableBox>
+          <TableBox total={assets?.assets?.total} marginType={true} name={'Wallet Balances'}>
             <BalancesTable 
               assets={assets?.assets}  
               theme={theme} 
               windowWidth={windowWidth} 
               isMobile={isMobile}
             />
-          }
-        </TableBox>
-        <TableBox total={assets?.anchorBorrow?.totalValueString} name={'Borrowing'}>
-          <BorrowingTable 
-            borrow={assets?.anchorBorrow || {}}  
-            mirrorBorrow={assets?.mirrorBorrow || {}} 
-            theme={theme} 
-            windowWidth={windowWidth} 
-            isMobile={isMobile}
+          </TableBox>
+          <TableBox total={assets?.anchorBorrow?.totalValueString} name={'Borrowing'}>
+            <BorrowingTable 
+              borrow={assets?.anchorBorrow || {}}  
+              mirrorBorrow={assets?.mirrorBorrow || {}} 
+              theme={theme} 
+              windowWidth={windowWidth} 
+              isMobile={isMobile}
+            />
+          </TableBox>
+          <TableBox total={`$${convertToFloatValue(assets?.starterraFarms?.totalValue||0)}`} name={'Farming'}>
+            <FarmingTable 
+              // mirrorShortFarm={assets?.mirrorShortFarm}
+              starterraFarms={assets?.starterraFarms} 
+              specFarm={assets?.specFarm} 
+              specReward={assets?.specReward} 
+              theme={theme} 
+              windowWidth={windowWidth} 
+              isMobile={isMobile}
+            />
+          </TableBox>
+          <Snackbar 
+            anchorOrigin={{ vertical:'top', horizontal:'center' }}
+            open={open}
+            message="Error Claiming Airdrops"
           />
-        </TableBox>
-        <TableBox total={`$${convertToFloatValue(assets?.starterraFarms?.totalValue)}`} name={'Farming'}>
-          <FarmingTable 
-            // mirrorShortFarm={assets?.mirrorShortFarm}
-            starterraFarms={assets?.starterraFarms} 
-            specFarm={assets?.specFarm} 
-            specReward={assets?.specReward} 
-            theme={theme} 
-            windowWidth={windowWidth} 
-            isMobile={isMobile}
-          />
-        </TableBox>
+        </>
+        }
       </>
   )
 }
