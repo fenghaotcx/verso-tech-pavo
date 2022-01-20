@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import assetLogo from '../../../public/icon/assetLogo.svg';
-import useMobileDown from '../../../hooks/useMobileDown';
+// import assetLogo from '../../../public/icon/assetLogo.svg';
+// import useMobileDown from '../../../hooks/useMobileDown';
 import {numberFormat} from '../../../utils/convertFloat';
 
 const ItemDiv = styled.div`
@@ -81,11 +81,12 @@ const ItemBot = styled.div`
 `
 
 const AssetsItem = ({data,index}) => {
-    const isMobile = useMobileDown()
+    // const isMobile = useMobileDown()
     const color = ['#5b79d6','#ff7171','#ffdd6a','#90cc7b']
     return (
         <ItemDiv>
-            {data[0].name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:!isMobile && <div className='ImgDiv'></div>}
+            {/* {data[0].name !== 'Others' && !isMobile  ?<img src={assetLogo} alt="" />:!isMobile && <div className='ImgDiv'></div>} */}
+            {/* <div className='ImgDiv'></div> */}
             <ItemLfet>
                 <ItemTop>
                     <div>{data[0].name || data[0].url}</div>

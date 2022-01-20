@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import terra_m from '../public/icon/Terra-m.svg';
 import terra_s from '../public/icon/Terra-s.svg';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const MobTit = styles.div`
   font-family: Poppins;
@@ -93,7 +93,7 @@ const content = 'Terra Station Extension'
 const ConnectModal = ({ showModal, setModalVisible, isConnect, address, disconnect }) => {
   const isMobile = useMobileDown()
   const { onConnect } = useWallet();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const onTypeSelect = (type) => {
     onConnect(type);
     setModalVisible(false);
@@ -107,7 +107,9 @@ const ConnectModal = ({ showModal, setModalVisible, isConnect, address, disconne
     //   disconnect();
     // }
     disconnect()
-    navigate('/')
+    setModalVisible(false)
+    window.location.reload();
+    // navigate('/')
   };
 
   if (isMobile) {
