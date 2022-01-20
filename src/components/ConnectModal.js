@@ -108,7 +108,7 @@ const ConnectModal = ({ showModal, setModalVisible, isConnect, address, disconne
     // }
     disconnect()
     setModalVisible(false)
-    window.location.reload();
+    window.location.reload('/');
     // navigate('/')
   };
 
