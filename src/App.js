@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import { LIGHT_THEME, DARK_THEME } from './constants';
 import useMobileDown from './hooks/useMobileDown';
 import useWindowSize from './hooks/useWindowSize';
-import { useLocation  } from "react-router-dom";
+// import { useLocation  } from "react-router-dom";
 import { useApollo } from './lib/apolloClient';
 import { WalletConnectProvider,AssetsDataProvider } from './providers';
 import Container from "./page/Container";
@@ -20,8 +20,7 @@ function App() {
   const [theme, setTheme] = useState(LIGHT_THEME);
   const [isopen,setShow] = useState(false)
   const {windowWidth} = useWindowSize()
-  const params = useLocation();
-  console.log('params====',params);
+  // const params = useLocation();
   useEffect(() => {
     const currentTheme = localStorage.getItem('theme');
     const terra_extension = localStorage.getItem('__terra_extension_router_session__');

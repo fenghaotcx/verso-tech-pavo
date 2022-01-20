@@ -32,40 +32,37 @@ const AssetsDataProvider = ({ children }) => {
   );
 
   // 线上
-  // useEffect(() => {
-  //   const walletAddress = connectedWallet?.terraAddress;
-  //   if (walletAddress) {
-  //     setAddress(walletAddress);
-  //   } else if (localAddress) {
-  //     setAddress(localAddress);
-  //   }
-  // }, [localAddress, connectedWallet]);
-
-
-  // 线下测试
   useEffect(() => {
-    // const walletAddress = connectedWallet?.terraAddress;
-    if (localAddress) {
-      setAddress(localAddress);
+    const walletAddress = connectedWallet?.terraAddress;
+    if (walletAddress) {
+      setAddress(walletAddress);
     } else if (localAddress) {
       setAddress(localAddress);
     }
   }, [localAddress, connectedWallet]);
-
   // 线上
-  // useEffect(() => {
-  //   if (address && address !== '') {
-  //     fetchAssets({ variables: { address: address } });
-  //   }
-  // }, [address,fetchAssets]);
-
-
-  // 线下测试
   useEffect(() => {
-    if (localAddress && localAddress !== '') {
-      fetchAssets({ variables: { address: localAddress } });
+    if (address && address !== '') {
+      fetchAssets({ variables: { address: address } });
     }
-  }, [localAddress,fetchAssets]);
+  }, [address,fetchAssets]);
+
+
+  // // 线下测试
+  // useEffect(() => {
+  //   // const walletAddress = connectedWallet?.terraAddress;
+  //   if (localAddress) {
+  //     setAddress(localAddress);
+  //   } else if (localAddress) {
+  //     setAddress(localAddress);
+  //   }
+  // }, [localAddress, connectedWallet]);
+  // // 线下测试
+  // useEffect(() => {
+  //   if (localAddress && localAddress !== '') {
+  //     fetchAssets({ variables: { address: localAddress } });
+  //   }
+  // }, [localAddress,fetchAssets]);
 
   const refreshing = networkStatus === NetworkStatus.refetch && assetsLoading;
   const loading = !refreshing && assetsLoading;
