@@ -90,8 +90,8 @@ const LeftBox = ({isMobile,airdrops,setOpen}) => {
     }, [airdrops]);
 
     const onClaimAirdrop = async () => {
-        setLoading(true)
-        if (airdrops.data.length > 0 && connectedWallet?.terraAddress) {
+        if (airdrops?.data?.length > 0 && connectedWallet?.terraAddress) {
+          setLoading(true)
         // if (airdrops.data.length > 0 ) {
           const result = await claimAirdrops(airdrops.data, connectedWallet.terraAddress, post);
           if (result) {

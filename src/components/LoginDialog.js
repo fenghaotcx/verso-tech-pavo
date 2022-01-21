@@ -49,6 +49,7 @@ const MyButton = styled(Button)`
   & .down {
     margin-left: 12px;
   }
+  ${({ismobile})=>ismobile==='true'? 'box-shadow: none;':''}
   ${({ismobile}) =>
       css({
         '&:hover': {
