@@ -41,16 +41,16 @@ const TopClose = ({toggleDrawer,theme}) => {
 
 const linkArr = [
   {
-    name: 'Discord',
-    link: 'https://discord.gg/cME7P6ySsM'
-  },
-  {
     name: 'Twitter',
     link: 'https://twitter.com/pavo_finance'
   },
   {
     name: 'Telegram',
     link: 'https://t.me/pavofinance'
+  },
+  {
+    name: 'Discord',
+    link: 'https://discord.gg/cME7P6ySsM'
   },
   {
     name: 'Document',

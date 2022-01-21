@@ -89,6 +89,7 @@ const style = {
 };
 
 const content = 'Terra Station Extension'
+const M_content = 'Wallet Connect'
 
 const ConnectModal = ({ showModal, setModalVisible, isConnect, address, disconnect }) => {
   const isMobile = useMobileDown()
@@ -139,7 +140,7 @@ const ConnectModal = ({ showModal, setModalVisible, isConnect, address, disconne
           <img src={terra_s} alt=''/>
         </MyButton>
         <MyButton onClick={() => onTypeSelect('Mobile')}>
-          <span>{content}</span>
+          <span>{M_content}</span>
           <img src={terra_m} alt=''/>
         </MyButton>
       </Box>

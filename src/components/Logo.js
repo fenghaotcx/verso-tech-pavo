@@ -4,7 +4,7 @@ import logoImgM from '../public/icon/LogoM.svg';
 import logoImgDark from '../public/icon/LogoDark.svg';
 import logoImgDarkM from '../public/icon/LogoDarkM.svg';
 
-const LogoDiv = styled.div`
+const LogoDiv = styled.a`
   font-family: 'Poppins-Bold';
   font-weight: bold;
   font-size: 24px;
@@ -19,7 +19,7 @@ const LogoDiv = styled.div`
 `
 
 const Logo = ({isMobile,theme}) => 
-  <LogoDiv isMobile={isMobile}>
+  <LogoDiv href='/' rel="noreferrer" isMobile={isMobile}>
     {!isMobile?
       <img className='logo' src={theme === 'dark'?logoImgDark:logoImg} alt = "logo" />:
       <img className='logoM' src={theme === 'dark'?logoImgDarkM:logoImgM} alt = "logo" />

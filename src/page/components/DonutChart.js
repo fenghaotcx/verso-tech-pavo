@@ -83,7 +83,7 @@ const DonutChart = ({children,isMobile,theme,assets,AssetsItemArr=[]}) => {
         ],
           series: [
             {
-              name: 'Access',
+              name: 'Asset',
               type: 'pie',
               radius: ['75%', '90%'],
               avoidLabelOverlap: false,
