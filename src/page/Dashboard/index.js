@@ -62,7 +62,6 @@ const Dashboard = () => {
   const { useConnectedWallet } = useWallet();
   const connectedWallet = useConnectedWallet();
   const [open, setOpen] = useState(false);
-  // const MyTotal = useMyTotal()
   useEffect(() => {
     const localAddress = localStorage.getItem(ADDRESS_KEY);
     const walletAddress = connectedWallet?.terraAddress;
