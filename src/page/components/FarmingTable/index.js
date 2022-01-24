@@ -46,7 +46,10 @@ const useStyles = makeStyles({
     },
     '& .Mui-selected': {
       background: 'linear-gradient(270.23deg, #7C9EF1 3.66%, #986FC1 38.95%, #6BCCD1 97.74%)',
-    }
+    },
+    '& .MuiSvgIcon-root': {
+      color: ({theme}) => theme === 'dark'?'#fff':'rgba(0, 0, 0, 0.54)',
+    },
   },
 });
 
@@ -485,15 +488,16 @@ export default function FarmingTable(props) {
         </Table>
       </MyTableContainer>
       <TablePagination
-          sx={{ color:theme==='dark'?'#fff':'#000' }}
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        className={classes.root}
+        sx={{ color:theme==='dark'?'#fff':'#000' }}
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 }
