@@ -2,15 +2,17 @@ import {routes} from '../../../routes';
 import {NavLink} from 'react-router-dom';
 import Styles from '../App.module.css';
 import Logo from '../../Logo';
-import {useContext} from 'react';
+import {useContext,useState} from 'react';
 import { GlobalContext } from '../../../App';
 import LeftBarCom from './LeftBarCom';
 import SwitchTheme from './SwitchTheme';
 // import style from 'styled-components';
-import { styled } from '@mui/system';
+import { styled,css } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import ShareLink from './ShareLink'
+import ShareLink from './ShareLink';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const MyIconButton = styled(IconButton)`
   width: 26px;
@@ -20,6 +22,19 @@ const MyIconButton = styled(IconButton)`
   align-items: center;
   justify-content: center;
 `
+const BackButton = styled(IconButton)`
+  position: absolute;
+  right: -20px;
+  top: 80px;
+  z-index: 9;
+  background: #fff;
+  ${() =>
+    css({
+      '&:hover': {backgroundColor: `#fff`}
+    })
+  }
+`
+
 const TopDiv  =  styled('div')`
   width: 100%;
   height: 96px;
@@ -65,36 +80,42 @@ const linkArr = [
 
 const LeftBar = () => {
   const { isMobile,toggleDrawer,isopen,changeTheme,theme } = useContext(GlobalContext)
-
+  const [show,setShow] = useState(false)
+  const [short,setShort] = useState(true)
   return (
-    <LeftBarCom cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} theme={theme} isMobile={isMobile} toggleDrawer={toggleDrawer} isopen={isopen}>
-      {!isMobile && <Logo theme={theme} isMobile={isMobile}/>}
-      {isMobile && <TopClose theme={theme} toggleDrawer={toggleDrawer} />}
+    <LeftBarCom  
+      cls={theme === 'light'?Styles.lightLeft:Styles.darkLeft} 
+      theme={theme} isMobile={isMobile} 
+      toggleDrawer={toggleDrawer} 
+      isopen={isopen}
+      setShow={setShow}
+      short={short}
+    >
+      {!isMobile ? <Logo theme={theme} short={short} isMobile={isMobile}/>:<TopClose theme={theme} toggleDrawer={toggleDrawer} />}
       {routes.map((item)=>{
         if(item?.name && item?.icon){
           return (
             <NavLink 
               className={({ isActive }) => 
-              (isActive ? `${Styles.active} ${isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv}`: 
+              (isActive ? `${Styles.active} ${isMobile?`${Styles.navDiv} ${Styles.navDivM}`:`${Styles.navDiv} ${!short && Styles.navDivShort}`}`: 
                isMobile?`${Styles.navDiv} ${Styles.navDivM}`:Styles.navDiv
               )} 
               to={item.path} key={item.name}>
                 <div className={Styles.iconImg}>{item.icon}</div>
-                {item.name}
+                {short && item.name}
             </NavLink>
           )
         }else{
           return null
         }
       })}
-      <div className={isMobile ? Styles.close:''}>
-        <SwitchTheme theme={theme} changeTheme={changeTheme} />
-      </div>
-      {!isMobile && linkArr.map((item,index)=>{
-        return <ShareLink name={item.name} key={index} link={item.link} isMobile={isMobile}/>
-        })
+      {short && <div className={isMobile ? Styles.close:''}><SwitchTheme theme={theme} changeTheme={changeTheme} /></div>}
+      {!isMobile && linkArr.map((item,index)=> <ShareLink name={item.name} key={index} link={item.link} isMobile={isMobile}/>)}
+      {show && 
+        <BackButton onClick={()=>{setShort(!short);setShow(false)}}>
+          {short?<ArrowBackIosNewIcon />:<ArrowForwardIosIcon />}
+        </BackButton>
       }
-      
     </LeftBarCom>  
   )
 };

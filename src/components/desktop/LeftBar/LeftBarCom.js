@@ -13,18 +13,16 @@ const useStyles = makeStyles({
 const anchor = 'left'
 
 const Left = styled.div`
-  width: 20%;
-  height: 100vh;
-  padding: 35px 0 0 40.5px;
+  width: ${({short})=> short?'19%':'fit-content'};
+  height: 100%;
+  padding: ${({short})=> short?'35px 0 0 2.5%':'35px 10px 0 10px'};
   box-sizing: border-box;
-  position: fixed;
-  left: 0;
-  top: 0;
-  overflow: hidden;
   background: ${({theme}) => theme.colors.Leftbackground};
+  // border-radius: 20px;
+  position: relative;
 `
 
-const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls,theme}) => {
+const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls,theme,setShow,short}) => {
   const classes = useStyles({theme})
   console.log('open====LeftBarCom=====',isopen);
   return (
@@ -36,7 +34,9 @@ const LeftBarCom = ({children,isMobile,toggleDrawer,isopen,cls,theme}) => {
       onClose={()=>{toggleDrawer(false)}}>
       {children}
     </Drawer>:
-    <Left className={cls}>{children}</Left>
+    <Left short={short} className={cls} onMouseEnter={()=> setShow(true)} onMouseLeave={()=> setShow(false)}>
+      {children}
+    </Left>
   )
 };
   

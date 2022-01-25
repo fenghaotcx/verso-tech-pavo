@@ -1,9 +1,9 @@
 .right {
-    width: 80%;
+    flex: 1;
     min-height: 100vh;
     height: 100%;
     padding: 89px 40px 89px 48px;
-    margin-left: 20%;
+    overflow-y: auto;
     background: linear-gradient(157.98deg, #F1F9FF 7.94%, #E7F7F4 34.28%, #F4F9FD 53.49%);
 }
 .right_m {
@@ -63,6 +63,13 @@
 .darkLeft .active::after {
     background:url("../../public/icon/activeAfterDark.svg") no-repeat center;
 }
+.active.navDivShort::after {
+    background:none;
+}
+.darkLeft .active.navDivShort::after {
+    background:none;
+}
+
 .iconImg {
     width: 36px;
     height: 36px;
