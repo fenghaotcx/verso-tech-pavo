@@ -16,12 +16,15 @@ const LogoDiv = styled.a`
   &>.logo {
     width: ${({isMobile})=> isMobile?'97px':'110px'};
   }
+  &>.logoM {
+    width: 26px;
+  }
 `
 
 const Logo = ({isMobile,theme,short}) => 
   <LogoDiv href='/' rel="noreferrer" isMobile={isMobile}>
-    {!isMobile?
-      !short?<img src={theme === 'dark'?logoImgDarkM:logoImgM} alt = "logo"/>:<img className='logo' src={theme === 'dark'?logoImgDark:logoImg} alt = "logo" />:
+    {!isMobile && short?
+      <img className='logo' src={theme === 'dark'?logoImgDark:logoImg} alt = "logo" />:
       <img className='logoM' src={theme === 'dark'?logoImgDarkM:logoImgM} alt = "logo" />
     }
   </LogoDiv>
