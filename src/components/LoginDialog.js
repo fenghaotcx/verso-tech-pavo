@@ -20,13 +20,14 @@ const ConnectBtn = styles.div`
 `
 const DialogDiv = styles.div`
   margin: 20px 40px;
-  width: 400px;
+  width: ${({isMobile})=> isMobile?'':'400px'};
+  display: flex;
   &>input {
     width: 80%;
     // border-radius: 9px;
     // border: none;
     outline: none;
-    margin: 0 auto;
+    margin-right: 20px;
     padding: 0;
   }
 `
@@ -61,26 +62,25 @@ const MyButton = styled(Button)`
 
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open,address,handleAddress,
-    getWarningText,validWalletAddress,navigate} = props;
+  // const { onClose, selectedValue, open,address,handleAddress,getWarningText,validWalletAddress,navigate,isMobile} = props;
+  const { onClose, selectedValue, open,address,handleAddress,getWarningText,validWalletAddress,isMobile} = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
   const onAddressSubmit = () => {
     localStorage.setItem(ADDRESS_KEY, address);
-    navigate('/autoFarm',{replace: true});
+    // navigate('/autoFarm',{replace: true});
   };
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle sx={{textAlign: 'center' }}>Connect Wallet</DialogTitle>
-      <DialogDiv>
+      <DialogDiv isMobile={isMobile}>
         <input defaultValue={address} onChange={handleAddress} placeholder="Enter a Terra address" />
-        <div>{getWarningText()}</div>
         <Button disabled={!validWalletAddress} onClick={onAddressSubmit} variant="contained">Submit</Button>
-        
       </DialogDiv>
+      <div>{getWarningText()}</div>
     </Dialog>
   );
 }
@@ -109,9 +109,7 @@ export default function LoginDialog({isMobile}) {
     setAddress(e.target.value);
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
-  };
+  const handleClose = (value) => setOpen(false);
 
   const onTypeSelect = (type) => {
     onConnect(type);
@@ -119,40 +117,43 @@ export default function LoginDialog({isMobile}) {
   };
 
   return (
-    <ConnectBtn>
-      <MyButton  
-        ismobile={isMobile.toString()}
-        onClick={isMobile ? () => onTypeSelect('Mobile') : () => setModalVisible(!showModal)} variant="contained"
-      >
-        <img className='walletImg' src={isMobile?walletDarkImg:walletImg} alt='' />
-        {connectedWallet?.terraAddress?
-          <div>
-            <span>{truncate(connectedWallet?.terraAddress)}</span>
-            <img className='down' src={btn_down} alt='' />
-          </div>
-          :
-          isMobile?'Connect':'Connect Wallet'
-        }
-      </MyButton>
-      <SimpleDialog
-        open={open}
-        onClose={handleClose}
-        address={address}
-        getWarningText={getWarningText}
-        handleAddress={handleAddress}
-        validWalletAddress={validWalletAddress}
-        navigate={navigate}
-        isMobile={isMobile}
-        setModalVisible={setModalVisible}
-        showModal={showModal}
-      />
-      <ConnectModal 
-        disconnect={disconnect} 
-        isConnect={connectedWallet?.terraAddress} 
-        address={connectedWallet?.terraAddress} 
-        showModal={showModal} 
-        setModalVisible={setModalVisible}
-      />
-    </ConnectBtn>
+    <>
+      <MyButton ismobile={isMobile.toString()} onClick={()=> setOpen(true)}>Test Connect</MyButton>
+      <ConnectBtn>
+        <MyButton  
+          ismobile={isMobile.toString()}
+          onClick={isMobile ? () => onTypeSelect('Mobile') : () => setModalVisible(!showModal)} variant="contained"
+        >
+          <img className='walletImg' src={isMobile?walletDarkImg:walletImg} alt='' />
+          {connectedWallet?.terraAddress?
+            <div>
+              <span>{truncate(connectedWallet?.terraAddress)}</span>
+              <img className='down' src={btn_down} alt='' />
+            </div>
+            :
+            isMobile?'Connect':'Connect Wallet'
+          }
+        </MyButton>
+        <SimpleDialog
+          open={open}
+          onClose={handleClose}
+          address={address}
+          getWarningText={getWarningText}
+          handleAddress={handleAddress}
+          validWalletAddress={validWalletAddress}
+          navigate={navigate}
+          isMobile={isMobile}
+          setModalVisible={setModalVisible}
+          showModal={showModal}
+        />
+        <ConnectModal 
+          disconnect={disconnect} 
+          isConnect={connectedWallet?.terraAddress} 
+          address={connectedWallet?.terraAddress} 
+          showModal={showModal} 
+          setModalVisible={setModalVisible}
+        />
+      </ConnectBtn>
+    </>
   );
 }
