@@ -79,7 +79,7 @@ const Dashboard = () => {
     
   }, [address, setAddress,connectedWallet,]);
   // const { assets, loading, error, refetch, refreshing } = useAssetsDataContext();
-  let { assets, loading } = useAssetsDataContext();
+  let { assets, loading, refetch } = useAssetsDataContext();
   const allData= [
     assets?.assets,
     assets?.pylon,
@@ -122,7 +122,7 @@ const Dashboard = () => {
   console.log('assets==============assets==============assets================assets===========assets',assets);
   return (
       <>
-        <Title>{isMobile?'Dashboard':'My Portfolio'}</Title>
+        <Title refetch={refetch}>{isMobile?'Dashboard':'My Portfolio'}</Title>
         {loading?
         <LoadDiv isMobile={isMobile}>
           <CircularProgress color="primary" />

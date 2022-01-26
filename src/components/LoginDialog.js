@@ -70,6 +70,7 @@ function SimpleDialog(props) {
   };
   const onAddressSubmit = () => {
     localStorage.setItem(ADDRESS_KEY, address);
+    onClose(selectedValue);
     // navigate('/autoFarm',{replace: true});
   };
 
@@ -86,7 +87,7 @@ function SimpleDialog(props) {
 }
 
 
-export default function LoginDialog({isMobile}) {
+export default function LoginDialog({isMobile,refetch}) {
   const [open, setOpen] = useState(false);
   const [address, setAddress] = useState('')
   const [showModal, setModalVisible] = useState(false);
@@ -109,7 +110,15 @@ export default function LoginDialog({isMobile}) {
     setAddress(e.target.value);
   };
 
-  const handleClose = (value) => setOpen(false);
+  const handleClose = (value) => {
+    
+    setOpen(false)
+    console.log('address=======',address);
+    refetch()
+    // onConnect()
+    // setAddress('')
+
+  };
 
   const onTypeSelect = (type) => {
     onConnect(type);

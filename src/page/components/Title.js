@@ -27,14 +27,14 @@ const MobTit = styled.div`
   line-height: 30px;
 `
 
-const Title = ({children}) => {
+const Title = ({children,refetch}) => {
   const {toggleDrawer,isMobile,theme} = useContext(GlobalContext)
   return (
     <>
       <Tit isMobile={isMobile}> 
         {isMobile?<Logo theme={theme} isMobile={isMobile}/>:children}
         {/* {!isMobile && <LoginDialog isMobile={isMobile}/>} */}
-        <LoginDialog isMobile={isMobile}/>
+        <LoginDialog isMobile={isMobile} refetch={refetch}/>
         {isMobile && <img src={theme === 'dark'?menuImgDark:menuImg} alt='' onClick={()=>{toggleDrawer(true)}} />}
       </Tit>
       {isMobile && <MobTit>{children}</MobTit>}
