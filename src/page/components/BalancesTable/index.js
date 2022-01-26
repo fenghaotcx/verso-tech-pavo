@@ -246,7 +246,9 @@ export default function BalancesTable(props) {
                       selected={isItemSelected}
                     >
                       {!isMobile && <TableCell padding="checkbox"/>}
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                      <TableCell component="th" id={labelId} scope="row" 
+                        // padding="none"
+                      >
                         <IconNameLink isMobile={isMobile} name={row.name} />
                       </TableCell>
                       <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>

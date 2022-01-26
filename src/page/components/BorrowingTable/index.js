@@ -261,7 +261,7 @@ export default function BalancesTable(props) {
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        // padding="none"
                       >
                         <IconNameLink isMobile={isMobile} name={row.platform} />
                       </TableCell>}

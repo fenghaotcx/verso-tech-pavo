@@ -265,7 +265,7 @@ export default function CollateralTable({theme,borrow}) {
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        // padding="none"
                       >
                         <IconNameLink name={row.platform} />
                       </TableCell>
