@@ -155,7 +155,7 @@ const Dashboard = () => {
               isMobile={isMobile}
             />
           </TableBox>
-          <TableBox total={`$${convertToFloatValue(assets?.starterraFarms?.totalValue||0)}`} name={'Farming'}>
+          <TableBox total={`${assets?.starterraFarms?.totalValue?'$':''}${convertToFloatValue(assets?.starterraFarms?.totalValue||0)}`} name={'Farming'}>
             <FarmingTable 
               // mirrorShortFarm={assets?.mirrorShortFarm}
               starterraFarms={assets?.starterraFarms} 
