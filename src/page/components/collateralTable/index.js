@@ -14,10 +14,10 @@ import { styled } from '@mui/system';
 import ProgressBar from '../ProgressBar';
 import useMobileDown from '../../../hooks/useMobileDown';
 import Doubt from '../Doubt';
-import IconNameLink from '../IconNameLink';
+// import IconNameLink from '../IconNameLink';
 import style from 'styled-components';
 import { makeStyles } from '@mui/styles';
-import {convertToFloatValue} from '../../../utils/convertFloat';
+import {convertToFloatValue,rmoney} from '../../../utils/convertFloat';
 
 const useStyles = makeStyles({
   root: {
@@ -96,16 +96,16 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  {
-    id: 'platform',
-    numeric: false,
-    disablePadding: true,
-    label: 'Platform',
-  },
+  // {
+  //   id: 'platform',
+  //   numeric: false,
+  //   disablePadding: true,
+  //   label: 'Platform',
+  // },
   {
     id: 'asset',
-    numeric: true,
-    disablePadding: false,
+    numeric: false,
+    disablePadding: true,
     label: 'Asset',
   },
   {
@@ -164,13 +164,13 @@ function EnhancedTableHead(props) {
 
 export default function CollateralTable({theme,borrow}) {
   let data = []
-  if(borrow?.data){
-    data = borrow.data.map(item=>{
+  if( borrow?.data?.length && borrow?.data[0][0]?.collateralList){
+    data = borrow.data[0][0].collateralList.map(item=>{
       return {
-        platform: item[4].Platform,
-        asset: item[0].collateralList[0].symbol,
-        value: borrow.totalBorrow,
-        percentage: borrow.percentage
+        // platform: borrow.data[0][4].Platform || '',
+        asset: item.symbol || '',
+        value: rmoney(item.tokenValue) || '',
+        percentage: borrow.percentage || ''
       }
     })
   }
@@ -246,30 +246,37 @@ export default function CollateralTable({theme,borrow}) {
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.platform);
+                  const isItemSelected = isSelected(row.asset);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.platform)}
+                      onClick={(event) => handleClick(event, row.asset)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.platform}
+                      key={row.asset}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         // padding="none"
                       >
                         <IconNameLink name={row.platform} />
-                      </TableCell>
-                      <TableCell align="center">{row.asset}</TableCell>
+                      </TableCell> */}
+                      {/* <TableCell align="center"> */}
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        // padding="none"
+                      >
+                        {row.asset}</TableCell>
                       <TableCell align="center">${convertToFloatValue(row.value)}</TableCell>
                       <TableCell align="right">
                         <TableCellDiv>

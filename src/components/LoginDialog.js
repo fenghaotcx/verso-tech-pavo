@@ -113,7 +113,7 @@ export default function LoginDialog({isMobile,refetch}) {
   const handleClose = (value) => {
     
     setOpen(false)
-    console.log('address=======',address);
+    // console.log('address=======',address);
     refetch()
     // onConnect()
     // setAddress('')

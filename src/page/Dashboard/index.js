@@ -120,6 +120,7 @@ const Dashboard = () => {
   arr[1].totol = convertToFloatValue(totalAssets.toString())
   arr[2].totol = convertToFloatValue(totalBorrowing.toString())
   console.log('assets==============assets==============assets================assets===========assets',assets);
+  console.log('Borrow============================',assets?.anchorBorrow);
   return (
       <>
         <Title refetch={refetch}>{isMobile?'Dashboard':'My Portfolio'}</Title>
@@ -134,7 +135,7 @@ const Dashboard = () => {
             })}
           </TopDiv>
           <Content setOpen={setOpen}  assets={assets?.assets} theme={theme} airdrops={assets?.airdrops} isMobile={isMobile}/>
-          <TableBox total={assets?.anchorBorrow?.total} isNoTable={true} name={'Collateral'}>
+          <TableBox total= {assets?.anchorBorrow?.totalValueString}  isNoTable={true} name={'Collateral'}>
             {isMobile ? <CollateralMoblie borrow={assets?.anchorBorrow || {}}  isMobile={isMobile}/>
               :<CollateralTable borrow={assets?.anchorBorrow || {}}  theme={theme}/>}
           </TableBox>
@@ -146,7 +147,7 @@ const Dashboard = () => {
               isMobile={isMobile}
             />
           </TableBox>
-          <TableBox total={assets?.anchorBorrow?.totalValueString} name={'Borrowing'}>
+          <TableBox total= {assets?.anchorBorrow?.total} name={'Borrowing'}>
             <BorrowingTable 
               borrow={assets?.anchorBorrow || {}}  
               mirrorBorrow={assets?.mirrorBorrow || {}} 

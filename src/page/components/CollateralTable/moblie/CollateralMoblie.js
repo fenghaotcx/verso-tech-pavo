@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ProgressBar from '../../../components/ProgressBar';
-import {convertToFloatValue} from '../../../../utils/convertFloat';
+import {convertToFloatValue,rmoney} from '../../../../utils/convertFloat';
 
 const CollateralDiv = styled.div`
   width:100%;
@@ -38,7 +38,7 @@ const CollateralDiv = styled.div`
   }
 `
 
-let arr = [
+const oldArr = [
     {
         tit: 'Platform',
         val: ''
@@ -49,7 +49,8 @@ let arr = [
     },
     {
         tit: 'VALUE',
-        val: ''
+        val: '',
+        percentage:'',
     }
 ]
 
@@ -63,27 +64,35 @@ const FlexItem = ({tit,val}) =>{
 }
 
 const CollateralMoblie = ({isMobile,borrow}) => {
-  // let data = []
-  if(borrow?.data){
-    // data = 
-    borrow.data.map(item=>{
-      arr[0].val = item[4].Platform
-      arr[1].val = item[0].collateralList[0].symbol
-      arr[2].val = borrow.totalBorrow
-      return null
-      // return arr
+  let data = []
+  if( borrow?.data?.length && borrow?.data[0][0]?.collateralList){
+    data = borrow.data[0][0].collateralList.map(item=>{
+      let arr = JSON.parse(JSON.stringify(oldArr))
+      arr[0].val = borrow.data[0][4].Platform
+      arr[1].val = item.symbol || ''
+      arr[2].val = rmoney(item.tokenValue) || ''
+      arr[2].percentage = borrow.percentage || ''
+      return arr
     })
   }
+  console.log('data=======',data);
   return (
-    <CollateralDiv>
-      <div className='flex_box'>
-          {arr.map((item,index)=> <FlexItem key={index} tit={item.tit}  val={item.tit ==='VALUE'?`$${convertToFloatValue(item.val)}`: item.val}/>)}
-      </div>
-      <div className='ratio'>COLLATERAL RATIO (60% Max)</div>
-      <div>
-        <ProgressBar isMobile= {isMobile} type={'Increase'} num={borrow?.percentage} />
-      </div>
-    </CollateralDiv>
+    <>
+      {data.length &&  data.map((item,index)=>{
+        return(
+          <CollateralDiv key={index}>
+            <div className='flex_box'>
+                {item.map((item,index)=> <FlexItem key={index} tit={item.tit}  val={item.tit ==='VALUE'?`$${convertToFloatValue(item.val)}`: item.val}/>)}
+            </div>
+            <div className='ratio'>COLLATERAL RATIO (60% Max)</div>
+            <div>
+              <ProgressBar isMobile= {isMobile} type={'Increase'} num={item[2].percentage} />
+            </div>
+          </CollateralDiv>
+        )
+        })
+      }
+    </>
   )
 }
 
