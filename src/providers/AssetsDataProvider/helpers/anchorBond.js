@@ -27,7 +27,7 @@ export const getAnchorBondData = (burn) => {
       { name: 'Total', value: '$' + convertToFloatValue(burn?.totalBurnAmountValue) },
       {
         name: 'Withdrawable Amount',
-        value: burn.withdrawableAmount + ' LUNA',
+        value: burn?.withdrawableAmount || '' + ' LUNA',
       },
     ],
     totalValue: parseFloat(burn?.totalBurnAmountValue) + parseFloat(burn?.withdrawableValue),
